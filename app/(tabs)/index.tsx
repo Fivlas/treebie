@@ -1,12 +1,16 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
+import CustomButton from '@/components/elements/CustomButton';
 
 
 export default function HomeScreen() {
   return (
       <SafeAreaView>
-        <ThemedText>Index route</ThemedText>
+        <ThemedText>
+          Index route
+        </ThemedText>
+        <CustomButton title='Test' buttonType='primary'/>
       </SafeAreaView>
   );
 }
