@@ -13,9 +13,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.treebie.app",
       "supportsTablet": true
     },
     "android": {
+      "googleServicesFile": "./TreebieServices.json",
+      "package": "com.treebie.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo-icon-new.png",
         "backgroundColor": "#ffffff"
@@ -27,7 +31,18 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
