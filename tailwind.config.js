@@ -11,7 +11,11 @@ module.exports = {
                 primary: "#606c38",
                 secondary: "#fefae0",
                 accent: "#ae7e2d",
+                leafSecondary: "#607c48"
             },
+            borderWidth: {
+                '200': "200px"
+            }
         },
     },
     plugins: [],
