@@ -15,9 +15,9 @@ export default function Settings() {
         <SafeAreaView className={"flex-1 p-12 mt-10"}>
             <View>
                 <ThemedText type='title'>Ustawienia</ThemedText>
-                <TouchableHighlight>
+                <TouchableHighlight className={"mt-10 border border-primary border-solid p-4"}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                        <Text className={darkTheme ? "text-white" : "text-text"}>Użyj ciemny motyw</Text>
+                        <Text className={`text-xl p-3 ${(darkTheme ? "text-white" : "text-text")}`}>Użyj ciemny motyw</Text>
                         <View
                             style={{
                                 width: 60,
