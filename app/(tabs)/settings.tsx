@@ -12,11 +12,11 @@ export default function Settings() {
         AsyncStorage.setItem(THEME_PREFERENCE_KEY, darkTheme ? "dark" : "light");
     }, [darkTheme]);
     return (
-        <SafeAreaView className={"flex-1 p-12 mt-10 flex flex-col items-center"}>
+        <SafeAreaView className={"flex-1 p-12 mt-10"}>
             <View>
                 <ThemedText type='title'>Ustawienia</ThemedText>
                 <TouchableHighlight>
-                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Text className={darkTheme ? "text-white" : "text-text"}>Użyj ciemny motyw</Text>
                         <Switch
                             disabled={!canChangeTheme}
