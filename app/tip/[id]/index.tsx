@@ -1,7 +1,6 @@
 import CustomButton from "@/components/elements/CustomButton";
 import { router, useLocalSearchParams } from "expo-router";
-import { ActivityIndicator, SafeAreaView, Text, View } from "react-native";
-import firestore from "@react-native-firebase/firestore";
+import { ActivityIndicator, SafeAreaView, Text, View, Platform } from "react-native";
 import { useEffect, useState } from "react";
 
 const index = () => {
@@ -9,23 +8,23 @@ const index = () => {
     const [loading, setLoading] = useState(true);  // Tracks loading state
     const local = useLocalSearchParams();
 
-    const fetchData = async () => {
-        try {
-            const tip = await firestore()
-                .collection('tips')
-                .get();
-            console.log(tip);
-            // setData(tip);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        } finally {
-            setLoading(false);  // End loading
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         const tip = await firestore()
+    //             .collection('tips')
+    //             .get();
+    //         console.log(tip);
+    //         // setData(tip);
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //     } finally {
+    //         setLoading(false);  // End loading
+    //     }
+    // };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
     // dn28jsvwmtKdXJxzCNH9
 
