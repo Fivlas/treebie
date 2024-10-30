@@ -18,11 +18,31 @@ export default function Settings() {
                 <TouchableHighlight>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Text className={darkTheme ? "text-white" : "text-text"}>Użyj ciemny motyw</Text>
-                        <Switch
-                            disabled={!canChangeTheme}
-                            value={darkTheme}
-                            onValueChange={changeDarkToggle}
-                        />
+                        <View
+                            style={{
+                                width: 60,
+                                height: 34,
+                                borderRadius: 17,
+                                backgroundColor: darkTheme ? "#4caf50" : "#d3d3d3",
+                                padding: 4,
+                                justifyContent: "center"
+                            }}
+                        >
+                            <Switch
+                                disabled={!canChangeTheme}
+                                value={darkTheme}
+                                onValueChange={changeDarkToggle}
+                                thumbColor={darkTheme ? "#ffffff" : "#f4f4f4"}
+                                trackColor={{
+                                    false: "#d3d3d3",
+                                    true: "#4caf50"
+                                }}
+                                style={{
+                                    transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }],
+                                    alignSelf: darkTheme ? "flex-end" : "flex-start",
+                                }}
+                            />
+                        </View>
                     </View>
                 </TouchableHighlight>
             </View>
