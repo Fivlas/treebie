@@ -1,4 +1,4 @@
-import {SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance} from 'react-native';
+import {SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance, Image} from 'react-native';
 import React, {useEffect, useState} from "react";
 import {ThemedText} from '@/components/ThemedText';
 import {THEME_PREFERENCE_KEY} from "@/hooks/useColorScheme";
@@ -14,8 +14,9 @@ export default function Settings() {
     return (
         <SafeAreaView className={"flex-1 p-12 mt-10"}>
             <View>
+                <Image  source={require('../../assets/images/logo-icon.png')} className={"w-full h-28 object-contain"} style={{ width: '100%', height: 112, resizeMode: 'contain' }} />
                 <ThemedText type='title'>Ustawienia</ThemedText>
-                <TouchableHighlight className={"mt-10 border border-primary border-solid p-4"}>
+                <TouchableHighlight className={"mt-10 border-t border-primary border-b border-solid p-4"}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
                         <Text className={`text-xl p-3 ${(darkTheme ? "text-white" : "text-text")}`}>Użyj ciemny motyw</Text>
                         <View
