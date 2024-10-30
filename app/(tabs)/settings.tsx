@@ -1,13 +1,10 @@
 import {SafeAreaView, Switch, Text, View, TouchableHighlight, useColorScheme, Appearance} from 'react-native';
 
 import React, {useEffect, useState} from "react";
-import {ThemeProvider} from '@react-navigation/native';
 import {ThemedText} from '@/components/ThemedText';
-import {Colors} from '@/constants/Colors';
 
 
 export default function Settings() {
-    const theme = useColorScheme() as "dark" | "light" | undefined;
     const [darkTheme, changeDarkToggle] = useState<boolean>(false);
     const canChangeTheme = typeof (Appearance.setColorScheme) === "function";
     useEffect(() => {
