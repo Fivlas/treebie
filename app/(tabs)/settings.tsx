@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { ThemeProvider } from '@react-navigation/native';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { ThemedText } from '@/components/ThemedText';
+import { Colors } from '@/constants/Colors';
 
 
 export default function Settings() {
@@ -14,7 +15,9 @@ export default function Settings() {
         if (canChangeTheme) Appearance.setColorScheme(darkTheme ? "dark" : "light");
     }, [darkTheme]);
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{
+            backgroundColor: !darkTheme ? Colors.light.background : Colors.dark.background
+        }}>
             <ThemeProvider value={theme ?? "light"}>
                 <ThemedText type='title'>Ustawienia</ThemedText>
                 <TouchableHighlight>
