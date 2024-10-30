@@ -1,10 +1,9 @@
-import {SafeAreaView, Switch, Text, TouchableHighlight, useColorScheme, Appearance} from 'react-native';
+import {SafeAreaView, Switch, Text, View, TouchableHighlight, useColorScheme, Appearance} from 'react-native';
 
-import React, { useEffect, useState } from "react";
-import { ThemeProvider } from '@react-navigation/native';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { ThemedText } from '@/components/ThemedText';
-import { Colors } from '@/constants/Colors';
+import React, {useEffect, useState} from "react";
+import {ThemeProvider} from '@react-navigation/native';
+import {ThemedText} from '@/components/ThemedText';
+import {Colors} from '@/constants/Colors';
 
 
 export default function Settings() {
@@ -15,15 +14,20 @@ export default function Settings() {
         if (canChangeTheme) Appearance.setColorScheme(darkTheme ? "dark" : "light");
     }, [darkTheme]);
     return (
-        <SafeAreaView style={{
-            backgroundColor: !darkTheme ? Colors.light.background : Colors.dark.background
-        }}>
-            <ThemeProvider value={theme ?? "light"}>
+        <SafeAreaView className={"flex-1 p-12 mt-10 flex flex-col items-center"}>
+            <View>
                 <ThemedText type='title'>Ustawienia</ThemedText>
                 <TouchableHighlight>
-                    <Switch disabled={!canChangeTheme} value={darkTheme} onValueChange={changeDarkToggle}>Użyj ciemny motyw</Switch>
+                    <View style={{flexDirection: "row", alignItems: "center"}}>
+                        <Text className={darkTheme ? "text-white" : "text-text"}>Użyj ciemny motyw</Text>
+                        <Switch
+                            disabled={!canChangeTheme}
+                            value={darkTheme}
+                            onValueChange={changeDarkToggle}
+                        />
+                    </View>
                 </TouchableHighlight>
-            </ThemeProvider>
+            </View>
         </SafeAreaView>
     );
 }
