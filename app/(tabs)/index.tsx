@@ -1,7 +1,7 @@
 import ScrollCard from '@/components/HomePage/ScrollCard';
 import SectionText from '@/components/HomePage/SectionText';
 import React from 'react';
-import { TextInput, ScrollView, Text, View, SafeAreaView, ImageBackground } from 'react-native';
+import { TextInput, ScrollView, Text, View, ImageBackground } from 'react-native';
 
 const HomeScreen = () => {
   return (
