@@ -1,4 +1,4 @@
-import {SafeAreaView, Switch, Text, View, TouchableHighlight, useColorScheme, Appearance} from 'react-native';
+import {SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance} from 'react-native';
 
 import React, {useEffect, useState} from "react";
 import {ThemedText} from '@/components/ThemedText';
