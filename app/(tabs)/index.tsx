@@ -6,9 +6,12 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore"
 import { FIREBASE_DB } from '@/firebase.config';
 import { shuffleArray } from '@/functions/shuffleArray';
 
+interface Tip {
+
+}
 
 const HomeScreen = () => {
-  const [tips, setTips] = useState([]);
+  const [tips, setTips] = useState<Tip[]>([]);
 
   useEffect(() => {
     const fetchTips = async () => {
@@ -30,7 +33,7 @@ const HomeScreen = () => {
   }, [])
 
   function displayTips(hm = 20){
-    const rows = shuffleArray(tips).splice(0, hm).reduce((rows, card, index) => {
+    const rows = shuffleArray(tips).splice(0, hm).reduce((rows: any[][], card: any, index: number) => {
       if (index % 2 === 0) {
         rows.push([]);
       }
@@ -38,7 +41,7 @@ const HomeScreen = () => {
       return rows;
     }, []).map((row, rowIndex) => (
       <View key={rowIndex} className='flex-row justify-between mt-7'>
-        {row.map(card => (
+        {row.map((card: { id: React.Key | null | undefined; imageName: string; title: string; }) => (
           <ScrollCard key={card.id} id={card.id} imageName={card.imageName} title={card.title} />
         ))}
       </View>
