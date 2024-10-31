@@ -1,17 +1,15 @@
-﻿import {View, SafeAreaView, TouchableOpacity, Text} from 'react-native';
+import {View, SafeAreaView, TouchableOpacity, Text} from 'react-native';
 
-import React from "react";
 import LoginSignupHeader from "@/components/LoginSignupHeader";
 import {CustomInput} from "@/components/elements/CustomInput";
 import CustomButton from "@/components/elements/CustomButton";
-import {useNavigation} from "expo-router";
+import {router} from "expo-router";
 import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 
 
 export default function Signup() {
-    const navigation = useNavigation();
     const handleSignupPress = () => {
-        navigation.navigate("login");
+        router.push("/login")
     }
     return (
         <SafeAreaView className={"flex-1"}>
@@ -23,8 +21,7 @@ export default function Signup() {
                     <CustomInput type={"password"} placeholder={"Powtórz hasło"}/>
                     <CustomButton title={"Zarejestruj"} buttonType={"primary"}/>
                     <TouchableOpacity onPress={handleSignupPress} className="mt-4">
-                        <Text className="hover:text-blue-500 hover:underline text-gray-200 text-center">Posiadasz konto?
-                            Zaloguj się!</Text>
+                        <Text className="text-text text-center">Posiadasz konto? Zaloguj się!</Text>
                     </TouchableOpacity>
                 </View>
                 <LoginSignupFooter/>

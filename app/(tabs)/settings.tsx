@@ -3,6 +3,8 @@ import React, {useEffect, useState} from "react";
 import {ThemedText} from '@/components/ThemedText';
 import {THEME_PREFERENCE_KEY} from "@/hooks/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomButton from '@/components/elements/CustomButton';
+import { router } from 'expo-router';
 
 export default function Settings() {
     const [darkTheme, changeDarkToggle] = useState<boolean>(false);
@@ -14,7 +16,7 @@ export default function Settings() {
     return (
         <SafeAreaView className={"flex-1 p-12 mt-10"}>
             <View>
-                <Image  source={require('../../assets/images/logo-icon.png')} className={"w-full h-28 object-contain"} style={{ width: '100%', height: 112, resizeMode: 'contain' }} />
+                <Image  source={require('../../assets/images/logo-icon.png')} className={"w-full h-28 object-contain"} style={{ width: '100%', height: 112, resizeMode: 'contain' }}/>
                 <ThemedText type='title'>Ustawienia</ThemedText>
                 <TouchableHighlight className={"mt-10 border-t border-primary border-b border-solid p-4"}>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
@@ -43,7 +45,10 @@ export default function Settings() {
                                     alignSelf: darkTheme ? "flex-end" : "flex-start",
                                 }}
                             />
+
                         </View>
+                            <CustomButton title='login' buttonType='primary' handlePress={() => router.push('/login')}/>
+                            <CustomButton title='signup' buttonType='primary' handlePress={() => router.push('/signup')}/>
                     </View>
                 </TouchableHighlight>
             </View>
