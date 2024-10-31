@@ -6,50 +6,55 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore"
 import { FIREBASE_DB } from '@/firebase.config';
 import { shuffleArray } from '@/functions/shuffleArray';
 
-
 const HomeScreen = () => {
-  const [tips, setTips] = useState([]);
+  const [tips, setTips] = useState<TipFields[]>([]);
 
   useEffect(() => {
     const fetchTips = async () => {
-      try{
+      try {
         const tipsCollectionRef = collection(FIREBASE_DB, "tips");
         const tipsQuery = query(tipsCollectionRef, orderBy('popularity', 'desc'));
         const querySnapshot = await getDocs(tipsQuery);
 
-        const everyTip = querySnapshot.docs.map((doc: { data: () => any; }) => ({
-          ...doc.data()
+        const everyTip: TipFields[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data() as TipData
         }));
+        
         setTips(everyTip);
       }
-      catch(e){
+      catch (e) {
         console.log("Error fetching tips data from Firestore: ", e)
       }
     }
     fetchTips();
   }, [])
 
-  function displayTips(hm = 20){
-    const rows = shuffleArray(tips).splice(0, hm).reduce((rows, card, index) => {
-      if (index % 2 === 0) {
-        rows.push([]);
-      }
-      rows[rows.length - 1].push(card);
-      return rows;
-    }, []).map((row, rowIndex) => (
-      <View key={rowIndex} className='flex-row justify-between mt-7'>
-        {row.map(card => (
-          <ScrollCard key={card.id} id={card.id} imageName={card.imageName} title={card.title} />
-        ))}
-      </View>
-    ))
+  function displayTips(hm: number = 20): JSX.Element[] {
+    const rows = shuffleArray(tips)
+      .splice(0, hm)
+      .reduce<TipFields[][]>((rows, card, index) => {
+        if (index % 2 === 0) {
+          rows.push([]);
+        }
+        rows[rows.length - 1].push(card);
+        return rows;
+      }, [])
+      .map((row, rowIndex) => (
+        <View key={rowIndex} className="flex-row justify-between mt-7">
+          {row.map((card) => (
+            <ScrollCard key={card.id} id={card.id} imageName={card.imageName} title={card.title} />
+          ))}
+        </View>
+      ));
+
     return rows;
   }
 
   return (
     <View className="flex-1 bg-background">
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-        
+
         {/* Header Section */}
         <View style={{ overflow: 'hidden', borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
           <ImageBackground
@@ -80,8 +85,8 @@ const HomeScreen = () => {
           <SectionText title='Popularne' route='/login' containerStyles='px-8' />
 
           <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"center"}>
-            {tips.slice(0,5).map((x, i) => {
-              return <ScrollCard key={i} id='1' imageName='logo-icon-new.png' title={x.title} containerStyle='mr-4' />
+            {tips.slice(0, 5).map((tip) => {
+              return <ScrollCard key={tip.id} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
             })}
           </ScrollView>
         </View>
@@ -93,9 +98,10 @@ const HomeScreen = () => {
           <View className="bg-[#F2F2F2] w-full h-48 rounded-3xl flex items-center justify-center">
             <Text className="text-[#63784f] text-lg font-semibold">GO TO ZERO WASTE</Text>
           </View>
-          {displayTips() /* tutaj mozna wpisac liczbe porad ktore są wyswietlane np displayTips(6) */}
+          {/* tutaj mozna wpisac liczbe porad ktore są wyswietlane np displayTips(6) */}
+          {displayTips(6)}
         </View>
-        
+
       </ScrollView>
     </View>
   );
