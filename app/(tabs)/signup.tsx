@@ -4,14 +4,14 @@ import React from "react";
 import LoginSignupHeader from "@/components/LoginSignupHeader";
 import {CustomInput} from "@/components/elements/CustomInput";
 import CustomButton from "@/components/elements/CustomButton";
-import {useNavigation} from "expo-router";
+import {router, useNavigation} from "expo-router";
 import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 
 
 export default function Signup() {
     const navigation = useNavigation();
     const handleSignupPress = () => {
-        navigation.navigate("login");
+        router.push("(tabs)/login");
     }
     return (
         <SafeAreaView className={"flex-1"}>
