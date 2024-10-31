@@ -8,10 +8,10 @@ import {useNavigation} from "expo-router";
 import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 
 
-export default function Login() {
+export default function Signup() {
     const navigation = useNavigation();
     const handleSignupPress = () => {
-        navigation.navigate("signup");
+        navigation.navigate("login");
     }
     return (
         <SafeAreaView className={"flex-1"}>
@@ -20,11 +20,13 @@ export default function Login() {
                 <View>
                     <CustomInput type={"email"} placeholder={"E-mail"}/>
                     <CustomInput type={"password"} placeholder={"Hasło"}/>
-                    <CustomButton title={"Zaloguj"} buttonType={"primary"}/>
+                    <CustomInput type={"password"} placeholder={"Powtórz hasło"}/>
+                    <CustomButton title={"Zarejestruj"} buttonType={"primary"}/>
                     <TouchableOpacity onPress={handleSignupPress} className="mt-4">
-                        <Text className="hover:text-blue-500 hover:underline text-gray-200 text-center">Nie masz konta?
-                            Zarejestruj się!</Text>
-                    </TouchableOpacity></View>
+                        <Text className="hover:text-blue-500 hover:underline text-gray-200 text-center">Posiadasz konto?
+                            Zaloguj się!</Text>
+                    </TouchableOpacity>
+                </View>
                 <LoginSignupFooter/>
             </View>
         </SafeAreaView>
