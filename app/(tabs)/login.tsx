@@ -15,6 +15,9 @@ export default function Login() {
     const handleSignupPress = () => {
         router.push("/(tabs)/signup");
     }
+    const handleFormSubmit = () => {
+        
+    }
     return (
         <SafeAreaView className={"flex-1"}>
             <LoginSignupHeader/>
