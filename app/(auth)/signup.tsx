@@ -47,7 +47,7 @@ export default function Signup() {
         }
         catch(error: any){
             console.error('Błąd podczas rejestracji użytkownika:', error.message);
-            // alert('Błąd: ' + error.message);
+            alert('Błąd: ' + error.message);
         }
     }
 
