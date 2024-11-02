@@ -1,19 +1,11 @@
-import { TextInput, StyleSheet } from "react-native"
-import { View } from "react-native";
-
-
+import { TextInput, Text, View, Pressable } from "react-native"
 const SearchBar = () => {
-    return <View className="border flex justify-center">
-        <TextInput placeholder="Type something" className="text-lg h-10 border w-1/2"/>
+    return <View>
+        <TextInput placeholder="Znajdź wyzwanie..." className="bg-white text-black text-xl border border-gray-300 rounded-lg pl-4 h-16 mb-2"/>
+        <Pressable className="border h-16 mx-auto w-full flex justify-center items-center bg-text rounded-lg" >
+            <Text className="text-2xl bg-text text-white ">Szukaj</Text>
+        </Pressable>
     </View>;
 }
 
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderColor: 'black',
-        borderWidth: 2
-    }
-})
 export default SearchBar;
