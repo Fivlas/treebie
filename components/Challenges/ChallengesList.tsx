@@ -9,13 +9,15 @@ export type ChallengeType = {
     challengeGroup: string;
 }
 const ChallengesList = (props: any) => {
-
-  const challenges = props.challenges;
+  const challenges = props.challenges; 
+  console.log(challenges[0].title)
+  const temp = challenges[0];
   return (
     <View>
-        {challenges && challenges.map((challenge: ChallengeType, index: number) => {
-            <Challenge {...challenge}/>
+        {challenges.map((challenge: ChallengeType, index: number) => {
+            <Challenge key={index} {...challenge}/>
         })}
+        <Challenge {...temp}/>
     </View>
   );
 };
