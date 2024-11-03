@@ -11,7 +11,7 @@ export type ChallengeType = {
 const ChallengesList = (props: any) => {
   const challenges = props.challenges; 
   console.log(challenges[0].title)
-  const temp = challenges[0];
+  const temp = challenges[1];
   return (
     <View>
         {challenges.map((challenge: ChallengeType, index: number) => {
