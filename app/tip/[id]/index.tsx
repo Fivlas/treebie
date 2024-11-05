@@ -32,6 +32,7 @@ const index = () => {
         buttonType="primary"
       />
     </SafeAreaView>
+    
   );
 };
 
