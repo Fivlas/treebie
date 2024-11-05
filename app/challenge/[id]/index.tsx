@@ -1,8 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { FIREBASE_DB } from "@/firebase.config";
 import { doc, getDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import CustomButton from "@/components/elements/CustomButton";
+
 const index = () => {
   const [challenge, setChallenge] = useState<object | any>();
   const local = useLocalSearchParams();
@@ -20,7 +22,15 @@ const index = () => {
     getData(local.id.toString());
   }, []);
 
-  return <View>
-    <Text>{local.id}</Text>
-  </View>;
+  return (
+    <SafeAreaView>
+      <Text className="text-3xl font-bold">{challenge?.title}</Text>
+      <CustomButton
+        title="Back"
+        handlePress={() => router.push("/(tabs)/")}
+        buttonType="primary"
+      />
+    </SafeAreaView>
+  );
 };
+export default index;
