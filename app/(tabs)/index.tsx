@@ -1,13 +1,19 @@
-import ScrollCard from '@/components/HomePage/ScrollCard';
-import SectionText from '@/components/HomePage/SectionText';
-import React, { useEffect, useState } from 'react';
-import { TextInput, ScrollView, Text, View, ImageBackground } from 'react-native';
-import { collection, getDocs, orderBy, query } from "firebase/firestore"
+import React, { useEffect, useRef, useState } from 'react';
+import { TextInput, ScrollView, Text, View, ImageBackground, Image } from 'react-native';
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { FIREBASE_DB } from '@/firebase.config';
 import { shuffleArray } from '@/functions/shuffleArray';
+import SectionText from '@/components/HomePage/SectionText';
+import ScrollCard from '@/components/HomePage/ScrollCard';
+import { Ionicons } from '@expo/vector-icons';
+import { router } from 'expo-router';
 
 const HomeScreen = () => {
-  const [tips, setTips] = useState<TipFields[]>([]);
+  const [allTips, setAllTips] = useState<TipFields[]>([]);
+  const [displayedTips, setDisplayedTips] = useState<TipFields[]>([]);
+  const [likedTipsList, setLikedTipsList] = useState<TipFields[]>([]);
+  const [inputValue, setInputValue] = useState<string>();
+  const USERID = "1";
 
   useEffect(() => {
     const fetchTips = async () => {
@@ -16,23 +22,49 @@ const HomeScreen = () => {
         const tipsQuery = query(tipsCollectionRef, orderBy('popularity', 'desc'));
         const querySnapshot = await getDocs(tipsQuery);
 
-        const everyTip: TipFields[] = querySnapshot.docs.map((doc) => ({
+        const fetchedTips: TipFields[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data() as TipData
         }));
-        
-        setTips(everyTip);
-      }
-      catch (e) {
+
+        setAllTips(fetchedTips);
+        setDisplayedTips(shuffleArray([...fetchedTips]).slice(0, 20));
+
+        fetchLikedTips(fetchedTips);
+      } catch (e) {
         console.log("Error fetching tips data from Firestore: ", e)
       }
     }
+
+    const fetchLikedTips = async (fetchedTips: TipFields[]) => {
+      try {
+        const likedRef = collection(FIREBASE_DB, "likedTips");
+        const LikesQuery = query(
+          likedRef,
+          where("userId", "==", USERID),
+        );
+
+        const querySnapshot = await getDocs(LikesQuery);
+        const likesList = querySnapshot.docs.map((doc) => doc.data());
+
+        if (!likesList.length) return;
+
+        const tipIds = likesList.map((like) => like.tipId);
+
+        const likedTips = fetchedTips.filter(tip => tipIds.includes(tip.id));
+
+        setLikedTipsList(likedTips);
+      } catch (err) {
+        console.error("Error fetching likes:", err);
+      }
+    }
+
     fetchTips();
-  }, [])
+  }, []);
 
   function displayTips(hm: number = 20): JSX.Element[] {
-    const rows = shuffleArray(tips)
-      .splice(0, hm)
+    const rows = displayedTips
+      .slice(0, hm)
       .reduce<TipFields[][]>((rows, card, index) => {
         if (index % 2 === 0) {
           rows.push([]);
@@ -51,10 +83,13 @@ const HomeScreen = () => {
     return rows;
   }
 
+  const aiHanlder = () => {
+    router.replace(`/ai?text=${inputValue}`)
+  }
+
   return (
     <View className="flex-1 bg-background">
       <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-
         {/* Header Section */}
         <View style={{ overflow: 'hidden', borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
           <ImageBackground
@@ -62,43 +97,60 @@ const HomeScreen = () => {
             className="bg-[#63784f] pt-[85px] pb-14 px-8 flex gap-2"
             style={{ borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}
           >
+            <Text className="text-4xl tracking-widest font-bold text-secondary">
+              Treebie
+            </Text>
             <Text className="text-3xl tracking-widest font-bold text-secondary">
-              Save planet together
+              Ucz się, działaj, zgarniaj
             </Text>
             <Text className="mt-2 font-light text-secondary">
-              Separate garbage into mixed waste and{"\n"}recyclables at one touch
+              Wykozystaj nasz system <Text className='font-bold capitalize'>sztucznej inteligencji</Text>, aby dowiedziec sie co nieco na temat ekologi
             </Text>
 
             {/* Search Bar */}
-            <View className="flex-row items-center bg-white mt-6 p-4 rounded-lg">
+            <View className="flex-row items-center bg-white mt-4 p-4 rounded-lg">
               <TextInput
                 className="flex-1 ml-2 text-gray-700"
-                placeholder="Search"
+                placeholder="Zadaj pytanie ECO asystentowi"
                 placeholderTextColor="#63784f"
+                onChangeText={text => setInputValue(text)}
               />
+              <Ionicons name="search-outline" size={24} color="black" onPress={aiHanlder}/>
             </View>
           </ImageBackground>
         </View>
 
         {/* Popular Themes */}
         <View className="mt-8">
-          <SectionText title='Popularne' route='/login' containerStyles='px-8' />
+          <SectionText title='Popularne' containerStyles='px-8' />
 
           <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"center"}>
-            {tips.slice(0, 5).map((tip) => {
-              return <ScrollCard key={tip.id} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
+            {allTips.slice(0, 5).map((tip) => {
+              return <ScrollCard key={`all-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
             })}
           </ScrollView>
         </View>
 
+        {/* Liked */}
+        {!!likedTipsList.length && (
+          <View className="mt-8">
+            <SectionText title='Polubione' route='/all?allType=liked' containerStyles='px-8' />
+
+            <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"center"}>
+              {likedTipsList.slice(0, 5).map((tip) => {
+                return <ScrollCard key={`liked-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
+              })}
+            </ScrollView>
+          </View>
+        )}
+
         {/* Recycling Tips */}
         <View className="mt-8 px-8">
-          <SectionText title='Porady' route='/login' />
+          <SectionText title='Porady' route='/all?allType=all' />
 
           <View className="bg-[#F2F2F2] w-full h-48 rounded-3xl flex items-center justify-center">
-            <Text className="text-[#63784f] text-lg font-semibold">GO TO ZERO WASTE</Text>
+            <Image source={require('@/assets/images/zero-waste.png')} className='h-full w-full rounded-3xl' />
           </View>
-          {/* tutaj mozna wpisac liczbe porad ktore są wyswietlane np displayTips(6) */}
           {displayTips(6)}
         </View>
 
