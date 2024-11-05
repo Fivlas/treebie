@@ -1,23 +1,32 @@
-import { View, Text } from "react-native";
+import { Button, ScrollView, View } from "react-native";
 import Challenge from "./Challenge";
 export type ChallengeType = {
-    title: string;
-    description: string;
-    difficultyLevel: number;
-    difficultyName: string;
-    pointsToGain: number;
-    challengeGroup: string;
-}
+  title: string;
+  description: string;
+  difficultyLevel: number;
+  difficultyName: string;
+  pointsToGain: number;
+  challengeGroup: string;
+};
+
 const ChallengesList = (props: any) => {
-  const challenges = props.challenges; 
-  console.log(challenges[0].title)
-  const temp = challenges[1];
+  const challenges = props.challenges;
   return (
     <View>
-        {challenges.map((challenge: ChallengeType, index: number) => {
-            <Challenge key={index} {...challenge}/>
-        })}
-        <Challenge {...temp}/>
+      <ScrollView className="mb-2">
+      {challenges &&
+        challenges.map((challenge: ChallengeType) => (
+          <Challenge
+            key={challenge.title}
+            title={challenge.title}
+            description={challenge.description}
+            difficultyLevel={challenge.difficultyLevel}
+            pointsToGain={challenge.pointsToGain}
+            challengeGroup={challenge.challengeGroup}
+            difficultyName={challenge.difficultyName}
+          />
+        ))}
+    </ScrollView>
     </View>
   );
 };
