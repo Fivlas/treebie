@@ -9,3 +9,8 @@ interface TipData {
 interface TipFields extends TipData {
     id: string;
 }
+
+interface MessageType {
+    message: string;
+    isAi: boolean;
+}
