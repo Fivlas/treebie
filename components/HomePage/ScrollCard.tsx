@@ -6,12 +6,17 @@ interface ScrollCardProps {
     title: string;
     imageName: string;
     containerStyle?: string;
+    redirect?: string
 }
 
-const ScrollCard = ({ id, title, imageName, containerStyle }: ScrollCardProps) => {
+const ScrollCard = ({ id, title, imageName, containerStyle, redirect }: ScrollCardProps) => {
+    const handlePress = () => {
+        //@ts-ignore
+        redirect ? router.push(`/tip/${id}?redirect=${redirect}`) : router.push(`/tip/${id}`)
+    }
     return (
         //@ts-ignore
-        <TouchableOpacity onPress={() => router.push(`/tip/${id}`)} activeOpacity={0.7}>
+        <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
             {/* <View className="bg-[#f2f3ef] w-44 h-52 rounded-3xl justify-center items-center mr-4"> */}
             <View className={`bg-[#f2f3ef] w-44 h-52 rounded-3xl justify-center items-center ${containerStyle}`}>
                 <Image source={require(`@/assets/images/logo-icon-new.png`)} className="w-12 h-12" />
