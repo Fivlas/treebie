@@ -84,12 +84,12 @@ const HomeScreen = () => {
   }
 
   const aiHanlder = () => {
-    router.replace(`/ai?text=${inputValue}`)
+    router.replace(`/ai?text=${inputValue ? inputValue : ""}`)
   }
 
   return (
     <View className="flex-1 bg-background">
-      <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
+      <ScrollView bounces={true} showsVerticalScrollIndicator={false}>
         {/* Header Section */}
         <View style={{ overflow: 'hidden', borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
           <ImageBackground
@@ -124,7 +124,7 @@ const HomeScreen = () => {
         <View className="mt-8">
           <SectionText title='Popularne' containerStyles='px-8' />
 
-          <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"center"}>
+          <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"start"} contentContainerClassName='pr-8'>
             {allTips.slice(0, 5).map((tip) => {
               return <ScrollCard key={`all-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
             })}
@@ -136,7 +136,7 @@ const HomeScreen = () => {
           <View className="mt-8">
             <SectionText title='Polubione' route='/all?allType=liked' containerStyles='px-8' />
 
-            <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"center"}>
+            <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"start"} contentContainerClassName='pr-8'>
               {likedTipsList.slice(0, 5).map((tip) => {
                 return <ScrollCard key={`liked-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
               })}
