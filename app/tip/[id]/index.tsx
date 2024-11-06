@@ -1,14 +1,15 @@
 import CustomButton from "@/components/elements/CustomButton";
 import { router, useLocalSearchParams } from "expo-router";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { FIREBASE_DB } from "@/firebase.config";
 
 const index = () => {
+  console.log("dwqdwdq")
   const [tip, setTip] = useState<object | any>();
   const local = useLocalSearchParams();
-
+  
   useEffect(() => {
     const getData = async (id: string) => {
       try {
@@ -25,7 +26,6 @@ const index = () => {
   return (
     <SafeAreaView>
       <Text className="text-2xl">{tip?.title}</Text>
-      <Text>{local.id}</Text>
       <CustomButton
         title="Back"
         handlePress={() => router.push("/(tabs)/")}
