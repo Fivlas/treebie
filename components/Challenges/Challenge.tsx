@@ -9,15 +9,16 @@ const Challenge = ({
   pointsToGain,
   challengeGroup,
   difficultyName,
+  color
 }: ChallengeType) => {
 
   const fixedDifficultyName =
     difficultyName[0].toUpperCase() + difficultyName.slice(1, 10000);
   const getColor = () => {
     if (difficultyLevel === 1) return "primary";
-    else if (difficultyLevel === 2) return "orange";
-    else if (difficultyLevel === 3) return "red";
-    else return "error with colors";
+    if (difficultyLevel === 2) return "orange";
+    if (difficultyLevel === 3) return "red";
+    else console.log("Color error");
   };
   return (
     <TouchableOpacity onPress={() => router.push(`/challenge/${id}`)}>
@@ -25,7 +26,7 @@ const Challenge = ({
         <View className="w-2/3 p-3">
           <Text className="text-2xl font-bold">{title}</Text>
           <Text className="text-base">{description}</Text>
-          <Text className={`text-3xl text-${getColor()}`}>
+          <Text className={`text-3xl ${color?.text}`}>
             {fixedDifficultyName}
           </Text>
           <Text className="text-right text-gray-300">
@@ -33,7 +34,7 @@ const Challenge = ({
           </Text>
         </View>
         <View
-          className={`w-1/3 flex justify-center items-center bg-${getColor()}`}
+          className={`w-1/3 flex justify-center items-center ${color?.bg}`}
         >
           <Text className="text-secondary text-6xl">{pointsToGain}</Text>
           <Text className="text-secondary text-2xl">punktów</Text>
