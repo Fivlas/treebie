@@ -1,9 +1,11 @@
 import Message from '@/components/Ai/Message';
 import SkeletonMessage from '@/components/Ai/SkeletonMessage';
+import { ThemedText } from '@/components/ThemedText';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 
 const Index = () => {
     const userMessageParam = (useLocalSearchParams().text as string) || null;
@@ -78,8 +80,9 @@ const Index = () => {
         }
     }, [userMessageParam]);
 
+    const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
     return (
-        <SafeAreaView className="flex-1 bg-background">
+        <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
             {/* Header */}
             <View className="flex-row items-center px-8 mt-2">
                 <TouchableOpacity
@@ -88,9 +91,9 @@ const Index = () => {
                 >
                     <Ionicons name="chevron-back-outline" size={18} color="white" />
                 </TouchableOpacity>
-                <Text className="text-4xl font-semibold text-gray-800">
+                <ThemedText className="text-4xl font-semibold text-gray-800">
                     Eco Chat
-                </Text>
+                </ThemedText>
             </View>
 
             {/* Scrollable Content */}
@@ -106,8 +109,8 @@ const Index = () => {
                 keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : 0}
                 style={{ position: 'absolute', bottom: 0, width: '100%' }}
             >
-                <View className="pt-2 pb-6  border-t border-[#e0e0e0] bg-white">
-                    <View className="flex-row items-center bg-white rounded-lg p-4">
+                <View className="pt-2 pb-6  border-t border-[#e0e0e0]" style={[{ backgroundColor }]}>
+                    <View className="flex-row items-center rounded-lg p-4" style={[{ backgroundColor }]}>
                         <TextInput
                             className="flex-1 mx-2 text-gray-700"
                             placeholder="Zadaj pytanie ECO asystentowi"
@@ -117,7 +120,7 @@ const Index = () => {
                             onChangeText={text => setInputValue(text)}
                             editable={!isFetching}
                         />
-                        <Feather name="send" size={24} color="black" className="mr-2" onPress={() => handleSend()} />
+                        <Feather name="send" size={24} color="#202f11" className="mr-2" onPress={() => handleSend()} />
                     </View>
                 </View>
             </KeyboardAvoidingView>
