@@ -4,9 +4,9 @@ import { SafeAreaView, Text } from "react-native";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { FIREBASE_DB } from "@/firebase.config";
+import { View } from "react-native";
 
 const index = () => {
-  console.log("dwqdwdq")
   const [tip, setTip] = useState<object | any>();
   const local = useLocalSearchParams();
   
@@ -25,12 +25,15 @@ const index = () => {
   }, []);
   return (
     <SafeAreaView>
-      <Text className="text-2xl">{tip?.title}</Text>
+      <View>
+      <Text className="text-2xl">{tip.title}dwdw</Text>
+      <Text>dqwdwd</Text>
       <CustomButton
         title="Back"
         handlePress={() => router.push("/(tabs)/")}
         buttonType="primary"
       />
+      </View>
     </SafeAreaView>
     
   );
