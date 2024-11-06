@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { Href, router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { FIREBASE_DB } from "@/firebase.config";
 import TipListElement from "@/components/TipsPage/TipListElement";
+import React from "react";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 
 type TipFields = {
     title: string;
@@ -89,7 +93,7 @@ const Index = () => {
     };
 
     return (
-        <View className="flex-1 bg-background">
+        <ThemedView className="flex-1">
             <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
                 <View style={{ overflow: "hidden", borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
                     <ImageBackground
@@ -100,8 +104,7 @@ const Index = () => {
                         <View className="flex-row justify-between">
                             <TouchableOpacity
                                 className="p-4 rounded-2xl bg-[#798156]"
-                                //@ts-ignore
-                                onPress={() => router.replace(redirect)}
+                                onPress={() => router.replace(redirect as Href)}
                             >
                                 <Ionicons name="chevron-back-outline" size={18} color="white" />
                             </TouchableOpacity>
@@ -116,16 +119,16 @@ const Index = () => {
                 </View>
 
                 <View className="mt-8 px-8">
-                    <Text className="text-3xl tracking-widest font-bold text-text">
+                    <ThemedText className="text-3xl tracking-widest font-bold">
                         {tip?.title}
-                    </Text>
-                    <Text className="mt-2 font-light text-text opacity-80 leading-relaxed">
+                    </ThemedText>
+                    <ThemedText className="mt-2 font-light opacity-80 leading-relaxed">
                         {tip?.description}
-                    </Text>
+                    </ThemedText>
 
                     {tip?.list && (
                         <View>
-                            <Text className="text-xl mt-8 tracking-widest font-bold text-text">Some Tips</Text>
+                            <ThemedText className="text-xl mt-8 tracking-widest font-bold">Some Tips</ThemedText>
                             <View className="mt-4 gap-4 mb-16">
                                 {tip.list.map((dot, index) => (
                                     <TipListElement key={index} text={dot} image="" />
@@ -142,7 +145,7 @@ const Index = () => {
                 buttonType="primary"
                 textStyles="font-bold text-3xl"
             />
-        </View>
+        </ThemedView>
     );
 };
 

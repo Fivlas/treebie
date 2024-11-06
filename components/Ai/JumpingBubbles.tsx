@@ -9,17 +9,16 @@ const JumpingBubbles = () => {
 
     useEffect(() => {
         // Define the jumping animation
-        //@ts-ignore
-        const animateBubble = (bubble) => {
+        const animateBubble = (bubble: Animated.Value) => {
             return Animated.sequence([
                 Animated.timing(bubble, {
-                    toValue: 1.5, // Scale up
+                    toValue: 1.5,
                     duration: 300,
                     easing: Easing.ease,
                     useNativeDriver: true,
                 }),
                 Animated.timing(bubble, {
-                    toValue: 1, // Scale back down
+                    toValue: 1,
                     duration: 300,
                     easing: Easing.ease,
                     useNativeDriver: true,
@@ -27,7 +26,6 @@ const JumpingBubbles = () => {
             ]);
         };
 
-        // Start looping animation with delays for each bubble
         Animated.loop(
             Animated.stagger(150, [
                 animateBubble(bubble1),
