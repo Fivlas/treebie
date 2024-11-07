@@ -5,6 +5,7 @@ import { collection, getDocs, query } from "firebase/firestore";
 import { FIREBASE_DB } from "@/firebase.config";
 export type ChallengeType = {
   id: string;
+  id: string;
   title: string;
   description: string;
   difficultyLevel: number;
@@ -45,7 +46,7 @@ const ChallengesList = (props: ChallengeProps) => {
     <View>
       <ScrollView className="mb-2">
         {challenges &&
-          challenges.map((challenge) => {
+          challenges.map((challenge: ChallengeData) => {
             const getColor = (level: number) => {
               if (level === 1)
                 return { text: "text-primary", bg: "bg-primary" };
