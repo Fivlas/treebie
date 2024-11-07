@@ -16,18 +16,6 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="challenges"
-        options={{
-          title: "Challenges",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "home" : "home-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="explore"
         options={{
           title: "Explore",
@@ -39,6 +27,19 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="challenges"
+        options={{
+          title: "Challenges",
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? "home" : "home-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      
       <Tabs.Screen
         name="index"
         options={{
