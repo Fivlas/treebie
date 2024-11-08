@@ -6,8 +6,9 @@ import CustomButton from "@/components/elements/CustomButton";
 import {router} from "expo-router";
 import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { FIREBASE_AUTH } from '@/firebase.config';
+import { FIREBASE_AUTH, FIREBASE_DB } from '@/firebase.config';
 import { useState } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
 
 
 export default function Signup() {
@@ -26,6 +27,20 @@ export default function Signup() {
                 const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
                 await sendEmailVerification(response.user);
                 alert('Mail weryfikacyjny został wysłany na adres ' + email);
+                if (response.user) {
+                    const userDocRef = doc(FIREBASE_DB, 'users', response.user.uid);
+                    await setDoc(userDocRef, { 
+                        email: response.user.email,
+                        likedTips: {},
+                        treeProgress: 0,
+                        team: "",
+                        questsDone: {},
+                        items: {}
+                    });
+                    console.log('Dane użytkownika zapisane w Firestore.');
+                } else {
+                    console.error('Użytkownik nie jest zalogowany.');
+                }
                 router.replace("/login")
             }else{
                 console.log("pass != repass");
