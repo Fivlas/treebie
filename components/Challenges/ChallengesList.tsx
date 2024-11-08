@@ -42,9 +42,13 @@ const ChallengesList = (props: ChallengeProps) => {
     fetchChallenges();
   }, []);
   // FILTROWANIE (wartosc i odbieranie query gotowe)
+  
+  
+
+
   return (
     <View>
-      <ScrollView className="mb-2">
+      <ScrollView className="mt-4" showsVerticalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"start"}>
         {challenges &&
           challenges.map((challenge: ChallengeData) => {
             const getColor = (level: number) => {
