@@ -8,7 +8,7 @@ import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 
 export default function Login() {
     const handleSignupPress = () => {
-        router.push("/signup"); // Use the router object to navigate to the "/signup" route
+        router.replace("/signup"); // Use the router object to navigate to the "/signup" route
     }
 
     return (

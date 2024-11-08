@@ -17,7 +17,7 @@ export default function Signup() {
     const [repassword, setRepassword] = useState("");
 
     const handleSignupPress = () => {
-        router.push("/login")
+        router.replace("/login")
     }
 
     const signUp = async () => {
@@ -26,6 +26,7 @@ export default function Signup() {
                 const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
                 await sendEmailVerification(response.user);
                 alert('Mail weryfikacyjny został wysłany na adres ' + email);
+                router.replace("/login")
             }else{
                 console.log("pass != repass");
             }
