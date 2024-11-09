@@ -1,4 +1,4 @@
-﻿import {StyleSheet, View, TextInput} from "react-native";
+﻿import { StyleSheet, View, TextInput, NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import React from "react";
 
 type InputType = "text" | "password" | "email";
@@ -6,9 +6,11 @@ type InputType = "text" | "password" | "email";
 type CustomInputOptions = {
     type?: InputType,
     placeholder?: string,
+    value?: string,
+    onChangeText?: ((text: string) => void) | undefined
 };
 
-export function CustomInput({type, placeholder, ...rest}: Readonly<CustomInputOptions>) {
+export function CustomInput({ type, placeholder, value, onChangeText, ...rest }: Readonly<CustomInputOptions>) {
     if (type === undefined) type = "text";
     return (<View style={styles.container} {...rest}>
         <TextInput
@@ -17,6 +19,8 @@ export function CustomInput({type, placeholder, ...rest}: Readonly<CustomInputOp
             keyboardType={type === "email" ? "email-address" : "default"}
             placeholder={placeholder === undefined ? type.charAt(0).toUpperCase() + type.slice(1) : placeholder}
             autoCapitalize="none"
+            value={value}
+            onChangeText={onChangeText}
         />
     </View>);
 }
