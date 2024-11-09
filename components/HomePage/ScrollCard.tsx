@@ -8,14 +8,16 @@ interface ScrollCardProps {
     title: string;
     imageName: string;
     containerStyle?: string;
-    redirect?: string
+    redirect?: string;
+    routeBase?: string;
 }
 
-const ScrollCard = ({ id, title, imageName, containerStyle, redirect }: ScrollCardProps) => {
+const ScrollCard = ({ id, title, imageName, containerStyle, redirect, routeBase }: ScrollCardProps) => {
+    routeBase ??= "tip";
     const handlePress = () => {
         const route: Href = redirect 
-        ? (`/tip/${id}?redirect=${redirect}` as Href) 
-        : (`/tip/${id}` as Href);
+        ? (`/${routeBase}/${id}?redirect=${redirect}` as Href) 
+        : (`/${routeBase}/${id}` as Href);
     router.push(route);
     }
     return (
