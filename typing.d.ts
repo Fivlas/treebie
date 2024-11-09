@@ -21,7 +21,14 @@ interface TipFields extends TipData {
 interface ChallengeFields extends ChallengeData {
     id: string;
 }
-
+interface ShopItemData {
+    name: string;
+    price: number;
+    image: string;
+}
+interface ShopItem extends ShopItemData {
+    id: string;
+}
 
 interface MessageType {
     message: string;
