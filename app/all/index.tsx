@@ -1,11 +1,13 @@
 import ScrollCard from '@/components/HomePage/ScrollCard';
+import { ThemedText } from '@/components/ThemedText';
 import { FIREBASE_DB } from '@/firebase.config';
 import { shuffleArray } from '@/functions/shuffleArray';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
 
 const Index = () => {
     const { allType } = useLocalSearchParams();
@@ -75,8 +77,10 @@ const Index = () => {
             ));
     }
 
+    const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
+
     return (
-        <SafeAreaView className="flex-1 bg-background">
+        <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
             <View className="flex-row items-center px-8 mt-2">
                 <TouchableOpacity
                     className="p-3 rounded-lg bg-[#798156] mr-3"
@@ -84,9 +88,9 @@ const Index = () => {
                 >
                     <Ionicons name="chevron-back-outline" size={18} color="white" />
                 </TouchableOpacity>
-                <Text className="text-4xl font-semibold text-gray-800">
+                <ThemedText className="text-4xl font-semibold">
                     {allType === "liked" ? "Polubione" : "Wszystkie"}
-                </Text>
+                </ThemedText>
             </View>
             <ScrollView className="mt-8 px-8">
                 {displayTips()}
