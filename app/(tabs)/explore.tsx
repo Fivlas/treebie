@@ -1,24 +1,32 @@
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
+import { FIREBASE_DB } from "@/firebase.config";
+import { doc, getDoc } from "firebase/firestore";
+import { useState, useEffect } from "react";
+import CustomButton from "@/components/elements/CustomButton";
 
-import { ThemedText } from '@/components/ThemedText';
+const index = () => {
+  const [challenge, setChallenge] = useState<object | any>();
+  const local = useLocalSearchParams();
 
-export default function TabTwoScreen() {
+  // useEffect(() => {
+  //   const getData = async (id: string) => {
+  //     try {
+  //       const docRef = doc(FIREBASE_DB, "quests", id);
+  //       const res = await getDoc(docRef);
+  //       setChallenge(res.data());
+  //     } catch (error) {
+  //       console.error("Error fetching document: ", error);
+  //     }
+  //   };
+  //   getData(local.id.toString());
+  // }, []);
+
   return (
     <SafeAreaView>
-      <ThemedText>Explore route</ThemedText>
+      <Text className="text-4xl font-bold">{challenge?.title}To jest tytuł</Text>
+      <Text></Text>
     </SafeAreaView>
   );
-}
-
-// const styles = StyleSheet.create({
-//   headerImage: {
-//     color: '#808080',
-//     bottom: -90,
-//     left: -35,
-//     position: 'absolute',
-//   },
-//   titleContainer: {
-//     flexDirection: 'row',
-//     gap: 8,
-//   },
-// });
+};
+export default index;
