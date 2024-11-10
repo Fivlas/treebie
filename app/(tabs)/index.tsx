@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+/* eslint-disable @typescript-eslint/no-require-imports */
+import React, { useEffect, useState } from 'react';
 import { TextInput, ScrollView, Text, View, ImageBackground, Image } from 'react-native';
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { FIREBASE_DB } from '@/firebase.config';
@@ -7,6 +8,7 @@ import SectionText from '@/components/HomePage/SectionText';
 import ScrollCard from '@/components/HomePage/ScrollCard';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { ThemedView } from '@/components/ThemedView';
 
 const HomeScreen = () => {
   const [allTips, setAllTips] = useState<TipFields[]>([]);
@@ -88,7 +90,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <View className="flex-1 bg-background">
+    <ThemedView className="flex-1 bg-background">
       <ScrollView bounces={true} showsVerticalScrollIndicator={false}>
         {/* Header Section */}
         <View style={{ overflow: 'hidden', borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
@@ -155,7 +157,7 @@ const HomeScreen = () => {
         </View>
 
       </ScrollView>
-    </View>
+    </ThemedView>
   );
 };
 
