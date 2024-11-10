@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+import React, { useEffect, useState } from "react";
 import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
-import { Href, router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { Href, router, useLocalSearchParams, router, useLocalSearchParams } from "expo-router";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { FIREBASE_DB } from "@/firebase.config";
 import TipListElement from "@/components/TipsPage/TipListElement";
-import React from "react";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
