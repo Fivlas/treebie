@@ -7,7 +7,7 @@ import { shuffleArray } from '@/functions/shuffleArray';
 import SectionText from '@/components/HomePage/SectionText';
 import ScrollCard from '@/components/HomePage/ScrollCard';
 import { Ionicons } from '@expo/vector-icons';
-import { Redirect, router } from 'expo-router';
+import { router } from 'expo-router';
 import { ThemedView } from '@/components/ThemedView';
 import { useUser } from '@/hooks/useUser';
 
@@ -140,7 +140,7 @@ const HomeScreen = () => {
 
           <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"start"} contentContainerClassName='pr-8'>
             {allTips.slice(0, 5).map((tip) => {
-              return <ScrollCard key={`all-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
+              return <ScrollCard key={`all-${tip.id}`} id={tip.id} imageName={tip.imageName} title={tip.title} containerStyle='mr-4' />
             })}
           </ScrollView>
         </View>
@@ -152,7 +152,7 @@ const HomeScreen = () => {
 
             <ScrollView className="flex-row pl-8" horizontal showsHorizontalScrollIndicator={false} decelerationRate={0} snapToInterval={200} snapToAlignment={"start"} contentContainerClassName='pr-8'>
               {likedTipsList.slice(0, 5).map((tip) => {
-                return <ScrollCard key={`liked-${tip.id}`} id={tip.id} imageName='logo-icon-new.png' title={tip.title} containerStyle='mr-4' />
+                return <ScrollCard key={`liked-${tip.id}`} id={tip.id} imageName={tip.imageName} title={tip.title} containerStyle='mr-4' />
               })}
             </ScrollView>
           </View>

@@ -38,7 +38,7 @@ export default function Settings() {
     const logout = () => {
         AsyncStorage.removeItem('user');
         router.replace('/(auth)/login' as Href);
-    };
+    };      
 
     return (
         <SafeAreaView className={"flex-1 p-12 mt-10"}>
