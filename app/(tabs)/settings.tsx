@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import {SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance, Image} from 'react-native';
+import {SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance, Image, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from "react";
 import {ThemedText} from '@/components/ThemedText';
 import {THEME_PREFERENCE_KEY} from "@/hooks/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Href, router } from 'expo-router';
+import { useUser } from '@/hooks/useUser';
 
 export default function Settings() {
     const [darkTheme, setDarkTheme] = useState<boolean>(false);
+    const { user } = useUser();
 
     const canChangeTheme = typeof Appearance.setColorScheme === "function";
 
@@ -31,6 +34,11 @@ export default function Settings() {
         }
         AsyncStorage.setItem(THEME_PREFERENCE_KEY, darkTheme ? "dark" : "light");
     }, [darkTheme]);
+
+    const logout = () => {
+        AsyncStorage.removeItem('user');
+        router.replace('/(auth)/login' as Href);
+    };
 
     return (
         <SafeAreaView className={"flex-1 p-12 mt-10"}>
@@ -67,6 +75,11 @@ export default function Settings() {
 
                         </View>
                     </View>
+                </TouchableHighlight>
+                <TouchableHighlight className={"border-primary border-b border-solid p-4"}>
+                    <TouchableOpacity onPress={() => logout()}>
+                        <Text className={`text-xl p-3 text-[#B91C1C] text-center font-semibold`}>Wyloguj się</Text>
+                    </TouchableOpacity>
                 </TouchableHighlight>
             </View>
         </SafeAreaView>

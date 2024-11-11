@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect, useState } from 'react';
-import { TextInput, ScrollView, Text, View, ImageBackground, Image } from 'react-native';
+import { TextInput, ScrollView, Text, View, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
 import { FIREBASE_DB } from '@/firebase.config';
 import { shuffleArray } from '@/functions/shuffleArray';
 import SectionText from '@/components/HomePage/SectionText';
 import ScrollCard from '@/components/HomePage/ScrollCard';
 import { Ionicons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 import { ThemedView } from '@/components/ThemedView';
+import { useUser } from '@/hooks/useUser';
 
 const HomeScreen = () => {
   const [allTips, setAllTips] = useState<TipFields[]>([]);
   const [displayedTips, setDisplayedTips] = useState<TipFields[]>([]);
   const [likedTipsList, setLikedTipsList] = useState<TipFields[]>([]);
   const [inputValue, setInputValue] = useState<string>();
-  const USERID = "1";
+  const { user, loading } = useUser();
 
+  // Fetch tips and liked tips
   useEffect(() => {
     const fetchTips = async () => {
       try {
@@ -26,45 +28,46 @@ const HomeScreen = () => {
 
         const fetchedTips: TipFields[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data() as TipData
+          ...doc.data() as TipData,
         }));
 
         setAllTips(fetchedTips);
-        setDisplayedTips(shuffleArray([...fetchedTips]).slice(0, 20));
+        setDisplayedTips(shuffleArray([...fetchedTips]));
 
-        fetchLikedTips(fetchedTips);
+        if (user) {
+          await fetchLikedTips(fetchedTips);
+        }
       } catch (e) {
-        console.log("Error fetching tips data from Firestore: ", e)
+        console.log("Error fetching tips data from Firestore: ", e);
       }
-    }
+    };
 
     const fetchLikedTips = async (fetchedTips: TipFields[]) => {
       try {
         const likedRef = collection(FIREBASE_DB, "likedTips");
-        const LikesQuery = query(
-          likedRef,
-          where("userId", "==", USERID),
-        );
+        if (!user) return;
 
+        const LikesQuery = query(likedRef, where("userId", "==", user.uid));
         const querySnapshot = await getDocs(LikesQuery);
-        const likesList = querySnapshot.docs.map((doc) => doc.data());
 
+        const likesList = querySnapshot.docs.map((doc) => doc.data());
         if (!likesList.length) return;
 
         const tipIds = likesList.map((like) => like.tipId);
-
         const likedTips = fetchedTips.filter(tip => tipIds.includes(tip.id));
 
         setLikedTipsList(likedTips);
       } catch (err) {
         console.error("Error fetching likes:", err);
       }
+    };
+
+    if (!loading) {
+      fetchTips();
     }
+  }, [loading, user]);
 
-    fetchTips();
-  }, []);
-
-  function displayTips(hm: number = 20): JSX.Element[] {
+  const displayTips = (hm: number = 20): JSX.Element[] => {
     const rows = displayedTips
       .slice(0, hm)
       .reduce<TipFields[][]>((rows, card, index) => {
@@ -83,10 +86,19 @@ const HomeScreen = () => {
       ));
 
     return rows;
-  }
+  };
 
-  const aiHanlder = () => {
-    router.replace(`/ai?text=${inputValue ? inputValue : ""}`)
+  const aiHandler = () => {
+    router.replace(`/ai?text=${inputValue ? inputValue : ""}`);
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <ThemedView className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#63784f" />
+      </ThemedView>
+    );
   }
 
   return (
@@ -117,7 +129,7 @@ const HomeScreen = () => {
                 placeholderTextColor="#63784f"
                 onChangeText={text => setInputValue(text)}
               />
-              <Ionicons name="search-outline" size={24} color="black" onPress={aiHanlder}/>
+              <Ionicons name="search-outline" size={24} color="black" onPress={aiHandler}/>
             </View>
           </ImageBackground>
         </View>
