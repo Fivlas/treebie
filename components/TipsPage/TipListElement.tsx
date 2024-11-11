@@ -12,7 +12,7 @@ const TipListElement = ({ image, text} : TipListElement) => {
     return (
         <View className="flex-row items-center gap-3">
             <View className="bg-[#f2f3ef] p-2 rounded-lg">
-                <Image source={require(`@/assets/images/logo-icon-new.png`)} className="w-6 h-6" />
+                <Image source={{ uri: image }} className="w-6 h-6" />
             </View>
             <ThemedText className="font-light opacity-80 leading-relaxed text-lg">
                 {text}
