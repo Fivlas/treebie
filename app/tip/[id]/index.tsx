@@ -15,6 +15,7 @@ type TipFields = {
     title: string;
     description: string;
     list: string[];
+    imageName: string;
 };
 
 const Index = () => {
@@ -116,6 +117,11 @@ const Index = () => {
         );
     }
 
+    const redirectAIHandler = () => {
+        const text = `Daj mi eco-poradę na temat **${tip?.title}**`;
+        router.replace(`/ai?text=${text}` as Href);
+    }
+
     return (
         <ThemedView className="flex-1">
             <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
@@ -138,7 +144,7 @@ const Index = () => {
                             </TouchableOpacity>
                         </View>
 
-                        <Image source={require("@/assets/images/logo-icon-new.png")} className="w-full h-64" />
+                        <Image source={{ uri: tip?.imageName }} className="h-72 w-72 mx-auto" />
                     </ImageBackground>
                 </View>
 
@@ -152,10 +158,10 @@ const Index = () => {
 
                     {tip?.list && (
                         <View>
-                            <ThemedText className="text-xl mt-8 tracking-widest font-bold">Some Tips</ThemedText>
+                            <ThemedText className="text-xl mt-8 tracking-widest font-bold">Rady</ThemedText>
                             <View className="mt-4 gap-4 mb-16">
                                 {tip.list.map((dot, index) => (
-                                    <TipListElement key={index} text={dot} image="" />
+                                    <TipListElement key={index} text={dot} image={tip?.imageName} />
                                 ))}
                             </View>
                         </View>
@@ -168,6 +174,7 @@ const Index = () => {
                 title="Zapytaj AI"
                 buttonType="primary"
                 textStyles="font-bold text-3xl"
+                handlePress={redirectAIHandler}
             />
         </ThemedView>
     );

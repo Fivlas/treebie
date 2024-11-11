@@ -14,7 +14,7 @@ const SectionText = ({ title, route, containerStyles }: SectionTextProps) => {
         <View className={`flex-row justify-between items-center mb-4 ${containerStyles}`}>
             <ThemedText className="text-3xl font-medium">{title}</ThemedText>
             {route && (
-                <TouchableOpacity onPress={() => router.push(route as Href)}>
+                <TouchableOpacity onPress={() => router.replace(route as Href)}>
                     <Text className='text-[#63784f]'>Zobacz więcej</Text>
                 </TouchableOpacity>
             )}

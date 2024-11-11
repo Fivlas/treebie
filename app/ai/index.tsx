@@ -4,7 +4,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 
 const Index = () => {
@@ -12,6 +12,7 @@ const Index = () => {
     const [messages, setMessages] = useState<MessageType[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [isFetching, setIsFetching] = useState(false);
+    const scrollViewRef = useRef<ScrollView>(null);
 
     const handleSend = async (userMessage: string = ""): Promise<void> => {
         if (isFetching || (!userMessage && !inputValue)) return;
@@ -23,6 +24,7 @@ const Index = () => {
             { message: messageText, isAi: false },
         ]);
         setInputValue("");
+        scrollViewRef.current?.scrollToEnd({ animated: true });
 
         setIsFetching(true);
         try {
@@ -32,6 +34,8 @@ const Index = () => {
                 ...prevMessages,
                 { message: aiResponse, isAi: true },
             ]);
+
+            scrollViewRef.current?.scrollToEnd({ animated: true });
         } catch (error) {
             console.error("Failed to fetch AI response", error);
         } finally {
@@ -42,13 +46,16 @@ const Index = () => {
     const fetchAiResponse = async (prompt: string): Promise<string> => {
         const OPENAI_API_KEY = process.env.EXPO_PUBLIC_OPENAI_API_KEY;
 
-        
+
         const requestBody = {
             model: "gpt-4o",
             messages: [
                 {
                     role: "system",
-                    content: "You are a helpful assistant."
+                    content: "Witaj na ekologicznym czacie z ChatGPT! 🌍🍃\n\n" +
+                        "To miejsce, w którym porozmawiamy o ekologii, zrównoważonym rozwoju i wszystkim, co dotyczy ochrony naszej planety. Możesz zadawać pytania dotyczące:\n\n" +
+                        "Zadaj mi swoje pytanie lub poproś o eko-poradę, a razem znajdziemy sposób, by uczynić Twój styl życia bardziej przyjaznym dla środowiska! 🌱💚\n\n" +
+                        "Wpisz swoje pytanie, a ja chętnie na nie odpowiem! Odpowiadaj krótko, zwięźle i na temat"
                 },
                 {
                     role: "user",
@@ -56,7 +63,7 @@ const Index = () => {
                 },
             ],
         };
-        
+
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
@@ -80,7 +87,7 @@ const Index = () => {
         }
     }, [userMessageParam]);
 
-    const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
+    const backgroundColor = useThemeColor({ light: "", dark: "" }, 'background');
     return (
         <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
             {/* Header */}
@@ -97,9 +104,30 @@ const Index = () => {
             </View>
 
             {/* Scrollable Content */}
-            <ScrollView className="mt-8 px-8 mb-20">
+            <ScrollView className="mt-8 px-8 mb-20" contentContainerStyle={{ flexGrow: 1 }} ref={scrollViewRef}>
                 <View className="gap-4">
-                    {messages.flatMap((message, index) => <Message message={message.message} isAi={message.isAi} key={index} />)}
+                    {/* Wiadomość powitalna */}
+                    <Message
+                        message={`Witaj na ekologicznym czacie ze Sztuczną Inteligencją! 🌍🍃
+
+To miejsce, w którym porozmawiamy o ekologii, zrównoważonym rozwoju i wszystkim, co dotyczy ochrony naszej planety.
+
+Zadaj mi swoje pytanie lub poproś o eko-poradę, a razem znajdziemy sposób, by uczynić Twój styl życia bardziej przyjaznym dla środowiska! 🌱💚
+
+Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
+                        isAi={true}
+                    />
+
+                    {/* Renderowanie wiadomości użytkownika i AI */}
+                    {messages.map((message, index) => (
+                        <Message
+                            key={index}
+                            message={message.message}
+                            isAi={message.isAi}
+                        />
+                    ))}
+
+                    {/* Szablon ładowania wiadomości */}
                     {isFetching && <SkeletonMessage />}
                 </View>
             </ScrollView>

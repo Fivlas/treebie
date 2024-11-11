@@ -8,24 +8,25 @@ interface ScrollCardProps {
     title: string;
     imageName: string;
     containerStyle?: string;
-    redirect?: string
+    redirect?: string;
 }
 
 const ScrollCard = ({ id, title, imageName, containerStyle, redirect }: ScrollCardProps) => {
     const handlePress = () => {
-        const route: Href = redirect 
-        ? (`/tip/${id}?redirect=${redirect}` as Href) 
-        : (`/tip/${id}` as Href);
-    router.push(route);
-    }
+        const route: Href = redirect
+            ? (`/tip/${id}?redirect=${redirect}` as Href)
+            : (`/tip/${id}` as Href);
+        router.replace(route);
+    };
+
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
-            <View className={`bg-[#f2f3ef] w-44 h-52 rounded-3xl justify-center items-center ${containerStyle}`}>
-                <Image source={require(`@/assets/images/logo-icon-new.png`)} className="w-12 h-12" />
-                <Text className="mt-2 text-text font-medium text-left">{title}</Text>
+            <View className={`bg-[#f2f3ef] w-44 h-52 rounded-3xl justify-center items-center ${containerStyle} relative`}>
+                <Image source={{ uri: imageName }} className="size-36" />
+                <Text className="absolute bottom-4 left-4 text-text font-medium">{title}</Text>
             </View>
         </TouchableOpacity>
     );
-}
+};
 
 export default ScrollCard;
