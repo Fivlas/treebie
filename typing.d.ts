@@ -6,6 +6,7 @@ interface TipData {
     list?: string[];
 }
 interface ChallengeData {
+    id: string;
     title: string;
     description: string;
     difficultyLevel: number;
