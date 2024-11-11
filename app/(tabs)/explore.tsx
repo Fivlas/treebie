@@ -47,7 +47,6 @@ const index = () => {
         statusText: string;
         buttonText: string;
     }
-    console.log(actualAction);
     const getDataByAction = (): ActionDataType => {
         if (actualAction === "start") {
             return {

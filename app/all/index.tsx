@@ -1,13 +1,21 @@
-import ScrollCard from '@/components/HomePage/ScrollCard';
-import { ThemedText } from '@/components/ThemedText';
-import { FIREBASE_DB } from '@/firebase.config';
-import { shuffleArray } from '@/functions/shuffleArray';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { Ionicons } from '@expo/vector-icons';
-import { router, useLocalSearchParams } from 'expo-router';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, TouchableOpacity, View } from 'react-native';
+import ScrollCard from "@/components/HomePage/ScrollCard";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
+import { FIREBASE_DB } from "@/firebase.config";
+import { shuffleArray } from "@/functions/shuffleArray";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { useUser } from "@/hooks/useUser";
+import { Ionicons } from "@expo/vector-icons";
+import { router, useLocalSearchParams } from "expo-router";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import {
+    ActivityIndicator,
+    SafeAreaView,
+    ScrollView,
+    TouchableOpacity,
+    View,
+} from "react-native";
 
 const Index = () => {
     const { allType } = useLocalSearchParams();
@@ -15,24 +23,31 @@ const Index = () => {
     const [allTips, setAllTips] = useState<TipFields[]>([]);
     const [displayedTips, setDisplayedTips] = useState<TipFields[]>([]);
     const [likedTipsList, setLikedTipsList] = useState<TipFields[]>([]);
-    const USERID = "1";
+    const { user, loading } = useUser();
 
     useEffect(() => {
         const fetchTips = async () => {
             try {
                 const tipsCollectionRef = collection(FIREBASE_DB, "tips");
-                const tipsQuery = query(tipsCollectionRef, orderBy('popularity', 'desc'));
+                const tipsQuery = query(
+                    tipsCollectionRef,
+                    orderBy("popularity", "desc")
+                );
                 const querySnapshot = await getDocs(tipsQuery);
 
-                const fetchedTips: TipFields[] = querySnapshot.docs.map((doc) => ({
-                    id: doc.id,
-                    ...doc.data() as TipData
-                }));
+                const fetchedTips: TipFields[] = querySnapshot.docs.map(
+                    (doc) => ({
+                        id: doc.id,
+                        ...(doc.data() as TipData),
+                    })
+                );
 
                 setAllTips(fetchedTips);
-                setDisplayedTips(shuffleArray([...fetchedTips]).slice(0, 20));
+                setDisplayedTips(shuffleArray([...fetchedTips]));
 
-                fetchLikedTips(fetchedTips); // Call after fetching all tips
+                if (user) {
+                    await fetchLikedTips(fetchedTips);
+                }
             } catch (e) {
                 console.log("Error fetching tips data from Firestore: ", e);
             }
@@ -41,14 +56,21 @@ const Index = () => {
         const fetchLikedTips = async (fetchedTips: TipFields[]) => {
             try {
                 const likedRef = collection(FIREBASE_DB, "likedTips");
-                const likesQuery = query(likedRef, where("userId", "==", USERID));
+                if (!user) return;
+
+                const likesQuery = query(
+                    likedRef,
+                    where("userId", "==", user.uid)
+                );
                 const querySnapshot = await getDocs(likesQuery);
                 const likesList = querySnapshot.docs.map((doc) => doc.data());
 
                 if (!likesList.length) return;
 
                 const tipIds = likesList.map((like) => like.tipId);
-                const likedTips = fetchedTips.filter(tip => tipIds.includes(tip.id));
+                const likedTips = fetchedTips.filter((tip) =>
+                    tipIds.includes(tip.id)
+                );
 
                 setLikedTipsList(likedTips);
             } catch (err) {
@@ -56,11 +78,14 @@ const Index = () => {
             }
         };
 
-        fetchTips();
-    }, []);
+        if (!loading) {
+            fetchTips();
+        }
+    }, [loading, user]);
 
     function displayTips(): JSX.Element[] {
-        const tipsToDisplay = allType === "liked" ? likedTipsList : displayedTips;
+        const tipsToDisplay =
+            allType === "liked" ? likedTipsList : displayedTips;
 
         return tipsToDisplay
             .reduce<TipFields[][]>((rows, card, index) => {
@@ -71,13 +96,32 @@ const Index = () => {
             .map((row, rowIndex) => (
                 <View key={rowIndex} className="flex-row justify-between mt-7">
                     {row.map((card) => (
-                        <ScrollCard redirect={`${allType === "liked" ? "liked" : "all"}`} key={card.id} id={card.id} imageName={card.imageName} title={card.title} />
+                        <ScrollCard
+                            redirect={`${
+                                allType === "liked" ? "liked" : "all"
+                            }`}
+                            key={card.id}
+                            id={card.id}
+                            imageName={card.imageName}
+                            title={card.title}
+                        />
                     ))}
                 </View>
             ));
     }
 
-    const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
+    const backgroundColor = useThemeColor(
+        { light: "", dark: "" },
+        "background"
+    );
+
+    if (loading) {
+        return (
+            <ThemedView className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" color="#63784f" />
+            </ThemedView>
+        );
+    }
 
     return (
         <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
@@ -86,15 +130,17 @@ const Index = () => {
                     className="p-3 rounded-lg bg-[#798156] mr-3"
                     onPress={() => router.replace("/(tabs)/")}
                 >
-                    <Ionicons name="chevron-back-outline" size={18} color="white" />
+                    <Ionicons
+                        name="chevron-back-outline"
+                        size={18}
+                        color="white"
+                    />
                 </TouchableOpacity>
                 <ThemedText className="text-4xl font-semibold">
                     {allType === "liked" ? "Polubione" : "Wszystkie"}
                 </ThemedText>
             </View>
-            <ScrollView className="mt-8 px-8">
-                {displayTips()}
-            </ScrollView>
+            <ScrollView className="mt-8 px-8">{displayTips()}</ScrollView>
         </SafeAreaView>
     );
 };

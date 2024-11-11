@@ -37,7 +37,6 @@ export default function Signup() {
                         questsDone: {},
                         items: {}
                     });
-                    console.log('Dane użytkownika zapisane w Firestore.');
                 } else {
                     console.error('Użytkownik nie jest zalogowany.');
                 }
@@ -48,7 +47,7 @@ export default function Signup() {
         }
         catch(error: any){
             console.error('Błąd podczas rejestracji użytkownika:', error.message);
-            alert('Błąd: ' + error.message);
+            // alert('Błąd: ' + error.message);
         }
     }
 

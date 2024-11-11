@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect, useState } from "react";
-import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import { Href, useLocalSearchParams, router } from "expo-router";
@@ -9,6 +9,7 @@ import { FIREBASE_DB } from "@/firebase.config";
 import TipListElement from "@/components/TipsPage/TipListElement";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useUser } from "@/hooks/useUser";
 
 type TipFields = {
     title: string;
@@ -18,18 +19,22 @@ type TipFields = {
 
 const Index = () => {
     const local = useLocalSearchParams();
-    let redirect = "/(tabs)/"
+    let redirect = "/(tabs)/";
     if (local.redirect) {
         redirect = local.redirect === "liked" ? "/all?allType=liked" : "/all?allType=all";
     }
+
     const [liked, setLiked] = useState(false);
     const [tip, setTip] = useState<TipFields | undefined>(undefined);
     const [likeId, setLikeId] = useState<string>();
-    const USERID = "1";
+    const { user, loading } = useUser();
+    const [isLoading, setIsLoading] = useState(true); // New loading state for the screen
 
+    // Fetch Tip Data and User Likes
     useEffect(() => {
         const getData = async (id: string) => {
             try {
+                setIsLoading(true);
                 const docRef = doc(FIREBASE_DB, "tips", id);
                 const res = await getDoc(docRef);
                 if (res.exists()) {
@@ -40,15 +45,18 @@ const Index = () => {
             } catch (error) {
                 console.error("Error fetching document: ", error);
                 router.replace("/(tabs)/");
+            } finally {
+                setIsLoading(false);
             }
         };
 
         const fetchLikes = async (id: string) => {
             try {
+                if (!user || loading) return; // Check if user is loaded
                 const likedRef = collection(FIREBASE_DB, "likedTips");
                 const LikesQuery = query(
                     likedRef,
-                    where("userId", "==", USERID),
+                    where("userId", "==", user.uid),
                     where("tipId", "==", id)
                 );
 
@@ -56,9 +64,10 @@ const Index = () => {
                 const likesList = querySnapshot.docs.map((doc) => doc.data());
                 const isLiked = !!likesList.length;
                 setLiked(isLiked);
+
                 if (isLiked) {
                     const likeDocId = querySnapshot.docs[0].id;
-                    setLikeId(likeDocId)
+                    setLikeId(likeDocId);
                 }
             } catch (err) {
                 console.error("Error fetching likes:", err);
@@ -69,27 +78,43 @@ const Index = () => {
             getData(local.id.toString());
             fetchLikes(local.id.toString());
         }
-    }, [local.id]);
+    }, [local.id, user, loading]);
 
+    // Handle Like/Unlike
     const likeHandler = async () => {
+        if (!user) {
+            console.warn("User not logged in");
+            return;
+        }
+
         try {
             setLiked((prevLiked) => !prevLiked);
-            if (liked) {
-                if (!likeId) throw new Error("like id not found")
-                await deleteDoc(doc(FIREBASE_DB, "likedTips", likeId));
 
+            if (liked) {
+                if (!likeId) throw new Error("Like ID not found");
+                await deleteDoc(doc(FIREBASE_DB, "likedTips", likeId));
+                setLikeId(undefined);
             } else {
                 const docRef = await addDoc(collection(FIREBASE_DB, "likedTips"), {
                     tipId: local.id.toString(),
-                    userId: USERID,
-                    timestamp: Date.now()
+                    userId: user.uid, // Using user.uid
+                    timestamp: Date.now(),
                 });
-                setLikeId(docRef.id.toString())
+                setLikeId(docRef.id);
             }
         } catch (e) {
-            console.log(e)
+            console.error("Error updating like status:", e);
         }
     };
+
+    // Loading spinner while fetching data
+    if (isLoading || loading) {
+        return (
+            <ThemedView className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" color="#63784f" />
+            </ThemedView>
+        );
+    }
 
     return (
         <ThemedView className="flex-1">

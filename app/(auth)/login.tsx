@@ -20,7 +20,6 @@ export default function Login() {
         try
         {
             const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
-            console.log(response);
             if(FIREBASE_AUTH.currentUser?.emailVerified){
                 await AsyncStorage.setItem('user', JSON.stringify({
                     uid: FIREBASE_AUTH.currentUser.uid,
