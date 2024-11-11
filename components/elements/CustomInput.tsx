@@ -6,9 +6,11 @@ type InputType = "text" | "password" | "email";
 type CustomInputOptions = {
     type?: InputType,
     placeholder?: string,
+    val?: string,
+    onChange?: (text: string) => void
 };
 
-export function CustomInput({type, placeholder, ...rest}: Readonly<CustomInputOptions>) {
+export function CustomInput({type, placeholder, val, onChange, ...rest}: Readonly<CustomInputOptions>) {
     if (type === undefined) type = "text";
     return (<View style={styles.container} {...rest}>
         <TextInput
@@ -17,6 +19,8 @@ export function CustomInput({type, placeholder, ...rest}: Readonly<CustomInputOp
             keyboardType={type === "email" ? "email-address" : "default"}
             placeholder={placeholder === undefined ? type.charAt(0).toUpperCase() + type.slice(1) : placeholder}
             autoCapitalize="none"
+            value={val}
+            onChangeText={onChange}
         />
     </View>);
 }
