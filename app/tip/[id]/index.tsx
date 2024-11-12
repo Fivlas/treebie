@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ImageBackground, ScrollView, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import { Href, useLocalSearchParams, router } from "expo-router";
@@ -29,7 +29,7 @@ const Index = () => {
     const [tip, setTip] = useState<TipFields | undefined>(undefined);
     const [likeId, setLikeId] = useState<string>();
     const { user, loading } = useUser();
-    const [isLoading, setIsLoading] = useState(true); // New loading state for the screen
+    const [isLoading, setIsLoading] = useState(true);
 
     // Fetch Tip Data and User Likes
     useEffect(() => {
@@ -53,7 +53,7 @@ const Index = () => {
 
         const fetchLikes = async (id: string) => {
             try {
-                if (!user || loading) return; // Check if user is loaded
+                if (!user || loading) return;
                 const likedRef = collection(FIREBASE_DB, "likedTips");
                 const LikesQuery = query(
                     likedRef,
@@ -98,7 +98,7 @@ const Index = () => {
             } else {
                 const docRef = await addDoc(collection(FIREBASE_DB, "likedTips"), {
                     tipId: local.id.toString(),
-                    userId: user.uid, // Using user.uid
+                    userId: user.uid,
                     timestamp: Date.now(),
                 });
                 setLikeId(docRef.id);
@@ -108,7 +108,6 @@ const Index = () => {
         }
     };
 
-    // Loading spinner while fetching data
     if (isLoading || loading) {
         return (
             <ThemedView className="flex-1 justify-center items-center">
