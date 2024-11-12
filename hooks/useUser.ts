@@ -7,7 +7,7 @@ type User = {
 };
 
 export const useUser = () => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<User>();
     const [loading, setLoading] = useState(true);
 
     // Fetch user data from AsyncStorage

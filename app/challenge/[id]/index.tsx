@@ -1,10 +1,12 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { FIREBASE_DB } from "@/firebase.config";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import CustomButton from "@/components/elements/CustomButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useUser } from "@/hooks/useUser";
+
 const index = () => {
   type actionType = "start" | "ongoing" | "end" | "canceled";
   type ActionDataType = {
@@ -15,7 +17,7 @@ const index = () => {
   const [challenge, setChallenge] = useState<object | any>();
   const local = useLocalSearchParams();
   const [actualAction, setActualAction] = useState<actionType>("start");
-
+  const { user, loading } = useUser();
   useEffect(() => {
     const getData = async (id: string) => {
       try {
@@ -28,6 +30,25 @@ const index = () => {
     };
     getData(local.id.toString());
   }, []);
+  const setCurrentQuest = async (id: string) => {
+    const userRef = doc(FIREBASE_DB, "users", id);
+    await updateDoc(userRef, {
+      currentQuest: local.id,
+    });
+  };
+  const addDoneQuests = async (id: string) => {
+    try {
+      const userRef = doc(FIREBASE_DB, "users", id);
+      await updateDoc(userRef, {
+        questsDone: arrayUnion(local.id),
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const getQuestDataByUser = async () => {
+    
+  }
   const getDataByAction = (): ActionDataType => {
     if (actualAction === "start") {
       return {
@@ -60,13 +81,24 @@ const index = () => {
       buttonText: "Error",
     };
   };
+  const clickHandler = () => {
+    if (actualAction === "start") {
+      setCurrentQuest(user.uid);
+      setActualAction("ongoing")
+    } else if (actualAction === "ongoing") {
+      addDoneQuests(user.uid)
+      setActualAction("end")
+    }
+  };
   return (
     <SafeAreaView>
       <View className="p-4 h-full">
         <View className="p-2 rounded-lg bg-background flex flex-column justify-between h-full">
           <View className="flex flex-column gap-4">
             <View className="flex flex-row items-center gap-2">
-              <TouchableOpacity onPress={() => router.push("/(tabs)/challenges")}>
+              <TouchableOpacity
+                onPress={() => router.push("/(tabs)/challenges")}
+              >
                 <Ionicons name="chevron-back-outline" size={36} color="black" />
               </TouchableOpacity>
               <Text className="text-4xl font-bold">{challenge?.title}</Text>
@@ -100,15 +132,7 @@ const index = () => {
             title={getDataByAction()?.buttonText.toString()}
             buttonType="primary"
             textStyles="text-3xl"
-            handlePress={() => {
-              setActualAction(
-                actualAction === "start"
-                  ? "ongoing"
-                  : actualAction === "ongoing"
-                  ? "end"
-                  : actualAction
-              );
-            }}
+            handlePress={clickHandler}
           />
         </View>
       </View>
