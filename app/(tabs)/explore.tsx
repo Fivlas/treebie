@@ -1,9 +1,11 @@
-import { SafeAreaView, Text } from "react-native"
+import { Text, SafeAreaView } from "react-native";
 
 const index = () => {
-    return <SafeAreaView>
-        <Text>Explore route</Text>
+  return (
+    <SafeAreaView>
+      <Text>Explore route</Text>
     </SafeAreaView>
-}
+  );
+};
 
 export default index;
