@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { Text, SafeAreaView } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { FIREBASE_DB } from "@/firebase.config";
 import { doc, getDoc } from "firebase/firestore";

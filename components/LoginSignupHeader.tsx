@@ -1,4 +1,4 @@
-﻿import { Pressable, StyleSheet, TextInput, View, Text} from "react-native";
+﻿import { StyleSheet, View } from "react-native";
 import {TitleHeader} from "@/components/TitleHeader";
 import {SubtitleHeader} from "@/components/SubtitleHeader";
 import React from "react";
