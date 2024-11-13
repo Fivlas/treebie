@@ -31,7 +31,6 @@ export default function Signup() {
                     const userDocRef = doc(FIREBASE_DB, 'users', response.user.uid);
                     await setDoc(userDocRef, { 
                         email: response.user.email,
-                        likedTips: {},
                         treeProgress: 0,
                         team: "",
                         questsDone: {},
@@ -47,7 +46,7 @@ export default function Signup() {
         }
         catch(error: any){
             console.error('Błąd podczas rejestracji użytkownika:', error.message);
-            // alert('Błąd: ' + error.message);
+            alert('Błąd: ' + error.message);
         }
     }
 
