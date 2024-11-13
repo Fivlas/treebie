@@ -31,7 +31,6 @@ export default function Signup() {
                     const userDocRef = doc(FIREBASE_DB, 'users', response.user.uid);
                     await setDoc(userDocRef, { 
                         email: response.user.email,
-                        likedTips: {},
                         treeProgress: 0,
                         team: "",
                         questsDone: {},
