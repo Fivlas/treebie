@@ -4,7 +4,6 @@ import React from 'react';
 import {TabBarIcon} from '@/components/navigation/TabBarIcon';
 import {Colors} from '@/constants/Colors';
 import {useColorScheme} from '@/hooks/useColorScheme';
-
 export default function TabLayout() {
     const colorScheme = useColorScheme();
 
@@ -50,6 +49,12 @@ export default function TabLayout() {
                     ),
                 }}
             />
+            <Tabs.Screen name='explore' options={{
+              title: "Odkrywaj",
+              tabBarIcon: ({color, focused}) => (
+                <TabBarIcon name={focused ? 'book' : 'book-outline'} color={color}/>
+            ),
+            }}/>
         </Tabs>
     );
 }
