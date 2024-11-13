@@ -90,18 +90,7 @@ const index = () => {
     });
   };
   //usuniecie z currentQuest
-  const removeCurrentQuest = async (id: string) => {
-    const userRef = doc(FIREBASE_DB, "users", id);
-
-  try {
-    await updateDoc(userRef, {
-      currentQuest: deleteField(), // Usuwa wartość pola currentQuest
-    });
-    console.log("Pole currentQuest zostało usunięte.");
-  } catch (error) {
-    console.error("Błąd podczas usuwania currentQuest:", error);
-  }
-  }
+  
   // dodanie do tablicy
   const addDoneQuests = async (id: string) => {
     try {
