@@ -41,7 +41,6 @@ const ChallengesList = (props: ChallengeProps) => {
     fetchChallenges();
   }, []);
   // FILTROWANIE (wartosc i odbieranie query gotowe)
-  console.log(queryToFilter.length)
   return (
     <ScrollView
       className="px-4"
