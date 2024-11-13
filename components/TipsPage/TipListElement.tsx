@@ -13,7 +13,7 @@ const TipListElement = ({ image, text} : TipListElement) => {
             <View className="bg-[#f2f3ef] p-2 rounded-lg">
                 <Image source={{ uri: image }} className="w-6 h-6" />
             </View>
-            <ThemedText className="font-light opacity-80 leading-relaxed text-lg">
+            <ThemedText className="font-light opacity-80 leading-relaxed text-sm text-wrap">
                 {text}
             </ThemedText>
         </View>

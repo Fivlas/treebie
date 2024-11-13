@@ -11,6 +11,8 @@ npm-debug.*
 web-build/
 .env
 firebase.config.ts
+secrets.txt
+
 # macOS
 .DS_Store
 

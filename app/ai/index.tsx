@@ -3,7 +3,7 @@ import SkeletonMessage from '@/components/Ai/SkeletonMessage';
 import { ThemedText } from '@/components/ThemedText';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import { router, useLocalSearchParams } from 'expo-router';
+import { Href, router, useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -94,7 +94,7 @@ const Index = () => {
             <View className="flex-row items-center px-8 mt-2">
                 <TouchableOpacity
                     className="p-3 rounded-lg bg-[#798156] mr-3"
-                    onPress={() => router.replace("/(tabs)/")}
+                    onPress={() => router.replace("/(tabs)/" as Href)}
                 >
                     <Ionicons name="chevron-back-outline" size={18} color="white" />
                 </TouchableOpacity>
@@ -104,7 +104,7 @@ const Index = () => {
             </View>
 
             {/* Scrollable Content */}
-            <ScrollView className="mt-8 px-8 mb-20" contentContainerStyle={{ flexGrow: 1 }} ref={scrollViewRef}>
+            <ScrollView className="mt-8 px-8 mb-12" contentContainerStyle={{ flexGrow: 1 }} ref={scrollViewRef}>
                 <View className="gap-4">
                     {/* Wiadomość powitalna */}
                     <Message
@@ -132,26 +132,63 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                 </View>
             </ScrollView>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? -20 : 0}
-                style={{ position: 'absolute', bottom: 0, width: '100%' }}
+<KeyboardAvoidingView
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10} // Better offset for visibility
+    // style={{ flex: 1 }}
+>
+    <View style={{ paddingBottom: Platform.OS === 'ios' ? 0 : 0 }}>
+        <View
+            style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                borderTopWidth: 1,
+                borderTopColor: "#e0e0e0",
+                backgroundColor: backgroundColor,
+                height: 60, // Set consistent height
+            }}
+        >
+            <View
+                style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                    backgroundColor: "#f2f2f2",
+                    borderRadius: 25,
+                    paddingHorizontal: 12,
+                    height: 44, // Consistent input height
+                }}
             >
-                <View className="pt-2 pb-6  border-t border-[#e0e0e0]" style={[{ backgroundColor }]}>
-                    <View className="flex-row items-center rounded-lg p-4" style={[{ backgroundColor }]}>
-                        <TextInput
-                            className="flex-1 mx-2 text-gray-700"
-                            placeholder="Zadaj pytanie ECO asystentowi"
-                            placeholderTextColor="#63784f"
-                            multiline={true}
-                            value={inputValue}
-                            onChangeText={text => setInputValue(text)}
-                            editable={!isFetching}
-                        />
-                        <Feather name="send" size={24} color="#202f11" className="mr-2" onPress={() => handleSend()} />
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
+                <TextInput
+                    style={{
+                        flex: 1,
+                        fontSize: 16,
+                        color: "#202f11",
+                        paddingVertical: 0, // Fix vertical padding issues
+                    }}
+                    placeholder="Zadaj pytanie ECO asystentowi"
+                    placeholderTextColor="#63784f"
+                    multiline
+                    value={inputValue}
+                    onChangeText={(text) => setInputValue(text)}
+                    editable={!isFetching}
+                    returnKeyType="send"
+                    onSubmitEditing={() => handleSend()}
+                />
+                <TouchableOpacity onPress={() => handleSend()} disabled={isFetching}>
+                    <Feather
+                        name="send"
+                        size={24}
+                        color={inputValue.trim() ? "#202f11" : "#b0b0b0"}
+                        style={{ marginLeft: 8 }}
+                    />
+                </TouchableOpacity>
+            </View>
+        </View>
+    </View>
+</KeyboardAvoidingView>
 
         </SafeAreaView>
     );

@@ -6,7 +6,7 @@ import { shuffleArray } from "@/functions/shuffleArray";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useUser } from "@/hooks/useUser";
 import { Ionicons } from "@expo/vector-icons";
-import { router, useLocalSearchParams } from "expo-router";
+import { Href, router, useLocalSearchParams } from "expo-router";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import {
@@ -128,7 +128,7 @@ const Index = () => {
             <View className="flex-row items-center px-8 mt-2">
                 <TouchableOpacity
                     className="p-3 rounded-lg bg-[#798156] mr-3"
-                    onPress={() => router.replace("/(tabs)/")}
+                    onPress={() => router.replace("/(tabs)/" as Href)}
                 >
                     <Ionicons
                         name="chevron-back-outline"

@@ -12,6 +12,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "androidNavigationBar": {
+    // "visible": "leanback",
+      "barStyle": "light-content"
+    },
     "ios": {
       "supportsTablet": true
     },
@@ -26,11 +30,13 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
+    "newArchEnabled": true,
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": true      
     }
   }
 }
