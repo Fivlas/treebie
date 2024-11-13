@@ -3,7 +3,7 @@
 **Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon X  
 
 Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
-W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android
+W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
 
 ## Spis streści
 1. [Instalacja](#instalacja)
@@ -121,6 +121,20 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + likedTips (array) - tablica przechowująca polubione porady przez użytkownika
   + questsDone (array) - tablica przechowująca wykonane wyzwania
   + team (number) - id wybranego drzewa użytkownika (1 lub 2)
-  + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań
+  + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
+
+## Funkcjonalności  
+### Użytkownik  
+System kont w aplikacji mobilnej pozwala użytkownikom tworzyć, logować się i zarządzać swoim indywidualnym profilem w aplikacji. Oto najważniejsze możliwości, jakie oferuje system kont:  
+  + **Rejestracja i logowanie**: Umożliwia nowym użytkownikom tworzenie kont i logowanie się na istniejące konta za pomocą adresu e-mail oraz hasła.  
+  + **Zarządzanie danymi**: Użytkownicy mogą przeglądać swoje polubione porady czy zmieniać motyw  co pozwala na personalizację i lepsze dopasowanie aplikacji do potrzeb.  
+  + **Bezpieczeństwo i prywatność**: System kont umożliwia bezpieczne przechowywanie danych oraz zarządzanie sesjami logowania, co zwiększa ochronę kont użytkowników.  
+System kont zwiększa użyteczność i funkcjonalność aplikacji, umożliwiając lepsze dostosowanie jej do indywidualnych potrzeb użytkowników oraz ich ochronę.
+### Wyzwania  
+System wyzwań w aplikacji umożliwia użytkownikom realizację określonych zadań, za które zdobywają punkty doświadczenia (XP), co powoduje rośnięcie własnego drzewka oraz motywuje użytkownika do regularnego korzystania z aplikacji. Poniżej główne możliwości takiego systemu:  
++ **Różne typy wyzwań**: Wyzwania mają różny stopień trudności (łatwy, średni, trudny) oraz kategorie (challengeGroup) np. Sadzenie, Zbieranie, Zakupy  
++ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu.  
+Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
+
 
 
