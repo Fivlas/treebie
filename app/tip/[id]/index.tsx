@@ -156,7 +156,7 @@ const Index = () => {
 
                     {tip?.list && (
                         <View>
-                            <ThemedText className="text-xl mt-2 tracking-widest font-bold">Rady</ThemedText>
+                            <ThemedText className="text-xl mt-4 tracking-widest font-bold">Rady</ThemedText>
                             <View className="mt-4 gap-4 mb-16">
                                 {tip.list.map((dot, index) => (
                                     <TipListElement key={index} text={dot} image={tip?.imageName} />
