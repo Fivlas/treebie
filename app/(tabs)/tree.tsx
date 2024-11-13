@@ -1,68 +1,88 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { ThemedText } from "@/components/ThemedText";
-import { Feather } from "@expo/vector-icons";
-import { Href, router } from "expo-router";
-import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, TouchableOpacity, View } from "react-native";
+import { FIREBASE_DB } from "@/firebase.config";
+import { useUser } from "@/hooks/useUser";
+import { useFocusEffect } from "@react-navigation/native";
+import { doc, getDoc } from "firebase/firestore";
+import React, { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, Image, SafeAreaView, View } from "react-native";
 //@ts-ignore
 import ProgressBar from "react-native-progress/Bar";
 
 type Level = 1 | 2 | 3 | "MAX";
 
 const Tree = () => {
-    const USER_EXP = 0;
-    const USER_TEAM = "1";
+    const { user, loading } = useUser();
+
+    const [userExp, setUserExp] = useState<number>(0);
+    const [userTeam, setUserTeam] = useState<string>("1");
     const [progress, setProgress] = useState<number>(0);
     const [level, setLevel] = useState<Level>(1);
+    
+    useFocusEffect(
+        useCallback(() => {
+            const getData = async () => {
+                if (loading) return;
+                if (!user) {
+                    console.error("User is not logged in");
+                    return;
+                }
+
+                try {
+                    const docRef = doc(FIREBASE_DB, "users", user.uid);
+                    const res = await getDoc(docRef);
+                    const data = res.data();
+
+                    if (data) {
+                        setUserExp(data.treeProgress || 0);
+                        setUserTeam(data.team || "1");
+                    }
+                } catch (error) {
+                    console.error("Error fetching document: ", error);
+                }
+            };
+
+            getData();
+        }, [user, loading])
+    );
 
     useEffect(() => {
         const calculateLvl = (): Level => {
-            if (USER_EXP >= 570) {
-                return "MAX";
-            } else if (USER_EXP >= 270) {
-                return 3;
-            } else if (USER_EXP >= 90) {
-                return 2;
-            } else {
-                return 1;
-            }
+            if (userExp >= 570) return "MAX";
+            if (userExp >= 270) return 3;
+            if (userExp >= 90) return 2;
+            return 1;
         };
 
-        // Set the level
         const newLevel = calculateLvl();
         setLevel(newLevel);
 
-        let nextLevelExp = 0;
-        if (newLevel === 3) {
-            nextLevelExp = 570;
-        } else if (newLevel === 2) {
-            nextLevelExp = 270;
-        } else if (newLevel === 1) {
-            nextLevelExp = 90;
-        }
+        const nextLevelExp = newLevel === 3 ? 570 : newLevel === 2 ? 270 : 90;
+        setProgress(newLevel === "MAX" ? 1 : userExp / nextLevelExp);
+    }, [userExp]);
 
-        if (newLevel !== "MAX") {
-            const progressToNextLevel = USER_EXP / nextLevelExp;
-            setProgress(progressToNextLevel);
-        } else {
-            setProgress(1);
-        }
-    }, [USER_EXP]);
 
     const getImageSource = (): any => {
-        switch (level) {
-            case 1:
-                return require(`@/assets/images/tree${USER_TEAM}-lvl1.png`);
-            case 2:
-                return require(`@/assets/images/tree${USER_TEAM}-lvl2.png`);
-            case 3:
-                return require(`@/assets/images/tree${USER_TEAM}-lvl3.png`);
-            case "MAX":
-                return require(`@/assets/images/tree${USER_TEAM}-lvl3.png`);
-            default:
-                return require(`@/assets/images/tree${USER_TEAM}-lvl1.png`);
-        }
+        const images: Record<string, any> = {
+            "1-lvl1": require("@/assets/images/tree1-lvl1.png"),
+            "1-lvl2": require("@/assets/images/tree1-lvl2.png"),
+            "1-lvl3": require("@/assets/images/tree1-lvl3.png"),
+            "2-lvl1": require("@/assets/images/tree2-lvl1.png"),
+            "2-lvl2": require("@/assets/images/tree2-lvl2.png"),
+            "2-lvl3": require("@/assets/images/tree2-lvl3.png"),
+        };
+
+        const key = `${userTeam}-lvl${level === "MAX" ? 3 : level}`;
+        return images[key] || images["1-lvl1"];
     };
+
+    if (loading) {
+        return (
+            <SafeAreaView className="flex-1 justify-center items-center">
+                <ActivityIndicator size="large" color="#606c38" />
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView className="flex-1">
@@ -71,11 +91,6 @@ const Tree = () => {
                 <ThemedText className="text-4xl font-semibold mb-2">
                     Twoje drzewo
                 </ThemedText>
-                <TouchableOpacity
-                    onPress={() => router.push("/shop?redirect=tree" as Href)}
-                >
-                    <Feather name="shopping-bag" size={24} color="black" />
-                </TouchableOpacity>
             </View>
 
             {/* Main Content */}

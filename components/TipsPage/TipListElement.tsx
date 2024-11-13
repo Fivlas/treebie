@@ -7,7 +7,6 @@ interface TipListElement {
     text: string;
 }
 
-//@TODO image handler
 const TipListElement = ({ image, text} : TipListElement) => {
     return (
         <View className="flex-row items-center gap-3">
