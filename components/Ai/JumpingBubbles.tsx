@@ -2,13 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { View, Animated, Easing, StyleSheet } from 'react-native';
 
 const JumpingBubbles = () => {
-    // Create refs for each animated bubble
     const bubble1 = useRef(new Animated.Value(1)).current;
     const bubble2 = useRef(new Animated.Value(1)).current;
     const bubble3 = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
-        // Define the jumping animation
         const animateBubble = (bubble: Animated.Value) => {
             return Animated.sequence([
                 Animated.timing(bubble, {

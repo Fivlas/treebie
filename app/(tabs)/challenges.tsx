@@ -1,11 +1,9 @@
-import { Alert, BackHandler, Platform, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, BackHandler, Platform, SafeAreaView, View } from "react-native";
 import SearchBar from "../../components/Challenges/SearchBar";
 import ChallengesList from "@/components/Challenges/ChallengesList";
 import { useEffect, useState } from "react";
-import { Href, router } from "expo-router";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { ThemedText } from "@/components/ThemedText";
-import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface ParentProps {}
@@ -68,9 +66,6 @@ const Challenges: React.FC<ParentProps> = () => {
         <ThemedText className="text-4xl font-semibold mb-2">
           Wyzwania
         </ThemedText>
-        <TouchableOpacity onPress={() => router.push("/shop?redirect=challenges" as Href)}>
-          <Feather name="shopping-bag" size={24} color={textColor} />
-        </TouchableOpacity>
       </View>
       <SearchBar getData={getQuery} />
       <ChallengesList queryToFilter={query} />

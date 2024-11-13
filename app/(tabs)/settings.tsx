@@ -5,11 +5,9 @@ import {ThemedText} from '@/components/ThemedText';
 import {THEME_PREFERENCE_KEY} from "@/hooks/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Href, router } from 'expo-router';
-import { useUser } from '@/hooks/useUser';
 
 export default function Settings() {
     const [darkTheme, setDarkTheme] = useState<boolean>(false);
-    const { user } = useUser();
 
     const canChangeTheme = typeof Appearance.setColorScheme === "function";
 
