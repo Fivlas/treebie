@@ -11,11 +11,11 @@ export type ChallengeType = {
   difficultyName: string;
   pointsToGain: number;
   challengeGroup: string;
-  color: { text: string, bg: string; } | undefined;
+  color: { text: string; bg: string } | undefined;
 };
 type ChallengeProps = {
   queryToFilter: string;
-}
+};
 const ChallengesList = (props: ChallengeProps) => {
   const queryToFilter = props.queryToFilter;
   const [challenges, setChallenges] = useState<ChallengeFields[]>([]);
@@ -41,10 +41,17 @@ const ChallengesList = (props: ChallengeProps) => {
     fetchChallenges();
   }, []);
   // FILTROWANIE (wartosc i odbieranie query gotowe)
+  console.log(queryToFilter.length)
   return (
-    <ScrollView className="px-4" showsVerticalScrollIndicator={false} decelerationRate={0} snapToInterval={230} snapToAlignment={"start"}>
-      {challenges &&
-        challenges.map((challenge: ChallengeData) => {
+    <ScrollView
+      className="px-4"
+      showsVerticalScrollIndicator={false}
+      decelerationRate={0}
+      snapToInterval={230}
+      snapToAlignment={"start"}
+    >
+      {queryToFilter.length > 0
+        ? challenges.filter(item => item.title.toLowerCase().includes(queryToFilter.toLowerCase())).map((challenge: ChallengeData) => {
           const getColor = (level: number) => {
             if (level === 1)
               return { text: "text-primary", bg: "bg-primary" };
@@ -54,18 +61,41 @@ const ChallengesList = (props: ChallengeProps) => {
           };
           return (
             <Challenge
-              key={challenge.id}
-              id={challenge.id}
-              title={challenge.title}
-              description={challenge.description}
-              difficultyLevel={challenge.difficultyLevel}
-              pointsToGain={challenge.pointsToGain}
-              challengeGroup={challenge.challengeGroup}
-              difficultyName={challenge.difficultyName}
-              color={getColor(challenge.difficultyLevel)}
-            />
-          );
-        })}
+                key={challenge.id}
+                id={challenge.id}
+                title={challenge.title}
+                description={challenge.description}
+                difficultyLevel={challenge.difficultyLevel}
+                pointsToGain={challenge.pointsToGain}
+                challengeGroup={challenge.challengeGroup}
+                difficultyName={challenge.difficultyName}
+                color={getColor(challenge.difficultyLevel)}
+              />
+          )
+        })
+        : challenges &&
+          challenges.map((challenge: ChallengeData) => {
+            const getColor = (level: number) => {
+              if (level === 1)
+                return { text: "text-primary", bg: "bg-primary" };
+              if (level === 2) return { text: "text-orange", bg: "bg-orange" };
+              if (level === 3) return { text: "text-red", bg: "bg-red" };
+              else console.log("Color error");
+            };
+            return (
+              <Challenge
+                key={challenge.id}
+                id={challenge.id}
+                title={challenge.title}
+                description={challenge.description}
+                difficultyLevel={challenge.difficultyLevel}
+                pointsToGain={challenge.pointsToGain}
+                challengeGroup={challenge.challengeGroup}
+                difficultyName={challenge.difficultyName}
+                color={getColor(challenge.difficultyLevel)}
+              />
+            );
+          })}
     </ScrollView>
   );
 };
