@@ -12,7 +12,6 @@ const Challenges: React.FC<ParentProps> = () => {
   const getQuery = (q: string) => {
     setQuery(q);
   };
-
   const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
   const textColor = useThemeColor({ light: "", dark: ""}, 'text');
 
