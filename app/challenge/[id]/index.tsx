@@ -29,7 +29,6 @@ const index = () => {
   const [challenge, setChallenge] = useState<any>(null);
   const [userInfo, setUserInfo] = useState<UserData | null>(null);
   const [actualAction, setActualAction] = useState<actionType>(null);
-
   // Function to determine the current action
   const determineAction = (userInfo: UserData | null): actionType => {
     if (!userInfo || !local.id) return null;
@@ -67,6 +66,7 @@ const index = () => {
         console.error("Error fetching data:", error);
       }
     };
+    
 
     fetchData();
   }, [user, local.id, loading]);
