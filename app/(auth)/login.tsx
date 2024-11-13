@@ -84,8 +84,8 @@ export default function Login() {
                         <Text className="text-text text-center">Nie masz konta? Zarejestruj się!</Text>
                     </TouchableOpacity>
                 </View>
-            </View>}
             <LoginSignupFooter/>
+            </View>}
         </SafeAreaView>
     );
 }

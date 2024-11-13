@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 import { FIREBASE_DB } from "@/firebase.config";
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { useUser } from "@/hooks/useUser";
-import { useFocusEffect } from "@react-navigation/native";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useCallback, useEffect, useState } from "react";
 import { ActivityIndicator, Image, SafeAreaView, View } from "react-native";
@@ -18,9 +19,10 @@ const Tree = () => {
     const [userTeam, setUserTeam] = useState<string>("1");
     const [progress, setProgress] = useState<number>(0);
     const [level, setLevel] = useState<Level>(1);
+    const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
     
-    useFocusEffect(
-        useCallback(() => {
+    // useFocusEffect(
+        useEffect(() => {
             const getData = async () => {
                 if (loading) return;
                 if (!user) {
@@ -44,7 +46,7 @@ const Tree = () => {
 
             getData();
         }, [user, loading])
-    );
+    // );
 
     useEffect(() => {
         const calculateLvl = (): Level => {
@@ -85,9 +87,9 @@ const Tree = () => {
     }
 
     return (
-        <SafeAreaView className="flex-1">
+        <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
             {/* Top Navigation Icons */}
-            <View className="flex flex-row justify-between px-8 mt-2 items-center">
+            <View className="flex flex-row items-center justify-between px-8 mt-2">
                 <ThemedText className="text-4xl font-semibold mb-2">
                     Twoje drzewo
                 </ThemedText>
