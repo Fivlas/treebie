@@ -3,12 +3,13 @@
 **Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon X  
 
 Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
-W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii.
+W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android
 
 ## Spis streści
 1. [Instalacja](#instalacja)
 2. [Struktura plików](#struktura-plikow)
 3. [Wykorzystane technologie](#wykorzystane-technologie)
+4. [Funkcjonalności](#funkcjonalnosci)
 
 ## Instalacja
 
@@ -119,7 +120,7 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + email (string) - email użytkownika
   + likedTips (array) - tablica przechowująca polubione porady przez użytkownika
   + questsDone (array) - tablica przechowująca wykonane wyzwania
-  + team (string) - id wybranego drzewa użytkownika
+  + team (number) - id wybranego drzewa użytkownika (1 lub 2)
   + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań
 
 
