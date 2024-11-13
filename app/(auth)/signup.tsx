@@ -63,7 +63,7 @@ export default function Signup() {
                         <Text className="text-text text-center">Posiadasz konto? Zaloguj się!</Text>
                     </TouchableOpacity>
                 </View>
-                <LoginSignupFooter/>
+            <LoginSignupFooter/>
             </View>
         </SafeAreaView>
     );

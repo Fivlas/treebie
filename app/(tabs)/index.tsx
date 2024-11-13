@@ -159,7 +159,7 @@ const HomeScreen = () => {
         )}
 
         {/* Recycling Tips */}
-        <View className="mt-8 px-8">
+        <View className="my-8 px-8">
           <SectionText title='Porady' route='/all?allType=all' />
 
           <View className="bg-[#F2F2F2] w-full h-48 rounded-3xl flex items-center justify-center">

@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, ImageBackground, ScrollView, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ImageBackground, Platform, ScrollView, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import { Href, useLocalSearchParams, router } from "expo-router";
@@ -28,7 +27,7 @@ const Index = () => {
     const [liked, setLiked] = useState(false);
     const [tip, setTip] = useState<TipFields | undefined>(undefined);
     const [likeId, setLikeId] = useState<string>();
-    const { user, loading } = useUser();
+    const { user, loading } = useUser ();
     const [isLoading, setIsLoading] = useState(true);
 
     // Fetch Tip Data and User Likes
@@ -45,7 +44,7 @@ const Index = () => {
                 }
             } catch (error) {
                 console.error("Error fetching document: ", error);
-                router.replace("/(tabs)/");
+                router.replace("/(tabs)/" as Href);
             } finally {
                 setIsLoading(false);
             }
@@ -84,7 +83,7 @@ const Index = () => {
     // Handle Like/Unlike
     const likeHandler = async () => {
         if (!user) {
-            console.warn("User not logged in");
+            console.warn("User  not logged in");
             return;
         }
 
@@ -108,7 +107,7 @@ const Index = () => {
         }
     };
 
-    if (isLoading || loading) {
+    if ( isLoading || loading) {
         return (
             <ThemedView className="flex-1 justify-center items-center">
                 <ActivityIndicator size="large" color="#63784f" />
@@ -123,11 +122,11 @@ const Index = () => {
 
     return (
         <ThemedView className="flex-1">
-            <ScrollView showsVerticalScrollIndicator={false} bounces={false}>
+            <View style={{ paddingBottom: 100 }}>
                 <View style={{ overflow: "hidden", borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}>
                     <ImageBackground
                         source={require("@/assets/images/banner-image.png")}
-                        className="bg-[#63784f] pt-[60px] pb-14 px-8 flex gap-2"
+                        className={`bg-[#63784f] ${Platform.OS === "ios" ? "pt-[60px]" : "pt-7"} pb-14 px-8 flex gap-2`}
                         style={{ borderBottomLeftRadius: 35, borderBottomRightRadius: 35 }}
                     >
                         <View className="flex-row justify-between">
@@ -157,7 +156,7 @@ const Index = () => {
 
                     {tip?.list && (
                         <View>
-                            <ThemedText className="text-xl mt-8 tracking-widest font-bold">Rady</ThemedText>
+                            <ThemedText className="text-xl mt-2 tracking-widest font-bold">Rady</ThemedText>
                             <View className="mt-4 gap-4 mb-16">
                                 {tip.list.map((dot, index) => (
                                     <TipListElement key={index} text={dot} image={tip?.imageName} />
@@ -166,10 +165,10 @@ const Index = () => {
                         </View>
                     )}
                 </View>
-            </ScrollView>
+            </View>
 
             <CustomButton
-                containerStyles="w-[80%] absolute bottom-8 self-center"
+                containerStyles={`w-[80%] absolute ${Platform.OS === 'android' ? "bottom-2" : "bottom-7"} self-center`}
                 title="Zapytaj AI"
                 buttonType="primary"
                 textStyles="font-bold text-3xl"
