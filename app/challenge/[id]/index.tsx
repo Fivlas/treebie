@@ -1,7 +1,7 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { FIREBASE_DB } from "@/firebase.config";
-import { doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion, increment } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import CustomButton from "@/components/elements/CustomButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -85,6 +85,7 @@ const index = () => {
     await updateDoc(userRef, {
       questsDone: arrayUnion(local.id),
       currentQuest: "",
+      treeProgress: increment(challenge.pointsToGain)
     });
     setActualAction("end");
   };
@@ -132,7 +133,7 @@ const index = () => {
               <TouchableOpacity onPress={() => router.push("/(tabs)/challenges")}>
                 <Ionicons name="chevron-back-outline" size={36} color="black" />
               </TouchableOpacity>
-              <Text className="text-4xl font-bold">{challenge?.title}</Text>
+              <Text className="text-4xl font-bold max-w-[315px]">{challenge?.title}</Text>
             </View>
             <Text className="text-gray-400 text-xl">{challenge?.description}</Text>
             <Text className={`text-3xl text-${actionData?.color} font-bold`}>
@@ -143,7 +144,7 @@ const index = () => {
           <View className="w-full flex items-center">
             <View className={`w-[300px] h-[300px] rounded-full bg-${actionData?.color} flex justify-center items-center`}>
               <View className="w-[240px] h-[240px] rounded-full bg-white flex justify-center items-center">
-                <Text className={`text-[50px] text-${actionData?.color}`}>50 pkt</Text>
+                <Text className={`text-[50px] text-${actionData?.color}`}>{challenge.pointsToGain} pkt</Text>
               </View>
             </View>
           </View>
