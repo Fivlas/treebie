@@ -6,12 +6,13 @@ import { FIREBASE_DB } from "@/firebase.config";
 export type ChallengeType = {
   id: string;
   title: string;
-  description: string;
-  difficultyLevel: number;
-  difficultyName: string;
-  pointsToGain: number;
-  challengeGroup: string;
-  color: { text: string; bg: string } | undefined;
+  description?: string;
+  difficultyLevel?: number;
+  difficultyName?: string;
+  pointsToGain?: number;
+  challengeGroup?: string;
+  color?: { text: string; bg: string } | undefined;
+  asActive?: boolean;
 };
 type ChallengeProps = {
   queryToFilter: string;
@@ -40,7 +41,12 @@ const ChallengesList = (props: ChallengeProps) => {
     };
     fetchChallenges();
   }, []);
-  // FILTROWANIE (wartosc i odbieranie query gotowe)
+  const getColor = (level: number) => {
+    if (level === 1) return { text: "text-primary", bg: "bg-primary" };
+    if (level === 2) return { text: "text-orange", bg: "bg-orange" };
+    if (level === 3) return { text: "text-red", bg: "bg-red" };
+    else console.log("Color error");
+  };
   return (
     <ScrollView
       className="px-4"
@@ -50,28 +56,25 @@ const ChallengesList = (props: ChallengeProps) => {
       snapToAlignment={"start"}
     >
       {queryToFilter.length > 0
-        ? challenges.filter(item => item.title.toLowerCase().includes(queryToFilter.toLowerCase())).map((challenge: ChallengeData) => {
-          const getColor = (level: number) => {
-            if (level === 1)
-              return { text: "text-primary", bg: "bg-primary" };
-            if (level === 2) return { text: "text-orange", bg: "bg-orange" };
-            if (level === 3) return { text: "text-red", bg: "bg-red" };
-            else console.log("Color error");
-          };
-          return (
-            <Challenge
-                key={challenge.id}
-                id={challenge.id}
-                title={challenge.title}
-                description={challenge.description}
-                difficultyLevel={challenge.difficultyLevel}
-                pointsToGain={challenge.pointsToGain}
-                challengeGroup={challenge.challengeGroup}
-                difficultyName={challenge.difficultyName}
-                color={getColor(challenge.difficultyLevel)}
-              />
-          )
-        })
+        ? challenges
+            .filter((item) =>
+              item.title.toLowerCase().includes(queryToFilter.toLowerCase())
+            )
+            .map((challenge: ChallengeData) => {
+              return (
+                <Challenge
+                  key={challenge.id}
+                  id={challenge.id}
+                  title={challenge.title}
+                  description={challenge.description}
+                  difficultyLevel={challenge.difficultyLevel}
+                  pointsToGain={challenge.pointsToGain}
+                  challengeGroup={challenge.challengeGroup}
+                  difficultyName={challenge.difficultyName}
+                  color={getColor(challenge.difficultyLevel)}
+                />
+              );
+            })
         : challenges &&
           challenges.map((challenge: ChallengeData) => {
             const getColor = (level: number) => {
