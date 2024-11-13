@@ -1,50 +1,140 @@
-# Welcome to your Expo app 👋
+# Aplikacja Treebie  
+**Nazwa aplikacji:** Treebie  
+**Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon X  
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
+W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
 
-## Get started
+## Spis streści
+1. [Instalacja](#instalacja)
+2. [Struktura plików](#struktura-plikow)
+3. [Wykorzystane technologie](#wykorzystane-technologie)
+4. [Funkcjonalności](#funkcjonalnosci)
 
-1. Install dependencies
+## Instalacja
+
+1. Sklonuj repozytorium
+
+```bash
+git clone https://github.com/Fivlas/treebie.git
+cd treebie
+```
+
+2. Pobierz potrzebne zależności
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Uruchom aplikację
 
    ```bash
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+W wynikach znajdziesz opcje otwierania aplikacji w formacie:
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Expo Go](https://expo.dev/go)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## Struktura plików
+ ```bash
+treebie/
+├───%ProgramData%
+│   └───Microsoft
+│       └───Windows
+│           └───UUS
+│               └───State
+├───.vscode
+├───app
+│   ├───(auth)
+│   ├───(tabs)
+│   ├───ai
+│   ├───all
+│   ├───challenge
+│   │   └───[id]
+│   ├───shop
+│   └───tip
+│       └───[id]
+├───assets
+│   ├───fonts
+│   ├───images
+│   └───jsons
+├───components
+│   ├───Ai
+│   ├───Challenges
+│   ├───elements
+│   ├───HomePage
+│   ├───LoginSignup
+│   ├───navigation
+│   ├───TipsPage
+│   └───__tests__
+│       └───__snapshots__
+├───constants
+├───functions
+├───hooks
+├───scripts
+└───styles
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Wykorzystane technologie
+### Aplikacja wykorzystuje następujące technologie i biblioteki:
+- **React Native** - framework do budowania aplikacji mobilnych.
+- **TypeScript** - statyczne typowanie i większa czytelność kodu.
+- **React Navigation** - zarządzanie nawigacją między ekranami.
+- **Expo** - ułatwia konfigurację i testowanie aplikacji.
+- **Firebase** - nierelacyjna baza danych, przechowująca dane aplikacji
 
-## Learn more
+### Typowanie z TypeScript
 
-To learn more about developing your project with Expo, look at the following resources:
+W projekcie wykorzystano **TypeScript** do poprawienia czytelności kodu i minimalizacji błędów. Typy i interfejsy są zorganizowane w katalogu `treebie/typing.d.ts`, a przykładowe interfejsy obejmują:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **TipData** - interfejs obsługujący właściwosći wskazówek ekologicznych
+- **ChallengeData** - interfejs obsługujący właściwosći wyzwań ekologicznych
 
-## Join the community
+### Baza danych 
 
-Join our community of developers creating universal apps.
+W aplikacji wykorzystano nierelacyjną bazę danych Firestore. Pozwala ona na szybkie i kompleksowe przechowywanie, zarządzanie oraz przeglądanie danych.  
+W bazie danych istnieje 4 tabele (kolekcje) z polami:  
++ **likedTips** - kolekcja przechowuje dane o polubionych poradach
+  + timestamp (number) - czas dodania do polubionych  
+  + tipId (string) - id polubionej porady  
+  + userId (string) - id użytkownika, który polubił poradę  
++ **quests** - kolekcja przechowuje dane o wyzwaniach:  
+  + title (string) - tytuł (nazwa) wyzywania
+  + pointsToGain (number) - punkty za wykonanie zadania
+  + difficultyName (string) - pisemna nazwa poziomu trudności wyzwania
+  + difficultyLevel (number) - poziom trudności wyrażony jako liczba
+  + description (string) - opis wyzywania
+  + challengeGroup (string) - grupa do której zalicza się wyzywanie  
++ **tips** - kolekcja przechowuje dane o dostępnych ekologicznych poradach  
+  + title (string) - tytuł (nazwa) porady  
+  + popularity (number) - ilość razy odwiedzonej porady przez użytkowników  
+  + list (array) - tablica przechowująca konkretne wskazówki
+  + imageName (string) - adres URL do wyświetlanego zdjęcia
+  + description (string) - opis porady  
++ **users** - kolekcja przechowuje dane o użytkownikach  
+  + currentQuest (string) - przechowuje id obecnie wykonywanego zadania
+  + email (string) - email użytkownika
+  + likedTips (array) - tablica przechowująca polubione porady przez użytkownika
+  + questsDone (array) - tablica przechowująca wykonane wyzwania
+  + team (number) - id wybranego drzewa użytkownika (1 lub 2)
+  + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Funkcjonalności  
+### Użytkownik  
+System kont w aplikacji mobilnej pozwala użytkownikom tworzyć, logować się i zarządzać swoim indywidualnym profilem w aplikacji. Oto najważniejsze możliwości, jakie oferuje system kont:  
+  + **Rejestracja i logowanie**: Umożliwia nowym użytkownikom tworzenie kont i logowanie się na istniejące konta za pomocą adresu e-mail oraz hasła.  
+  + **Zarządzanie danymi**: Użytkownicy mogą przeglądać swoje polubione porady czy zmieniać motyw  co pozwala na personalizację i lepsze dopasowanie aplikacji do potrzeb.  
+  + **Bezpieczeństwo i prywatność**: System kont umożliwia bezpieczne przechowywanie danych oraz zarządzanie sesjami logowania, co zwiększa ochronę kont użytkowników.  
+System kont zwiększa użyteczność i funkcjonalność aplikacji, umożliwiając lepsze dostosowanie jej do indywidualnych potrzeb użytkowników oraz ich ochronę.
+### Wyzwania  
+System wyzwań w aplikacji umożliwia użytkownikom realizację określonych zadań, za które zdobywają punkty doświadczenia (XP), co powoduje rośnięcie własnego drzewka oraz motywuje użytkownika do regularnego korzystania z aplikacji. Poniżej główne możliwości takiego systemu:  
++ **Różne typy wyzwań**: Wyzwania mają różny stopień trudności (łatwy, średni, trudny) oraz kategorie (challengeGroup) np. Sadzenie, Zbieranie, Zakupy  
++ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu.  
+Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
+
+
+
