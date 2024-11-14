@@ -1,11 +1,13 @@
-import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { View, Text, SafeAreaView, TouchableOpacity, Platform, Alert } from "react-native";
+import { Href, router, useLocalSearchParams } from "expo-router";
 import { FIREBASE_DB } from "@/firebase.config";
 import { doc, getDoc, updateDoc, arrayUnion, increment } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import CustomButton from "@/components/elements/CustomButton";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useUser } from "@/hooks/useUser";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "@/components/ThemedText";
 
 type actionType = "start" | "ongoing" | "end" | "canceled" | null;
 type ActionDataType = {
@@ -29,13 +31,18 @@ const index = () => {
   const [challenge, setChallenge] = useState<any>(null);
   const [userInfo, setUserInfo] = useState<UserData | null>(null);
   const [actualAction, setActualAction] = useState<actionType>(null);
+  const backgroundColor = useThemeColor(
+    { light: "", dark: "" },
+    "background"
+  );
+
   // Function to determine the current action
   const determineAction = (userInfo: UserData | null): actionType => {
     if (!userInfo || !local.id) return null;
     const questId = local.id.toString();
-  
+
     const questsDone = Array.isArray(userInfo.questsDone) ? userInfo.questsDone : [];
-  
+
     if (userInfo.currentQuest === questId) return "ongoing";
     if (questsDone.includes(questId)) return "end";
     return "start";
@@ -52,7 +59,7 @@ const index = () => {
         const userRef = doc(FIREBASE_DB, "users", user.uid);
 
         const [questRes, userRes] = await Promise.all([getDoc(questRef), getDoc(userRef)]);
-        
+
         if (questRes.exists()) {
           setChallenge(questRes.data());
         }
@@ -66,17 +73,51 @@ const index = () => {
         console.error("Error fetching data:", error);
       }
     };
-    
+
 
     fetchData();
   }, [user, local.id, loading]);
 
-  // Handlers for quest actions
   const addCurrentQuest = async () => {
     if (!user || !local.id) return;
-    const userRef = doc(FIREBASE_DB, "users", user.uid);
-    await updateDoc(userRef, { currentQuest: local.id });
-    setActualAction("ongoing");
+    const questId = local.id.toString();
+    const questRef = doc(FIREBASE_DB, "quests", questId);
+  
+    try {
+      const questDoc = await getDoc(questRef);
+      if (!questDoc.exists()) {
+        console.error(`Quest with ID ${questId} does not exist.`);
+        return;
+      }
+  
+      if (userInfo?.currentQuest) {
+        Alert.alert(
+          "Nadpisz aktualne wyzwanie",
+          "Aktualnie jesteś wtrakcie innego wyzwania. Czy chcesz je nadpisac?",
+          [
+            {
+              text: "Anuluj",
+              style: "cancel",
+            },
+            {
+              text: "Nadpisz",
+              onPress: async () => {
+                const userRef = doc(FIREBASE_DB, "users", user.uid);
+                // Update user's currentQuest
+                await updateDoc(userRef, { currentQuest: questId });
+                setActualAction("ongoing");
+              },
+            },
+          ]
+        );
+      } else {
+        const userRef = doc(FIREBASE_DB, "users", user.uid);
+        await updateDoc(userRef, { currentQuest: questId });
+        setActualAction("ongoing");
+      }
+    } catch (error) {
+      console.error("Error adding current quest:", error);
+    }
   };
 
   const endQuest = async () => {
@@ -125,25 +166,40 @@ const index = () => {
   const actionData = getDataByAction();
 
   return (
-    <SafeAreaView>
-      <View className="p-4 h-full">
-        <View className="p-2 rounded-lg bg-background flex flex-column justify-between h-full">
+    <SafeAreaView className="flex-1" style={[{ backgroundColor }]}>
+      <View className="h-full px-8">
+        <View className="rounded-lg flex flex-column h-full">
           <View className="flex flex-column gap-4">
-            <View className="flex flex-row items-center gap-2">
-              <TouchableOpacity onPress={() => router.push("/(tabs)/challenges")}>
-                <Ionicons name="chevron-back-outline" size={36} color="black" />
+
+            <View className="flex-row items-center mt-2">
+              <TouchableOpacity
+                className="p-3 rounded-lg bg-[#798156] mr-3"
+                onPress={() => router.replace("/(tabs)/challenges" as Href)}
+              >
+                <Ionicons
+                  name="chevron-back-outline"
+                  size={18}
+                  color="white"
+                />
               </TouchableOpacity>
-              <Text className="text-4xl font-bold max-w-[315px]">{challenge?.title}</Text>
+              <ThemedText className="text-4xl font-semibold">
+                {challenge?.title}
+              </ThemedText>
             </View>
+
+
             <Text className="text-gray-400 text-xl">{challenge?.description}</Text>
             <Text className={`text-3xl text-${actionData?.color} font-bold`}>
               {actionData?.statusText}
             </Text>
           </View>
 
-          <View className="w-full flex items-center">
+          <View className="justify-center items-center mt-16">
             <View className={`w-[300px] h-[300px] rounded-full bg-${actionData?.color} flex justify-center items-center`}>
-              <View className="w-[240px] h-[240px] rounded-full bg-white flex justify-center items-center">
+              <View
+                className="w-[240px] h-[240px] rounded-full flex justify-center items-center"
+                style={[{ backgroundColor }]}
+              >
                 <Text className={`text-[50px] text-${actionData?.color}`}>{challenge.pointsToGain} pkt</Text>
               </View>
             </View>
@@ -151,8 +207,9 @@ const index = () => {
 
           <CustomButton
             title={actionData?.buttonText || ""}
+            containerStyles={`w-[80%] absolute ${Platform.OS === 'android' ? "bottom-3" : "bottom-7"} self-center`}
             buttonType="primary"
-            textStyles="text-3xl"
+            textStyles="text-3xl font-semibold"
             handlePress={clickHandler}
           />
         </View>

@@ -10,7 +10,6 @@ export const Challenge = ({
   difficultyLevel,
   pointsToGain,
   challengeGroup,
-  difficultyName,
   asActive,
 }: ChallengeType) => {
   const colorScheme = useColorScheme();
