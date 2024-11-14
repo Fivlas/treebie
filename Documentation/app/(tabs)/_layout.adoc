@@ -1,0 +1,46 @@
+= Dokumentacja komponentu `TabLayout`
+
+Komponent `TabLayout` definiuje układ nawigacji dolnej (ang. *tab navigation*) dla aplikacji mobilnej. Każda karta (ang. *tab*) odpowiada innemu ekranowi aplikacji, w tym: głównej, wyzwań, drzewa i ustawień. Układ dostosowuje styl nawigacji w zależności od aktywnego motywu kolorystycznego (`light` lub `dark`).
+
+== Importowane moduły i komponenty
+
+* `Tabs` - komponent `expo-router` do definiowania układu kart w aplikacji.
+* `TabBarIcon` - niestandardowy komponent ikony nawigacji dolnej.
+* `Colors` - stała przechowująca kolory aplikacji dla różnych trybów kolorystycznych.
+* `useColorScheme` - hook do określania aktywnego schematu kolorów (`light` lub `dark`), dostosowujący kolory tła i aktywne kolory ikon.
+
+== Logika komponentu
+
+* `colorScheme` - wynik `useColorScheme`, wykorzystywany do dynamicznego ustawienia kolorów kart.
+* `Tabs` zawiera listę ekranów (`Screen`) jako karty z określonymi ikonami, tytułami i nazwami.
+
+== Struktura renderowania
+
+=== `Tabs` (Główna nawigacja)
+
+* `screenOptions` ustawia:
+  * `tabBarStyle.backgroundColor` - kolor tła, zależny od aktywnego motywu (`Colors.light.background` lub `Colors.dark.background`).
+  * `tabBarActiveTintColor` - kolor aktywnych ikon kart, zależny od motywu.
+  * `headerShown: false` - ukrywa nagłówek aplikacji.
+
+=== Ekrany kart
+
+Każda karta definiuje nazwę (`name`) i opcje (`options`), takie jak tytuł i ikona:
+  
+* `index` (Główna): Ikona domku (`home` lub `home-outline`), tytuł `Główna`.
+* `challenges` (Wyzwania): Ikona sztangi (`barbell` lub `barbell-outline`), tytuł `Wyzwania`.
+* `tree` (Drzewko): Ikona liścia (`leaf` lub `leaf-outline`), tytuł `Drzewko`.
+* `settings` (Ustawienia): Ikona ustawień (`settings` lub `settings-outline`), tytuł `Ustawienia`.
+
+Każda ikona zmienia się zależnie od tego, czy karta jest aktywna (`focused`), co realizuje komponent `TabBarIcon`.
+
+== Przykład użycia
+
+```javascript
+import TabLayout from './TabLayout';
+
+export default function App() {
+    return (
+        <TabLayout />
+    );
+}

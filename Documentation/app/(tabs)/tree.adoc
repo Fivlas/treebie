@@ -1,0 +1,63 @@
+= Dokumentacja komponentu Tree
+
+Komponent `Tree` wyświetla drzewo użytkownika, które zmienia swój wygląd w zależności od postępu użytkownika oraz poziomu. Użytkownik ma możliwość zobaczenia swojego postępu w formie paska postępu oraz obrazu, który reprezentuje drzewo na odpowiednim poziomie.
+
+== Importowane moduły i komponenty
+
+* `ThemedText`, `ThemedView` - Komponenty, które renderują tekst oraz widoki z uwzględnieniem motywu kolorystycznego.
+* `FIREBASE_DB` - Stała przechowująca konfigurację połączenia z bazą danych Firebase.
+* `useThemeColor` - Hook do uzyskiwania kolorów zgodnych z bieżącym motywem.
+* `useUser` - Hook do uzyskiwania informacji o użytkowniku.
+* `doc`, `getDoc` - Funkcje z Firebase Firestore do pobierania dokumentów z bazy danych.
+* `ActivityIndicator`, `Image`, `SafeAreaView`, `View` - Komponenty z `react-native` do wyświetlania elementów UI.
+* `ProgressBar` - Komponent do wyświetlania paska postępu.
+
+== Zmienne stanu
+
+* `userExp` - Zmienna przechowująca doświadczenie użytkownika (postęp w grze).
+* `userTeam` - Zmienna przechowująca numer drużyny użytkownika.
+* `progress` - Zmienna przechowująca postęp użytkownika w postaci wartości liczbowej, używana do renderowania paska postępu.
+* `level` - Zmienna przechowująca obecny poziom użytkownika, który może mieć wartości: `1`, `2`, `3`, lub `"MAX"`.
+
+== Funkcje i efekty
+
+### `useEffect`
+
+Komponent zawiera dwa główne efekty:
+
+1. **Pobieranie danych użytkownika**:
+   - Sprawdza, czy użytkownik jest zalogowany. Jeśli tak, to pobiera dane użytkownika z Firestore (m.in. postęp w grze i drużynę) i zapisuje je w stanie komponentu.
+
+2. **Obliczanie poziomu i postępu**:
+   - Na podstawie doświadczenia użytkownika (`userExp`), oblicza aktualny poziom (`level`) oraz postęp (`progress`) użytkownika w grze. Wartości poziomów są:
+     - Poziom 1: dla `userExp` mniejszego niż 90.
+     - Poziom 2: dla `userExp` pomiędzy 90 a 269.
+     - Poziom 3: dla `userExp` pomiędzy 270 a 569.
+     - `"MAX"`: dla `userExp` powyżej 570.
+
+### `getImageSource`
+
+Funkcja, która wybiera odpowiedni obraz drzewa w zależności od drużyny użytkownika oraz jego poziomu. Obrazy są przechowywane w obiekcie `images` z przypisaniem do kluczy reprezentujących drużynę i poziom.
+
+### Renderowanie komponentu
+
+- Jeśli dane użytkownika są w trakcie ładowania (`loading`), wyświetlany jest wskaźnik ładowania (`ActivityIndicator`).
+- Po załadowaniu danych, wyświetlane jest drzewo w postaci obrazu, pasek postępu oraz poziom użytkownika.
+
+== Interfejs użytkownika
+
+1. **Nawigacja i tytuł**: Na górze ekranu znajduje się tytuł "Twoje drzewo".
+2. **Obraz drzewa**: Drzewo wyświetlane jest na podstawie danych użytkownika (drużyna, poziom).
+3. **Pasek postępu**: Na dole obrazu znajduje się pasek postępu, który wizualizuje postęp użytkownika.
+4. **Poziom**: Obok paska postępu wyświetlany jest poziom użytkownika (np. "Poziom: 2").
+
+### Przykład użycia
+
+```javascript
+import Tree from './Tree';
+
+export default function App() {
+    return (
+        <Tree />
+    );
+}

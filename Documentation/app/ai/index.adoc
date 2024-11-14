@@ -1,0 +1,62 @@
+= Dokumentacja komponentu `Index`
+
+Komponent `Index` tworzy ekran czatu ekologicznego z wykorzystaniem AI. Użytkownik może zadawać pytania lub prosić o eko-porady, na które odpowiada sztuczna inteligencja za pomocą API OpenAI.
+
+== Importowane moduły i komponenty
+
+* `Message`, `SkeletonMessage` - komponenty wyświetlające wiadomości użytkownika i AI, oraz wizualizujące ładowanie wiadomości.
+* `ThemedText`, `useThemeColor` - komponenty i funkcje dostosowujące kolory tekstu i tła do aktualnego motywu.
+* `Feather`, `Ionicons` - ikony z `expo/vector-icons`, np. przycisk „wyślij”.
+* `Href`, `router`, `useLocalSearchParams` - funkcje i typy z `expo-router` do nawigacji i przekazywania parametrów.
+* `React` i komponenty `react-native` - elementy do budowy widoków, takich jak `TextInput`, `TouchableOpacity`, `SafeAreaView`, `KeyboardAvoidingView`.
+
+== Zmienne stanu i odniesienia
+
+* `userMessageParam` - opcjonalny parametr wiadomości przekazany z poprzedniego ekranu.
+* `messages` - stan przechowujący historię wiadomości między użytkownikiem a AI.
+* `inputValue` - aktualna wartość pola tekstowego wpisywana przez użytkownika.
+* `isFetching` - flaga oznaczająca, czy aplikacja aktualnie pobiera odpowiedź od AI.
+* `scrollViewRef` - odniesienie do `ScrollView`, pozwalające przewinąć ekran do najnowszej wiadomości.
+
+== Funkcje
+
+=== `handleSend`
+
+Funkcja `handleSend` obsługuje wysyłanie wiadomości użytkownika:
+1. Sprawdza, czy nie ma aktywnego pobierania lub pustego pola tekstowego.
+2. Dodaje wiadomość użytkownika do stanu `messages`.
+3. Wywołuje `fetchAiResponse`, by pobrać odpowiedź od AI, i dodaje ją do historii czatu.
+4. Przewija ekran do najnowszej wiadomości po wysłaniu odpowiedzi.
+
+=== `fetchAiResponse`
+
+Asynchroniczna funkcja, która wysyła wiadomość użytkownika do API OpenAI:
+1. Przygotowuje zapytanie z treścią wiadomości oraz kontekstem czatu ekosystemowego.
+2. Wysyła zapytanie POST do OpenAI i zwraca odpowiedź w formie tekstowej.
+3. Rzuca błąd, jeśli odpowiedź z serwera nie jest poprawna.
+
+== Wywołania `useEffect`
+
+Hook `useEffect` wywołuje `handleSend` z wiadomością przekazaną w `userMessageParam`, gdy komponent jest montowany.
+
+== Interfejs użytkownika
+
+* **Nagłówek** - Zawiera przycisk powrotu do poprzedniego ekranu oraz tytuł "Eco Chat".
+* **Wiadomości** - Sekcja przewijana `ScrollView`, w której wyświetlane są wiadomości użytkownika oraz odpowiedzi AI. Gdy aplikacja czeka na odpowiedź, wyświetlany jest komponent `SkeletonMessage`.
+* **Pole tekstowe** - Umożliwia wpisywanie wiadomości przez użytkownika. Po naciśnięciu przycisku "send" lub wysłaniu klawiszem `Enter`, wywoływana jest funkcja `handleSend`.
+
+== Style
+
+* `backgroundColor` - kolor tła dopasowany do bieżącego motywu.
+* Sekcja wpisywania wiadomości jest stylizowana pod kątem estetyki i dostępności.
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}

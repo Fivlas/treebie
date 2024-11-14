@@ -1,0 +1,66 @@
+= Dokumentacja komponentu Index
+
+Komponent `Index` to ekran wyświetlający szczegóły wybranej wskazówki ekologicznej (tip) wraz z możliwością polubienia jej przez użytkownika oraz zadawania pytań do AI na temat wybranej wskazówki.
+
+== Importowane moduły i komponenty
+
+* `CustomButton` - przycisk z niestandardowym stylem, wykorzystywany do wywołania akcji.
+* `Ionicons` - ikony z `expo/vector-icons`, wykorzystywane do przycisków nawigacyjnych oraz ikony serca.
+* `ActivityIndicator` - komponent do wyświetlania animacji ładowania.
+* `Image`, `ImageBackground` - komponenty do wyświetlania obrazków tła oraz obrazków w treści.
+* `ThemedText`, `ThemedView` - komponenty umożliwiające dostosowanie kolorystyki tekstu i tła w zależności od aktywnego motywu.
+* `useLocalSearchParams`, `router` - hooki z `expo-router` do obsługi parametrów URL oraz nawigacji.
+* `addDoc`, `deleteDoc`, `getDoc`, `getDocs`, `query`, `where`, `doc`, `collection` - funkcje Firebase Firestore do manipulacji dokumentami w bazie danych.
+* `useUser` - niestandardowy hook do uzyskiwania informacji o bieżącym użytkowniku.
+
+== Zmienne stanu
+
+* `liked` - stan określający, czy wskazówka została polubiona przez użytkownika.
+* `tip` - stan przechowujący dane o wybranej wskazówce ekologiczej.
+* `likeId` - stan przechowujący identyfikator dokumentu polubienia.
+* `isLoading` - stan przechowujący status ładowania danych.
+* `user`, `loading` - informacje o użytkowniku oraz status ładowania danych użytkownika.
+
+== Funkcje i efekty
+
+=== `useEffect`
+
+Hook `useEffect` uruchamia dwie funkcje asynchroniczne:
+1. `getData` - pobiera dane o wybranej wskazówce z Firestore i ustawia je w stanie `tip`.
+2. `fetchLikes` - sprawdza, czy użytkownik polubił wskazówkę i ustawia odpowiedni stan (`liked`) oraz identyfikator dokumentu (`likeId`).
+
+Powyższe funkcje są wywoływane, gdy zmienia się parametr `id` w URL oraz status ładowania użytkownika.
+
+=== `likeHandler`
+
+Funkcja `likeHandler` obsługuje zmianę stanu polubienia wskazówki:
+- Jeśli wskazówka jest już polubiona, funkcja usuwa jej polubienie z Firestore.
+- Jeśli wskazówka nie była wcześniej polubiona, funkcja dodaje nowe polubienie do Firestore.
+
+=== `redirectAIHandler`
+
+Funkcja `redirectAIHandler` przekierowuje użytkownika do ekranu AI z zapytaniem o ekologiczną poradę dotyczącą wybranej wskazówki.
+
+== Interfejs użytkownika
+
+* **Nagłówek** - zawiera przycisk powrotu do poprzedniego ekranu oraz przycisk umożliwiający polubienie lub usunięcie polubienia wskazówki.
+* **Obrazek** - wyświetla obrazek związany z wybraną wskazówką.
+* **Treść wskazówki** - zawiera tytuł, opis oraz listę rad, jeśli istnieją.
+* **Przycisk "Zapytaj AI"** - umożliwia zadanie pytania do AI o wybraną wskazówkę.
+* **Loader** - wyświetlany podczas ładowania danych o wskazówce lub użytkowniku.
+
+== Style
+
+* `backgroundColor` - kolor tła dostosowany do bieżącego motywu za pomocą `useThemeColor`.
+* `ImageBackground` - komponent umożliwiający ustawienie tła z obrazkiem, który może być dostosowany w zależności od systemu operacyjnego (iOS/Android).
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}
