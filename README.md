@@ -140,5 +140,9 @@ Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych
 + **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
 + **Polubienie porad**: Każda porada posiada opcję „polubienia”, co pozwala użytkownikom na zapisanie interesujących ich treści. Dzięki temu użytkownik może stworzyć własną listę ulubionych porad, co ułatwia powrót do najważniejszych informacji.
 + **Graficzna prezentacja**: Każda porada posiada dedykowany obraz, który nie tylko wzbogaca wizualnie aplikację, ale także zwiększa zrozumienie porady, dając użytkownikowi skojarzenie z konkretnymi działaniami.
-
+### AI
+W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z AI, która umożliwia użytkownikom interakcję z inteligentnym asystentem.
++ **Opcja wyszukiwania**: Gdy użytkownik kliknie w ikonę lupy przy oknie tekstowym na głównej stronie, otwiera się dedykowany chat z AI.
++ **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
++ **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
