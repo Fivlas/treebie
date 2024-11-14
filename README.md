@@ -42,12 +42,8 @@ W wynikach znajdziesz opcje otwierania aplikacji w formacie:
 ## Struktura plików
  ```bash
 treebie/
-├───%ProgramData%
-│   └───Microsoft
-│       └───Windows
-│           └───UUS
-│               └───State
-├───.vscode
+├───.expo
+│   └───types
 ├───app
 │   ├───(auth)
 │   ├───(tabs)
@@ -55,7 +51,6 @@ treebie/
 │   ├───all
 │   ├───challenge
 │   │   └───[id]
-│   ├───shop
 │   └───tip
 │       └───[id]
 ├───assets
