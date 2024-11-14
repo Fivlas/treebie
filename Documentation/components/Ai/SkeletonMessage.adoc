@@ -1,0 +1,57 @@
+= Dokumentacja komponentu SkeletonMessage
+
+Komponent SkeletonMessage jest częścią interfejsu użytkownika aplikacji mobilnej zbudowanej w React Native. Jest odpowiedzialny za wyświetlanie wizualnej reprezentacji "szkieletu" wiadomości, często wykorzystywanej jako wskaźnik ładowania. Zawiera animowane bąbelki, które są wyświetlane podczas oczekiwania na załadowanie zawartości.
+
+== Importowane moduły i komponenty
+
+* `React` - główny moduł React, niezbędny do tworzenia komponentów w React.
+* `View` - komponent React Native używany do tworzenia kontenerów dla innych elementów interfejsu użytkownika.
+* `JumpingBubbles` - niestandardowy komponent, który wyświetla animację bąbelków skaczących, używany jako wizualna reprezentacja ładowania.
+
+== Struktura komponentu
+
+Komponent `SkeletonMessage` renderuje strukturalnie prostą wizualizację złożoną z dwóch elementów:
+
+* **Główny kontener (`View`)**: 
+  - Używa klasy `justify-start` i `flex-row` do ustawienia elementów w poziomie.
+  - Jest to element, który zawiera wewnętrzny kontener z animacją.
+
+* **Kontener z animacją (`View`)**:
+  - Zastosowano klasy CSS takie jak `bg-secondary`, `max-w-[80%]`, `rounded-2xl`, oraz `shadow-sm` w celu nadania wyglądu (kolor tła, maksymalna szerokość, zaokrąglone rogi oraz cień).
+  - Zawiera komponent `JumpingBubbles`, który renderuje animację skaczących bąbelków.
+
+== Funkcje
+
+=== Renderowanie
+
+Komponent `SkeletonMessage` renderuje widok zbudowany z dwóch głównych elementów:
+
+1. **Zewnętrzny kontener**:
+   - Ustawia układ w poziomie z klasą `flex-row` i `justify-start`, co oznacza, że zawartość będzie wyrównana do lewej strony ekranu.
+   
+2. **Wewnętrzny kontener**:
+   - Zawiera animację `JumpingBubbles`, która jest wyświetlana podczas ładowania zawartości. 
+   - Używa stylów `bg-secondary`, `max-w-[80%]`, `rounded-2xl` oraz `shadow-sm` do uzyskania wyglądu przyjaznego dla użytkownika.
+
+=== JumpingBubbles
+
+`JumpingBubbles` jest komponentem, który renderuje animację bąbelków skaczących. Jest to niestandardowa animacja, która ma na celu wprowadzenie efektu wizualnego sugerującego ładowanie lub oczekiwanie. 
+
+== Uwagi
+
+* Komponent `SkeletonMessage` jest wykorzystywany w aplikacjach, które wymagają efektów ładowania, aby poprawić doświadczenie użytkownika, gdy dane są wczytywane.
+* Stylowanie z użyciem klas CSS (np. `max-w-[80%]`, `rounded-2xl`) wymaga odpowiedniego wsparcia w konfiguracji projektu (np. Tailwind CSS).
+* Komponent nie zawiera logiki do przetwarzania danych, koncentruje się jedynie na wyświetlaniu animacji.
+
+== Przykład użycia
+
+```javascript
+import SkeletonMessage from './SkeletonMessage';
+
+export default function App() {
+    return (
+        <SkeletonMessage />
+    );
+}
+
+Dokumentacja ta szczegółowo opisuje importy, funkcje i strukturę komponentu `SkeletonMessage` oraz sposób jego użycia w aplikacji React Native.

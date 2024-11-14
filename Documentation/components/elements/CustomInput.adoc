@@ -1,0 +1,128 @@
+= Dokumentacja komponentu CustomInput
+
+Komponent `CustomInput` jest niestandardowym polem wejściowym, które może obsługiwać różne typy danych, takie jak tekst, hasło czy e-mail. Jest używany w aplikacji mobilnej zbudowanej w React Native i pozwala na łatwe zbieranie danych od użytkownika w formularzach.
+
+== Importowane moduły i komponenty
+
+* `StyleSheet`, `View`, `TextInput` - komponenty z biblioteki React Native, używane do stylowania i tworzenia elementów UI.
+* `React` - biblioteka do tworzenia komponentów w React Native.
+
+== Typy i interfejsy
+
+=== InputType
+
+Typ `InputType` definiuje możliwe wartości dla atrybutu `type` komponentu `CustomInput`. Może przyjmować jedną z trzech wartości:
+
+* `text` - standardowe pole tekstowe.
+* `password` - pole hasła, które maskuje wprowadzane znaki.
+* `email` - pole e-mail, które automatycznie ustawia odpowiednią klawiaturę.
+
+```typescript
+type InputType = "text" | "password" | "email";
+```
+
+=== CustomInputOptions
+
+Interfejs `CustomInputOptions` definiuje wszystkie dostępne opcje konfiguracyjne dla komponentu `CustomInput`. Zawiera następujące właściwości:
+
+* `type?` - typ pola wejściowego (`text`, `password`, `email`), domyślnie ustawione na `text`.
+* `placeholder?` - tekst pomocniczy wyświetlany w polu wejściowym, gdy pole jest puste.
+* `val?` - wartość domyślna (kontrolowana) dla pola wejściowego.
+* `onChange?` - funkcja, która jest wywoływana po zmianie tekstu w polu.
+
+```typescript
+type CustomInputOptions = {
+    type?: InputType,
+    placeholder?: string,
+    val?: string,
+    onChange?: (text: string) => void
+};
+```
+
+== Funkcje
+
+### CustomInput
+
+Komponent `CustomInput` renderuje pole wejściowe w oparciu o przekazane właściwości. Obsługuje różne typy wejścia, takie jak tekst, hasło i e-mail. Przyjmuje następujące argumenty:
+
+* `type` - określa typ pola (np. tekst, hasło, e-mail).
+* `placeholder` - tekst pomocniczy wyświetlany w polu wejściowym.
+* `val` - aktualna wartość pola wejściowego.
+* `onChange` - funkcja, która jest wywoływana przy każdej zmianie tekstu w polu.
+
+Domyślnie, jeśli `type` nie zostanie przekazane, pole zostanie ustawione jako tekstowe (`text`).
+
+```javascript
+export function CustomInput({type, placeholder, val, onChange, ...rest}: Readonly<CustomInputOptions>) {
+    if (type === undefined) type = "text";
+    return (
+        <View style={styles.container} {...rest}>
+            <TextInput
+                className={"border-gray-300 border-solid border-2 rounded-lg p-2 w-full bg-secondary"}
+                secureTextEntry={type === "password"}
+                keyboardType={type === "email" ? "email-address" : "default"}
+                placeholder={placeholder === undefined ? type.charAt(0).toUpperCase() + type.slice(1) : placeholder}
+                placeholderTextColor="#63784f"
+                autoCapitalize="none"
+                value={val}
+                onChangeText={onChange}
+            />
+        </View>
+    );
+}
+```
+
+Opis działania:
+
+1. **`secureTextEntry`** - Ustawia, czy pole jest polem hasła. Jest to aktywowane, jeśli `type` jest ustawione na `"password"`.
+2. **`keyboardType`** - Określa typ klawiatury. Jeśli `type` to `"email"`, ustawia klawiaturę na `email-address`, w przeciwnym razie używa domyślnej.
+3. **`placeholder`** - Jeśli nie jest przekazany, domyślnie ustawia placeholder na nazwę typu (np. "Email" dla typu "email").
+4. **`onChangeText`** - Wywołuje funkcję przekazaną przez rodzica, która aktualizuje stan w aplikacji.
+
+== Stylowanie
+
+Komponent korzysta ze stylów zdefiniowanych w obiekcie `styles`, gdzie `container` dodaje marginesy do pola wejściowego:
+
+```javascript
+const styles = StyleSheet.create({
+    container: {
+        marginVertical: 6
+    }
+});
+```
+
+Styl `container` jest przypisany do `View` otaczającego pole tekstowe, aby zapewnić odpowiednie rozmieszczenie elementów UI.
+
+== Uwagi
+
+* Wartość `placeholder` domyślnie jest ustawiana na pierwszą literę typu pola (np. "Text" dla `text`, "Password" dla `password`).
+* Jeśli komponent nie otrzyma wartości dla `type`, domyślnie ustawi pole na tekstowe (`type = "text"`).
+* `CustomInput` może być używany w różnych formularzach, gdzie wymagane są różne typy wejściowe, jak e-mail czy hasło.
+
+== Przykład użycia
+
+```javascript
+import { CustomInput } from './CustomInput';
+
+export default function App() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <View>
+            <CustomInput
+                type="email"
+                placeholder="Wprowadź e-mail"
+                val={email}
+                onChange={setEmail}
+            />
+            <CustomInput
+                type="password"
+                placeholder="Wprowadź hasło"
+                val={password}
+                onChange={setPassword}
+            />
+        </View>
+    );
+}
+```

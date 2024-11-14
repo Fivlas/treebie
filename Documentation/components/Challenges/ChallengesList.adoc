@@ -1,0 +1,110 @@
+= Dokumentacja komponentu `ChallengesList`
+
+Komponent `ChallengesList` renderuje listę dostępnych wyzwań w aplikacji mobilnej zbudowanej w React Native, wykorzystując dane użytkownika z Firebase Firestore. Komponent pobiera wyzwania, filtruje je na podstawie ukończonych przez użytkownika zadań oraz wyświetla listę wyzwań pasujących do kryteriów wyszukiwania.
+
+== Importowane moduły i komponenty
+
+* `ScrollView` - komponent React Native do renderowania zawartości przewijanej.
+* `FIREBASE_DB` - konfiguracja Firebase Firestore zdefiniowana w pliku `firebaseConfig`.
+* `useUser` - niestandardowy hook pobierający dane zalogowanego użytkownika.
+* `useEffect`, `useState` - hooki React do zarządzania stanem i efektami ubocznymi w komponencie.
+* `collection`, `doc`, `getDoc`, `getDocs`, `query` - funkcje Firebase Firestore do zarządzania i pobierania dokumentów oraz kolekcji.
+* `Challenge` - komponent renderujący pojedyncze wyzwanie.
+
+== Typy i właściwości komponentu
+
+* `ChallengeType` - Typ opisujący strukturę obiektu wyzwania, zawierający takie właściwości jak `id`, `title`, `description`, `difficultyLevel`, `pointsToGain`, `challengeGroup`, `color`, `asActive`.
+* `ChallengeProps` - Typ definiujący właściwość `queryToFilter` używaną do filtrowania wyzwań.
+
+== Stan komponentu
+
+* `challenges` - stan przechowujący listę pobranych wyzwań, które użytkownik może podjąć.
+* `questsDone` - tablica identyfikatorów ukończonych wyzwań przez użytkownika.
+* `user`, `loading` - dane zwracane przez `useUser`, które określają zalogowanego użytkownika i stan ładowania.
+
+== Funkcje
+
+=== `fetchUserQuestsDone`
+
+```javascript
+const fetchUserQuestsDone = async (userId: string) => {
+    // Implementacja...
+};
+```
+
+Asynchroniczna funkcja, która pobiera z Firestore ukończone wyzwania użytkownika. Funkcja wykonuje następujące kroki:
+- Odnosi się do dokumentu użytkownika na podstawie `userId`.
+- Sprawdza, czy istnieje tablica `questsDone` z ukończonymi wyzwaniami.
+- Ustawia wynik w stanie `questsDone`.
+
+=== `fetchChallenges`
+
+```javascript
+const fetchChallenges = async () => {
+    // Implementacja...
+};
+```
+
+Asynchroniczna funkcja do pobierania wyzwań z kolekcji `quests` w Firestore. Funkcja:
+- Pobiera dokumenty z kolekcji `quests` i mapuje je na obiekty typu `ChallengeType`.
+- Filtruje wyzwania, aby wyświetlić tylko te, których identyfikatory nie są obecne w `questsDone`.
+- Aktualizuje stan `challenges`, aby zawierał listę dostępnych wyzwań.
+
+=== `getColor`
+
+```javascript
+const getColor = (level: number | undefined) => {
+    switch (level) {
+        case 1:
+            return { text: "text-primary", bg: "bg-primary" };
+        case 2:
+            return { text: "text-orange", bg: "bg-orange" };
+        case 3:
+            return { text: "text-red", bg: "bg-red" };
+        default:
+            return { text: "text-gray", bg: "bg-gray" };
+    }
+};
+```
+
+`getColor` to funkcja pomocnicza, która zwraca odpowiednie klasy kolorów `text` i `bg` na podstawie poziomu trudności wyzwania (`difficultyLevel`). Dostępne poziomy trudności to:
+- `1` - kolor `primary`,
+- `2` - kolor `orange`,
+- `3` - kolor `red`.
+Wartość domyślna to `gray`.
+
+== Efekty
+
+* `useEffect` - efekt wywoływany przy każdej zmianie wartości `user`, `loading` lub `questsDone`. Po zakończeniu ładowania i zalogowaniu użytkownika wywoływane są funkcje `fetchUserQuestsDone` oraz `fetchChallenges` w celu pobrania danych wyzwań.
+
+== Struktura renderowania
+
+Komponent renderuje listę wyzwań przy użyciu `ScrollView`. 
+
+1. **Filtracja wyzwań**:
+   - Gdy wartość `queryToFilter` jest niepusta, lista wyzwań jest filtrowana, aby dopasować wyzwania zawierające w tytule szukaną frazę.
+   - Jeśli `queryToFilter` jest pusta, wyświetlana jest pełna lista wyzwań.
+
+2. **Lista wyzwań**:
+   - Dla każdego wyzwania, komponent `Challenge` renderuje jego szczegóły, a poziom trudności (`difficultyLevel`) definiuje kolory tła i tekstu wyświetlanych elementów.
+   - Każde wyzwanie jest renderowane z unikalnym kluczem `key` opartym na `challenge.id`.
+
+== Uwagi
+
+* Obsługa błędów w funkcjach `fetchUserQuestsDone` i `fetchChallenges` zapisuje błędy do konsoli, co ułatwia debugowanie.
+* Komponent `ChallengesList` obsługuje dynamiczne filtrowanie na podstawie `queryToFilter`, co zwiększa wygodę użytkowania.
+* Zastosowanie funkcji `getColor` umożliwia elastyczne zarządzanie kolorami w zależności od poziomu trudności wyzwań.
+
+== Przykład użycia
+
+```javascript
+import ChallengesList from './ChallengesList';
+
+export default function App() {
+    return (
+        <ChallengesList queryToFilter="eko" />
+    );
+}
+```
+
+Przykład ten renderuje `ChallengesList` z `queryToFilter` ustawionym na `"eko"`, co filtruje listę wyzwań, aby pokazać tylko te, których tytuły zawierają słowo „eko”.

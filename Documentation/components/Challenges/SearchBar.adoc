@@ -1,0 +1,60 @@
+= Dokumentacja komponentu `SearchBar`
+
+Komponent `SearchBar` to pasek wyszukiwania używany do filtrowania danych na podstawie zapytania użytkownika. Komponent ten jest zaprojektowany do aplikacji mobilnych opartych na React Native, z dynamicznym dostosowaniem kolorystyki interfejsu do wybranego motywu urządzenia (jasny/ciemny tryb).
+
+== Importowane moduły i komponenty
+
+* `TextInput`, `TextInputChangeEventData`, `NativeSyntheticEvent` - komponenty z `react-native` używane do implementacji pola tekstowego oraz zarządzania zdarzeniami związanymi z wprowadzaniem tekstu.
+* `useState` - hook React do zarządzania stanem lokalnym komponentu.
+* `CustomButton` - niestandardowy przycisk, który może być używany dodatkowo w tym komponencie (aktualnie nieużywany w kodzie).
+* `View` - kontener z `react-native`, używany do organizacji elementów interfejsu.
+* `Ionicons` - zestaw ikon z `@expo/vector-icons` używany do dodania ikony wyszukiwania (lupa).
+* `useColorScheme` - hook z `react-native`, który zwraca aktualny motyw interfejsu (`light` lub `dark`) dla dynamicznego dostosowania kolorów.
+
+== Właściwości komponentu
+
+* `query` - stan lokalny komponentu, przechowujący aktualne zapytanie wpisane przez użytkownika.
+* `colorScheme` - zmienna określająca bieżący tryb kolorystyczny (jasny lub ciemny) urządzenia, używana do dynamicznej zmiany stylów.
+
+== Props
+
+* `getData` - funkcja przekazana jako właściwość `SearchBarProps`, służy do obsługi zapytania wpisanego przez użytkownika i przefiltrowania danych na podstawie wartości wpisanej w polu tekstowym.
+
+== Funkcje
+
+=== handleInputChange
+
+Funkcja obsługująca zmianę wartości w polu tekstowym.
+- Argument: `event` - zdarzenie typu `NativeSyntheticEvent<TextInputChangeEventData>`.
+- Działanie: funkcja aktualizuje `query` na podstawie wpisanego przez użytkownika tekstu, a następnie wywołuje `getData` z aktualnym stanem `query` w celu przekazania zapytania do głównego komponentu.
+
+== Struktura renderowania
+
+Komponent renderuje `View`, który otacza:
+  * `TextInput` - pole tekstowe, które odbiera zapytanie od użytkownika, a także stylizowane jest dynamicznie w zależności od motywu kolorystycznego.
+  * `Ionicons` - ikona lupy wyświetlana po prawej stronie pola tekstowego, również dostosowana kolorystycznie do bieżącego motywu.
+
+Stylizacja jest dynamiczna w oparciu o `colorScheme`, dzięki czemu komponent automatycznie zmienia kolory tła i tekstu dla lepszej widoczności w zależności od wybranego motywu.
+
+== Przykład użycia
+
+```javascript
+import SearchBar from './SearchBar';
+
+const App = () => {
+  const handleSearch = (query) => {
+    // Logika filtrowania lub pobierania danych na podstawie zapytania
+  };
+
+  return (
+    <SearchBar getData={handleSearch} />
+  );
+};
+
+export default App;
+```
+
+== Uwagi
+
+* Komponent jest przygotowany do pracy w różnych trybach kolorystycznych, co zwiększa jego dostępność i czytelność.
+* `getData` może być dowolną funkcją obsługującą dane (np. filtrowanie listy lub wyszukiwanie w bazie danych), dzięki czemu `SearchBar` może być używany w wielu miejscach aplikacji.
