@@ -1,0 +1,71 @@
+= Dokumentacja Hooka useUser
+
+Hook `useUser` zarządza stanem użytkownika, przechowując informacje o nim w stanie lokalnym komponentu i korzystając z `AsyncStorage` do trwałego przechowywania tych danych. `useUser` sprawdza, czy użytkownik jest zapisany w `AsyncStorage`, a następnie wczytuje go, jeśli dane są dostępne. 
+
+== Typy i parametry
+
+* **User**: Obiekt typu `User`, który definiuje dane użytkownika:
+  - `uid`: unikalny identyfikator użytkownika (`string`).
+  - `email`: adres e-mail użytkownika (`string`).
+
+== Stan hooka
+
+* **user** (`User` lub `undefined`) - stan przechowujący dane użytkownika; początkowo nieokreślony, a następnie ustawiany po wczytaniu z `AsyncStorage`.
+* **loading** (`boolean`) - stan ładujący, wskazujący, czy dane użytkownika są wczytywane; ustawiany na `true` podczas wczytywania i na `false` po zakończeniu procesu.
+
+== Funkcje
+
+=== fetchUser
+
+Asynchroniczna funkcja, która pobiera dane użytkownika zapisane w `AsyncStorage`:
+  - Próbuje pobrać obiekt `user` zapisany w `AsyncStorage` pod kluczem `'user'`.
+  - Jeśli dane są dostępne, przekształca je z formatu JSON na obiekt JavaScript za pomocą `JSON.parse` i ustawia w stanie `user`.
+  - W przypadku błędów podczas pobierania wyświetla komunikat błędu w konsoli.
+  - Na końcu ustawia `loading` na `false`, aby wskazać zakończenie operacji.
+
+=== useEffect
+
+`useEffect` inicjalizuje hook po załadowaniu komponentu:
+  - Wywołuje `fetchUser` jednorazowo, aby pobrać dane użytkownika z `AsyncStorage` podczas początkowego renderowania komponentu.
+
+== Zwracane wartości
+
+Hook `useUser` zwraca:
+* **user** - obiekt typu `User`, jeśli dane są dostępne, lub `undefined` jeśli użytkownik nie jest zalogowany.
+* **loading** - stan ładujący (`true` podczas pobierania danych i `false` po zakończeniu).
+
+== Przykład użycia
+
+Poniższy przykład demonstruje, jak korzystać z hooka `useUser` w komponencie funkcjonalnym:
+
+```javascript
+import React from 'react';
+import { Text, View, ActivityIndicator } from 'react-native';
+import { useUser } from './path/to/useUser';
+
+const UserProfile = () => {
+    const { user, loading } = useUser();
+
+    if (loading) {
+        return <ActivityIndicator />;
+    }
+
+    return (
+        <View>
+            {user ? (
+                <>
+                    <Text>UID: {user.uid}</Text>
+                    <Text>Email: {user.email}</Text>
+                </>
+            ) : (
+                <Text>No user logged in</Text>
+            )}
+        </View>
+    );
+};
+```
+== Uwagi
+
+Hook useUser jest przydatny w aplikacjach, gdzie informacje o zalogowanym użytkowniku muszą być dostępne w różnych częściach aplikacji.
+AsyncStorage jest asynchronicznym magazynem klucz-wartość, pozwalającym na trwałe przechowywanie danych między sesjami aplikacji.
+W przyszłości można rozszerzyć hook o funkcje aktualizacji i usuwania danych użytkownika w AsyncStorage

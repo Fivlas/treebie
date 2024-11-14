@@ -1,0 +1,64 @@
+= Dokumentacja komponentu ThemedText
+
+Komponent `ThemedText` to komponent tekstowy dostosowujący się do motywu (jasny lub ciemny) w aplikacji mobilnej zbudowanej w React Native. Dzięki `ThemedText` możliwe jest stosowanie różnych stylów tekstowych i dynamiczne dopasowywanie kolorów w zależności od aktualnego motywu.
+
+== Importowane moduły i komponenty
+
+* `Text, TextProps, StyleSheet` - komponenty z React Native:
+  - `Text` - bazowy komponent tekstowy, pozwalający na wyświetlanie tekstu na ekranie.
+  - `TextProps` - typy propsów dostępne dla komponentu `Text`.
+  - `StyleSheet` - narzędzie do tworzenia i zarządzania stylami.
+  
+* `React` - podstawowa biblioteka React do budowania komponentów.
+
+* `useThemeColor` - hook, który zwraca odpowiedni kolor w zależności od bieżącego motywu:
+  - Posiada obiekt kolorów (`{ light: lightColor, dark: darkColor }`), które są przypisywane do tekstu na podstawie bieżącego motywu.
+
+== Typy danych
+
+* `ThemedTextProps` - typ, który rozszerza `TextProps` o dodatkowe właściwości:
+  - `lightColor` - opcjonalny kolor tekstu dla jasnego motywu.
+  - `darkColor` - opcjonalny kolor tekstu dla ciemnego motywu.
+  - `type` - opcjonalny typ stylu tekstu (`'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'`), który domyślnie przyjmuje wartość `'default'`.
+
+== Funkcje i właściwości komponentu
+
+=== ThemedText
+
+Funkcja `ThemedText` tworzy komponent tekstowy dostosowany do motywu aplikacji.
+
+* **color** - kolor uzyskany przy pomocy `useThemeColor`, który zależy od motywu:
+  - `useThemeColor` przyjmuje obiekt z `lightColor` i `darkColor`, wybierając odpowiedni kolor na podstawie bieżącego motywu.
+  
+Komponent `Text` renderuje przekazany `children` wraz z odpowiednim stylem, dostosowanym do wartości `type` oraz wybranego motywu.
+
+== Style
+
+* `defaultSemiBold` - styl półpogrubionego tekstu o wielkości 16 i wysokości linii 24.
+* `title` - styl tekstu nagłówkowego o wielkości 32, pogrubieniu i wysokości linii 32.
+* `subtitle` - styl tekstu podtytułowego o wielkości 20 i pogrubieniu.
+* `link` - styl dla linków o kolorze `#0a7ea4`, wielkości 16 i wysokości linii 30.
+
+== Struktura renderowania
+
+Komponent `ThemedText` dostosowuje kolor i styl do motywu oraz typu tekstu:
+* Zawiera `color` dla motywu i styl na podstawie `type`.
+* `type` kontroluje styl tekstu poprzez przypisanie odpowiedniego stylu (`defaultSemiBold`, `title`, `subtitle`, lub `link`) do tekstu.
+
+== Uwagi
+
+* `ThemedText` może być używany wewnątrz komponentów korzystających z `ThemeProvider` w celu dostosowania do motywu aplikacji.
+* `useThemeColor` zapewnia dynamiczne dopasowanie kolorów do bieżącego motywu.
+
+== Przykład użycia
+
+```javascript
+import { ThemedText } from './ThemedText';
+
+export default function HomeScreen() {
+    return (
+        <ThemedText type="title" lightColor="#000" darkColor="#fff">
+            Witaj w aplikacji
+        </ThemedText>
+    );
+}

@@ -1,0 +1,74 @@
+= Dokumentacja interfejsów TipData, ChallengeData, TipFields oraz MessageType
+
+Interfejsy `TipData`, `ChallengeData`, `TipFields` oraz `MessageType` określają strukturę danych wykorzystywaną w aplikacji do przechowywania informacji o wskazówkach (tipach), wyzwaniach oraz komunikatach. Każdy interfejs definiuje zbiór właściwości, które obiekt tego typu powinien posiadać, zapewniając spójność i typowanie danych.
+
+== Interfejs TipData
+
+`TipData` reprezentuje informacje dotyczące wskazówki.
+
+* **imageName** (`string`) - Nazwa obrazu powiązanego z daną wskazówką.
+* **title** (`string`) - Tytuł wskazówki.
+* **popularity** (`number`) - Poziom popularności wskazówki, reprezentowany jako liczba.
+* **description** (`string`) - Opis treści wskazówki.
+* **list?** (`string[]`) - Opcjonalna lista dodatkowych elementów opisujących wskazówkę (np. szczegółowe kroki).
+
+== Interfejs ChallengeData
+
+`ChallengeData` przechowuje dane związane z wyzwaniem ekologicznym.
+
+* **id** (`string`) - Unikalny identyfikator wyzwania.
+* **title** (`string`) - Tytuł wyzwania.
+* **description** (`string`) - Szczegółowy opis wyzwania.
+* **difficultyLevel** (`number`) - Poziom trudności wyzwania, wyrażony jako liczba.
+* **pointsToGain** (`number`) - Liczba punktów przyznawanych za ukończenie wyzwania.
+* **challengeGroup** (`string`) - Grupa tematyczna, do której przypisane jest wyzwanie.
+* **difficultyName** (`string`) - Opisowy poziom trudności wyzwania (np. "Łatwy", "Średni", "Trudny").
+
+== Interfejs TipFields
+
+`TipFields` rozszerza `TipData`, dodając pole **id**, które jest unikalnym identyfikatorem wskazówki.
+
+* **id** (`string`) - Unikalny identyfikator wskazówki, wykorzystywany do jej identyfikacji w aplikacji.
+* Wszystkie pozostałe właściwości pochodzą bezpośrednio z `TipData`.
+
+== Interfejs MessageType
+
+`MessageType` przechowuje dane o wiadomościach, które mogą być generowane przez system AI lub użytkownika.
+
+* **message** (`string`) - Treść wiadomości.
+* **isAi** (`boolean`) - Flaga określająca, czy wiadomość pochodzi od AI (`true`) czy od użytkownika (`false`).
+
+== Przykład użycia
+
+```typescript
+// Obiekt typu TipFields
+const tipExample: TipFields = {
+    id: "tip123",
+    imageName: "eco_tip.png",
+    title: "Save Water",
+    popularity: 5,
+    description: "Practical tips for saving water",
+    list: ["Turn off the tap", "Fix leaks", "Use water-saving devices"]
+};
+
+// Obiekt typu ChallengeData
+const challengeExample: ChallengeData = {
+    id: "challenge001",
+    title: "Recycle Daily",
+    description: "Commit to recycling your waste every day",
+    difficultyLevel: 2,
+    pointsToGain: 50,
+    challengeGroup: "Recycling",
+    difficultyName: "Medium"
+};
+
+// Obiekt typu MessageType
+const messageExample: MessageType = {
+    message: "Hello! How can I assist you?",
+    isAi: true
+};
+```
+== Uwagi
+
+TipFields oraz ChallengeData posiadają id, umożliwiając łatwą identyfikację i manipulację danymi.
+MessageType jest używany do przechowywania i klasyfikowania komunikatów między AI a użytkownikiem, wspierając funkcjonalność konwersacyjną aplikacji.

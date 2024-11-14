@@ -1,0 +1,68 @@
+= Dokumentacja komponentu ThemeProvider
+
+Komponent `ThemeProvider` dostarcza kontekst do zarządzania i przełączania motywów kolorystycznych (`light` lub `dark`) w aplikacji mobilnej zbudowanej w React. Umożliwia globalne przechowywanie i aktualizowanie motywu dla całej aplikacji.
+
+== Importowane moduły i komponenty
+
+* `createContext, ReactNode, useContext, useState` - moduły z biblioteki React:
+  - `createContext` - tworzy kontekst, pozwalający na dostęp do wartości bez konieczności przekazywania ich przez drzewo komponentów.
+  - `ReactNode` - typ, który reprezentuje dowolny węzeł Reacta (pojedynczy element, tekst, fragmenty, itp.), przekazywany do `children`.
+  - `useContext` - hook używany do pobierania wartości z kontekstu.
+  - `useState` - hook do zarządzania stanem lokalnym komponentu.
+
+== Typy danych
+
+* `IThemeContext` - interfejs definiujący kształt obiektu, który jest przechowywany w `ThemeContext`:
+  - `theme` - opcjonalna właściwość typu `"light" | "dark"`, reprezentująca obecnie wybrany motyw.
+  - `toggleTheme` - opcjonalna funkcja zmieniająca motyw.
+  
+* `ThemeProviderOptions` - typ zawierający jedną właściwość:
+  - `children: ReactNode` - przekazuje dzieci do komponentu `ThemeProvider`.
+
+== Funkcje i właściwości komponentu
+
+=== ThemeProvider
+
+Komponent `ThemeProvider` pełni rolę dostawcy kontekstu motywu w aplikacji.
+
+* **Stan lokalny `theme`** - przechowuje bieżący motyw aplikacji i początkowo ustawiony jest na `"light"`.
+* **toggleTheme** - funkcja, która zmienia motyw na przeciwny:
+  - Jeśli aktualny motyw to `"dark"`, zmienia go na `"light"`, i odwrotnie.
+  
+Komponent `ThemeProvider` zwraca `ThemeContext.Provider`, który dostarcza wartości `{ theme, toggleTheme }` dla komponentów potomnych.
+
+=== useTheme
+
+`useTheme` to hook pozwalający uzyskać dostęp do wartości `theme` i `toggleTheme` z dowolnego komponentu potomnego.
+
+== Struktura renderowania
+
+Komponent `ThemeProvider` zawija swoje `children` wewnątrz `ThemeContext.Provider`, co umożliwia komponentom potomnym dostęp do kontekstu motywu.
+
+== Uwagi
+
+* `ThemeProvider` powinien być osadzony w głównym komponencie aplikacji, aby motyw był dostępny globalnie.
+* `useTheme` może być użyty tylko w komponentach potomnych `ThemeProvider` — wywołanie poza kontekstem zwróci `undefined`.
+
+== Przykład użycia
+
+```javascript
+import { ThemeProvider, useTheme } from './ThemeProvider';
+
+function ThemeSwitcher() {
+    const { theme, toggleTheme } = useTheme();
+
+    return (
+        <Button onPress={toggleTheme}>
+            Przełącz na {theme === "dark" ? "jasny" : "ciemny"} motyw
+        </Button>
+    );
+}
+
+export default function App() {
+    return (
+        <ThemeProvider>
+            <ThemeSwitcher />
+        </ThemeProvider>
+    );
+}

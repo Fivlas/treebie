@@ -1,0 +1,104 @@
+= Dokumentacja komponentu `DismissKeyboard`
+
+Komponent `DismissKeyboard` jest prostym narzędziem, które umożliwia zamknięcie klawiatury ekranowej w aplikacji mobilnej na urządzeniach z systemem Android oraz iOS. Dzięki niemu użytkownik może kliknąć w dowolne miejsce na ekranie (poza polem tekstowym), aby zamknąć klawiaturę. Jest to szczególnie przydatne w formularzach lub innych interaktywnych widokach, gdzie klawiatura może zasłaniać istotne elementy UI.
+
+== Importowane moduły i komponenty
+
+* **`Keyboard`** - Komponent z biblioteki `react-native`, który udostępnia funkcje do zarządzania klawiaturą w aplikacji, w tym zamykanie klawiatury (`Keyboard.dismiss()`).
+* **`View`** - Komponent z `react-native`, który jest używany do grupowania innych komponentów i tworzenia układów.
+* **`TouchableWithoutFeedback`** - Komponent z `react-native`, który wykrywa kliknięcia i nie wywołuje efektów dotykowych (np. zmiana koloru przycisku), co jest idealne w przypadku zamykania klawiatury po dotknięciu ekranu.
+* **`ReactNode`** - Typ z biblioteki React, który pozwala na przekazywanie dowolnych dzieci do komponentu.
+
+```typescript
+import { Keyboard, View, TouchableWithoutFeedback } from 'react-native';
+import { ReactNode } from 'react';
+```
+== Typy i interfejsy
+
+DismissKeyboardProps
+Komponent DismissKeyboard przyjmuje właściwość children, która określa elementy, które mają być renderowane wewnątrz komponentu. Dzieci są dowolnymi komponentami React, które będą wyświetlane w obszarze, na który użytkownik może kliknąć, aby zamknąć klawiaturę.
+```typescript
+interface DismissKeyboardProps {
+  children: ReactNode;
+}
+```
+== Funkcje
+
+DismissKeyboard
+Komponent DismissKeyboard działa w następujący sposób:
+
+Zamykanie klawiatury:
+
+W momencie kliknięcia w obszar otoczony przez komponent DismissKeyboard, wywoływana jest funkcja Keyboard.dismiss(), która zamyka klawiaturę, jeśli jest otwarta.
+Wizualizacja:
+
+Komponent renderuje dzieci (elementy przekazane jako children) wewnątrz komponentu View, a całość jest opakowana w komponent TouchableWithoutFeedback, który reaguje na kliknięcia użytkownika.
+Zachowanie:
+
+Kliknięcie w obszar otaczający dzieci komponentu DismissKeyboard powoduje, że klawiatura zostaje zamknięta, a użytkownik może kontynuować interakcję z aplikacją bez zakłóceń.
+```tsx
+function DismissKeyboard({ children }: DismissKeyboardProps) {
+  return (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View>
+        {children}
+      </View>
+    </TouchableWithoutFeedback>
+  );
+}
+```
+== Przykład użycia
+```tsx
+import { DismissKeyboard } from './DismissKeyboard';
+import { TextInput, Button } from 'react-native';
+
+export default function MyForm() {
+  return (
+    <DismissKeyboard>
+      <View>
+        <TextInput placeholder="Wprowadź tekst" />
+        <Button title="Zatwierdź" onPress={() => console.log('Formularz zatwierdzony')} />
+      </View>
+    </DismissKeyboard>
+  );
+}
+```
+W powyższym przykładzie, kliknięcie w dowolne miejsce poza polami formularza (np. poza TextInput) zamknie klawiaturę ekranową, umożliwiając użytkownikowi wygodniejsze korzystanie z aplikacji.
+
+== Stylowanie
+
+Komponent DismissKeyboard nie wymaga dodatkowych stylów, ponieważ jego zadaniem jest wyłącznie obsługa kliknięć w celu zamknięcia klawiatury. Natomiast dzieci, które są przekazywane do komponentu, mogą posiadać własne style.
+```typescript
+const styles = StyleSheet.create({
+  // Można tutaj dodać style, jeśli komponent będzie miał swoje dzieci
+});
+```
+== Uwagi
+
+Zamknięcie klawiatury: Funkcja Keyboard.dismiss() działa w ten sposób, że klawiatura jest zamykana, gdy użytkownik kliknie w obszar na ekranie, który nie jest polem wejściowym.
+Zastosowanie: Komponent jest szczególnie przydatny w formularzach lub innych ekranach, gdzie klawiatura często zasłania ważne elementy UI.
+Wydajność: TouchableWithoutFeedback reaguje tylko na kliknięcia użytkownika, nie wprowadzając efektów dotykowych, co jest bardziej naturalne przy chowaniu klawiatury.
+== Przykład zastosowania w formularzu
+```tsx
+import { DismissKeyboard } from './DismissKeyboard';
+import { TextInput, Button } from 'react-native';
+
+export default function FormScreen() {
+  return (
+    <DismissKeyboard>
+      <View style={{ padding: 20 }}>
+        <TextInput
+          placeholder="Wprowadź imię"
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 20 }}
+        />
+        <Button title="Wyślij" onPress={() => console.log('Formularz wysłany')} />
+      </View>
+    </DismissKeyboard>
+  );
+}
+```
+W tym przykładzie, komponent DismissKeyboard opakowuje formularz, umożliwiając użytkownikowi zamknięcie klawiatury poprzez kliknięcie w dowolne miejsce na ekranie, co poprawia wygodę obsługi aplikacji.
+
+== Podsumowanie
+
+Komponent DismissKeyboard jest prostym, ale bardzo przydatnym narzędziem w aplikacjach mobilnych. Umożliwia on zamknięcie klawiatury ekranowej po kliknięciu poza polem tekstowym, co poprawia interakcję z aplikacją, szczególnie w formularzach. Dzięki zastosowaniu komponentów TouchableWithoutFeedback i Keyboard.dismiss(), komponent jest łatwy do zaimplementowania i nie wprowadza zbędnych efektów wizualnych.

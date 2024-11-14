@@ -1,0 +1,53 @@
+= Dokumentacja komponentu ThemedView
+
+Komponent `ThemedView` to komponent widoku, który automatycznie dostosowuje kolor tła do aktywnego motywu (jasnego lub ciemnego). Został zbudowany w oparciu o React Native i pozwala na łatwą implementację dynamicznie zmieniających się kolorów w zależności od preferencji użytkownika lub ustawień aplikacji.
+
+== Importowane moduły i komponenty
+
+* `View, ViewProps` - komponenty z React Native:
+  - `View` - bazowy komponent widoku, pozwalający na organizację i stylizację kontenerów w aplikacji.
+  - `ViewProps` - typy propsów dostępne dla komponentu `View`, które mogą być rozszerzane o dodatkowe właściwości.
+
+* `React` - biblioteka do budowania komponentów w React.
+
+* `useThemeColor` - hook, który umożliwia dynamiczne przypisanie koloru tła zależnie od motywu aplikacji. `useThemeColor` pobiera obiekt `{ light: lightColor, dark: darkColor }` i zwraca odpowiedni kolor na podstawie bieżącego motywu aplikacji.
+
+== Typy danych
+
+* `ThemedViewProps` - typ, który rozszerza `ViewProps` o dodatkowe właściwości:
+  - `lightColor` - opcjonalny kolor tła dla jasnego motywu.
+  - `darkColor` - opcjonalny kolor tła dla ciemnego motywu.
+
+== Funkcje i właściwości komponentu
+
+=== ThemedView
+
+Funkcja `ThemedView` tworzy komponent `View`, który automatycznie dostosowuje kolor tła do aktywnego motywu.
+
+* **backgroundColor** - uzyskany z `useThemeColor`, który zwraca odpowiedni kolor zależnie od ustawień motywu:
+  - `useThemeColor` przyjmuje obiekt `{ light: lightColor, dark: darkColor }` oraz nazwę klucza (`'background'`), który odwołuje się do kolorów tła.
+  
+Komponent `View` jest renderowany z przypisanym stylem, który zawiera kolor tła zgodny z motywem oraz dodatkowe style przekazane jako `style`.
+
+== Struktura renderowania
+
+* Komponent `ThemedView` renderuje kontener `View` z kolorem tła dobranym dynamicznie do bieżącego motywu aplikacji.
+* `backgroundColor` jest ustawiany zależnie od wartości `lightColor` i `darkColor`.
+
+== Uwagi
+
+* `ThemedView` należy stosować wewnątrz komponentów lub ekranów, które używają `ThemeProvider`, aby zapewnić spójne zarządzanie kolorami w całej aplikacji.
+* `useThemeColor` ułatwia obsługę zmian kolorów zależnych od motywu, co jest przydatne w przypadku aplikacji oferujących ciemny i jasny motyw.
+
+== Przykład użycia
+
+```javascript
+import { ThemedView } from './ThemedView';
+
+export default function HomeScreen() {
+    return (
+        <ThemedView lightColor="#ffffff" darkColor="#333333" style={{ padding: 20 }}>
+            {/* Zawartość wewnątrz ThemedView */}
+        </ThemedView>
+    );
+}

@@ -35,7 +35,7 @@ Komponent Collapsible działa w następujący sposób:
 
 Stan:
 
-isOpen - stan, który określa, czy sekcja jest otwarta (widoczna) czy zamknięta. Początkowo jest ustawiony na false (sekcja zamknięta).
+isOpen - stan, który określa, czy sekcja jest otwarta (widoczna) czy zamknięta. Początkowo jest ustawiony na false (sekcja zamknięta).  
 setIsOpen - funkcja do zmiany stanu isOpen przy każdym kliknięciu na nagłówek sekcji.
 Motywowanie:
 
@@ -99,7 +99,7 @@ Dostosowanie kolorów: Kolor ikony oraz tekstu jest zależny od aktualnego motyw
 Ikona strzałki: Ikona zmienia się w zależności od stanu rozwinięcia (strzałka w dół dla otwartej sekcji, strzałka w prawo dla zamkniętej).
 == Przykład użycia
 
-```tsx\
+```tsx
 import { Collapsible } from './Collapsible';
 
 export default function App() {

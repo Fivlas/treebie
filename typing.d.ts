@@ -19,9 +19,6 @@ interface ChallengeData {
 interface TipFields extends TipData {
     id: string;
 }
-interface ChallengeFields extends ChallengeData {
-    id: string;
-}
 
 
 interface MessageType {

@@ -1,0 +1,51 @@
+= Dokumentacja Colors
+
+Obiekt `Colors` definiuje kolorystykę aplikacji, która jest dostosowana do jasnego i ciemnego motywu. Każdy z kolorów ma przypisane odpowiedniki w obu trybach, co pozwala na uzyskanie spójnego wyglądu aplikacji niezależnie od wybranego motywu.
+
+== Stałe kolory
+
+* `tintColorLight` - podstawowy kolor dla jasnego motywu, o wartości `"#606c38"`.
+* `tintColorDark` - podstawowy kolor dla ciemnego motywu, o wartości `"#b7c892"`.
+
+== Obiekt Colors
+
+Obiekt `Colors` zawiera zagnieżdżone obiekty `light` i `dark`, które reprezentują kolory dla jasnego i ciemnego motywu.
+
+* **`light`** - zestaw kolorów dla jasnego motywu:
+  - **text**: `"#202f11"` - kolor tekstu.
+  - **background**: `"#ffffff"` - kolor głównego tła aplikacji.
+  - **secondaryBackground**: `"#f2f3ef"` - kolor alternatywnego tła.
+  - **tint**: `tintColorLight` - kolor wyróżnienia (używa `tintColorLight`).
+  - **icon**: `"#ae7e2d"` - kolor ikon.
+  - **primary**: `"#606c38"` - główny kolor aplikacji.
+  - **secondary**: `"#fefae0"` - kolor drugorzędny.
+  - **tabIconDefault**: `"#687076"` - domyślny kolor ikony na pasku zakładek.
+  - **tabIconSelected**: `tintColorLight` - kolor wybranej ikony na pasku zakładek.
+  - **red**: `"#a23b3b"` - czerwony, może być używany do ostrzeżeń.
+  - **orange**: `"#cc7a00"` - pomarańczowy, może być używany do elementów akcentujących.
+
+* **`dark`** - zestaw kolorów dla ciemnego motywu:
+  - **text**: `"#dfedcf"` - kolor tekstu.
+  - **background**: `"#0d0708"` - kolor głównego tła aplikacji.
+  - **secondaryBackground**: `"#3A3A3A"` - kolor alternatywnego tła.
+  - **tint**: `tintColorDark` - kolor wyróżnienia (używa `tintColorDark`).
+  - **icon**: `"#d2a351"` - kolor ikon.
+  - **primary**: `"#b7c892"` - główny kolor aplikacji.
+  - **secondary**: `"#1e1a01"` - kolor drugorzędny.
+  - **tabIconDefault**: `"#9BA1A6"` - domyślny kolor ikony na pasku zakładek.
+  - **tabIconSelected**: `tintColorDark` - kolor wybranej ikony na pasku zakładek.
+  - **red**: `"#a23b3b"` - czerwony, podobnie jak w trybie jasnym.
+  - **orange**: `"#cc7a00"` - pomarańczowy, identyczny jak w trybie jasnym.
+
+== Uwagi
+
+* Obiekt `Colors` można stosować w całej aplikacji do dynamicznego przypisywania kolorów zależnych od motywu.
+* Alternatywne biblioteki jak [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), lub [unistyles](https://reactnativeunistyles.vercel.app) mogą być używane jako alternatywne podejścia do stylizacji aplikacji.
+
+== Przykład użycia
+
+```javascript
+import { Colors } from './path/to/colors';
+
+// Przykład dynamicznego przypisania koloru tła zależnego od motywu
+const backgroundColor = isDarkMode ? Colors.dark.background : Colors.light.background;

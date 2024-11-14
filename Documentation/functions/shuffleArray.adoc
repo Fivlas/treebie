@@ -1,0 +1,31 @@
+= Dokumentacja Funkcji shuffleArray
+
+Funkcja `shuffleArray` służy do losowego przetasowania elementów tablicy `array`, zmieniając ich kolejność w miejscu. Implementacja wykorzystuje algorytm Fishera-Yatesa, który jest powszechnie używany do uzyskania uczciwego i losowego wyniku przetasowania.
+
+== Parametry
+
+* **array** (`TipFields[]`) - tablica obiektów typu `TipFields`, która zostanie przetasowana. Typ `TipFields` reprezentuje strukturę obiektów w tablicy, jednak nie jest określony w tej dokumentacji. Funkcja działa na oryginalnej tablicy i modyfikuje ją bezpośrednio.
+
+== Zwracana wartość
+
+* Funkcja zwraca tablicę `array` z elementami w losowej kolejności.
+
+== Logika działania
+
+1. **Pętla przetasowania** - Funkcja przechodzi od ostatniego elementu tablicy do pierwszego, za każdym razem losując indeks `j`, który znajduje się pomiędzy 0 a bieżącym indeksem `i`.
+2. **Zamiana elementów** - Element na pozycji `i` zamienia się miejscami z elementem na pozycji `j`, co skutkuje losowym rozłożeniem elementów w tablicy.
+
+== Przykład użycia
+
+```javascript
+import { shuffleArray } from './path/to/utility';
+
+const tips = [
+    { id: 1, content: "Tip 1" },
+    { id: 2, content: "Tip 2" },
+    { id: 3, content: "Tip 3" },
+    // inne obiekty typu TipFields
+];
+
+const shuffledTips = shuffleArray(tips);
+console.log(shuffledTips); // Tablica `tips` w losowej kolejności

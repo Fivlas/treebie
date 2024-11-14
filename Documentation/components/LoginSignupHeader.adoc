@@ -1,0 +1,52 @@
+= Dokumentacja komponentu LoginSignupHeader
+
+Komponent `LoginSignupHeader` jest częścią ekranu logowania i rejestracji w aplikacji mobilnej zbudowanej w React Native. Jego zadaniem jest wyświetlanie animowanego nagłówka oraz tekstu wprowadzającego do ekranu logowania/rejestracji, co ma na celu przyciągnięcie uwagi użytkownika i zapewnienie przyjaznego wprowadzenia do aplikacji.
+
+== Importowane moduły i komponenty
+
+* `StyleSheet, View` - komponenty z React Native. `View` jest podstawowym kontenerem, natomiast `StyleSheet` umożliwia tworzenie stylów.
+* `TitleHeader` - niestandardowy komponent renderujący główny tytuł ekranu logowania.
+* `SubtitleHeader` - niestandardowy komponent do wyświetlania podtytułu lub opisu poniżej głównego tytułu.
+* `AnimatedLeaf` - niestandardowy komponent animacji używany do wyświetlania animowanych liści jako elementów dekoracyjnych.
+* `DismissKeyboard` - niestandardowy komponent umożliwiający zamknięcie klawiatury po kliknięciu poza obszar wprowadzania tekstu.
+
+== Struktura komponentu
+
+Komponent `LoginSignupHeader` składa się z kilku głównych elementów:
+1. **DismissKeyboard** - otacza cały komponent i służy do zamykania klawiatury po kliknięciu poza pola tekstowe.
+2. **View (główny kontener)** - służy jako główny kontener dla pozostałych elementów.
+3. **Animowane liście (AnimatedLeaf)** - elementy dekoracyjne w postaci liści, rozmieszczone po lewej i prawej stronie nagłówka. Liście mają przypisane dynamiczne klasy CSS (`border-leafSecondary`, `border-primary`), które nadają im różne kolory obramowania.
+4. **TitleHeader** - wyświetla główny tytuł "Podejmij Eko-wyzwanie!".
+5. **SubtitleHeader** - wyświetla podtytuł "Wykonuj zadania, zbieraj punkty i wymieniaj na nagrody".
+
+== Funkcje
+
+Komponent `LoginSignupHeader` nie zawiera żadnych dodatkowych funkcji. Jego głównym zadaniem jest renderowanie tytułu, podtytułu oraz elementów animowanych jako wizualne urozmaicenie nagłówka ekranu logowania.
+
+== Style
+
+W pliku znajduje się obiekt `styles`, który definiuje stylizację dla kontenera `LoginSignupHeader`:
+
+* `container`:
+  - `marginVertical: 50` - Ustawia margines pionowy wokół całego nagłówka, co tworzy odstęp nad i pod nagłówkiem.
+  - `padding: 30` - Ustawia wcięcie wewnętrzne wokół nagłówka, zapewniając odpowiednie odległości od krawędzi.
+  - `gap: 10` - Ustawia odstęp pomiędzy wewnętrznymi elementami nagłówka.
+
+== Uwagi
+
+* Komponent jest zaprojektowany z myślą o wizualnej atrakcyjności i zawiera elementy animowane, co sprawia, że ekran logowania wygląda bardziej dynamicznie.
+* `DismissKeyboard` jest użyty, aby poprawić doświadczenie użytkownika, umożliwiając zamknięcie klawiatury po kliknięciu poza obszarem wejściowym.
+
+== Przykład użycia
+
+```javascript
+import LoginSignupHeader from './LoginSignupHeader';
+
+export default function LoginScreen() {
+    return (
+        <View>
+            <LoginSignupHeader />
+            {/* Pozostałe elementy ekranu logowania */}
+        </View>
+    );
+}

@@ -1,0 +1,57 @@
+= Dokumentacja komponentu SubtitleHeader
+
+Komponent `SubtitleHeader` to prosty, niestandardowy komponent używany do wyświetlania podtytułu lub opisu na ekranach aplikacji mobilnej zbudowanej w React Native. Jest częścią interfejsu użytkownika, pełniąc funkcję wyświetlania krótkich komunikatów lub objaśnień.
+
+== Importowane moduły i komponenty
+
+* `StyleSheet, View, Text` - komponenty z biblioteki React Native.
+  - `StyleSheet` służy do tworzenia lokalnych stylów.
+  - `View` stanowi kontener dla elementów wewnętrznych.
+  - `Text` jest komponentem używanym do wyświetlania tekstu na ekranie.
+
+== Typy danych
+
+* `SubtitleHeaderOptions` - typ definiujący właściwości przekazywane do komponentu `SubtitleHeader`. Składa się z:
+  - `children: string` - wymagana właściwość, która określa treść podtytułu.
+
+== Funkcje i właściwości komponentu
+
+=== SubtitleHeader
+
+Główny komponent `SubtitleHeader` przyjmuje następujące właściwości:
+  - `children` - przekazuje treść podtytułu jako ciąg znaków.
+  - `...rest` - umożliwia przekazanie dodatkowych właściwości.
+
+== Struktura renderowania
+
+1. **View (container)** - główny kontener komponentu `SubtitleHeader`.
+2. **Text** - zawiera tekst `children`, wyświetlany przy użyciu stylów określonych w `styles.headerText`.
+
+== Style
+
+* `container` - pusty styl domyślny, który może być modyfikowany w przyszłości w zależności od wymagań projektu.
+* `headerText` - styl przypisany do tekstu:
+  - `fontSize: 14` - ustawia rozmiar czcionki.
+  - `width: "100%"` - zapewnia, że element zajmie pełną szerokość kontenera.
+  - `overflow: "hidden"` - ukrywa tekst wychodzący poza obszar.
+  - `textAlign: "center"` - wyśrodkowuje tekst w obrębie kontenera.
+
+== Uwagi
+
+* Komponent `SubtitleHeader` jest konfigurowalny za pomocą `children`, co umożliwia jego wielokrotne użycie w różnych kontekstach z różną treścią.
+* Dodatkowe właściwości mogą być przekazane za pomocą `...rest`, co czyni komponent bardziej elastycznym.
+
+== Przykład użycia
+
+```javascript
+import { SubtitleHeader } from './SubtitleHeader';
+
+export default function ExampleScreen() {
+    return (
+        <View>
+            <SubtitleHeader>
+                Twoja przygoda z aplikacją zaczyna się tutaj!
+            </SubtitleHeader>
+        </View>
+    );
+}
