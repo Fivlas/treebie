@@ -5,7 +5,7 @@
 Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
 W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
 
-## Spis streści
+## Spis treści
 1. [Instalacja](#instalacja)
 2. [Struktura plików](#struktura-plikow)
 3. [Wykorzystane technologie](#wykorzystane-technologie)
