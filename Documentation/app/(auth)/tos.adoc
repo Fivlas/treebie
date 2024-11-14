@@ -1,0 +1,39 @@
+= Dokumentacja komponentu `TermsOfUse`
+
+Komponent `TermsOfUse` wyświetla warunki korzystania z aplikacji mobilnej. Umożliwia użytkownikowi powrót do ekranu logowania lub rejestracji, zależnie od przekazanych parametrów.
+
+== Importowane moduły i komponenty
+
+* `ThemedText` - komponent do wyświetlania tekstu w zgodzie z motywem aplikacji.
+* `useThemeColor` - hook dostosowujący kolor tła do motywu aplikacji.
+* `Ionicons` - ikony z biblioteki Expo.
+* `Href`, `router`, `useLocalSearchParams` - moduły `expo-router` do zarządzania nawigacją i przekazywanymi parametrami.
+* `SafeAreaView`, `TouchableOpacity`, `View`, `ScrollView` - komponenty React Native do tworzenia struktury i stylizacji interfejsu.
+
+== Funkcje i logika komponentu
+
+=== `useLocalSearchParams`
+
+- Pobiera parametry URL, np. `redirect`, aby ustawić odpowiedni ekran powrotny.
+- `redirect` wskazuje ścieżkę powrotną (np. `login` lub `signup`), która jest ustawiana na podstawie wartości parametru.
+
+=== `backgroundColor`
+
+- Kolor tła dostosowany do motywu aplikacji, ustawiony za pomocą `useThemeColor`.
+
+== Struktura renderowania
+
+* Cały ekran jest opakowany w `SafeAreaView` z klasą `flex-1`, co zapewnia responsywność.
+* Górna część zawiera przycisk `TouchableOpacity` z ikoną `Ionicons`, umożliwiający powrót do poprzedniego ekranu (logowania lub rejestracji).
+* Tekst warunków wyświetlany jest wewnątrz `ScrollView`, aby umożliwić przewijanie, co poprawia dostępność treści na urządzeniach mobilnych.
+
+== Przykład użycia
+
+```javascript
+import TermsOfUse from './TermsOfUse';
+
+export default function App() {
+    return (
+        <TermsOfUse />
+    );
+}
