@@ -1,0 +1,41 @@
+= Dokumentacja komponentu `Index`
+
+Komponent `Index` jest ekranem powitalnym aplikacji mobilnej, który wyświetla logo aplikacji i przycisk umożliwiający przejście do ekranu logowania. W przypadku wykrycia zalogowanego użytkownika następuje automatyczne przekierowanie do głównego ekranu aplikacji.
+
+== Importowane moduły i komponenty
+
+* `CustomButton` - niestandardowy komponent przycisku.
+* `useUser` - hook sprawdzający, czy użytkownik jest zalogowany.
+* `Href`, `Redirect`, `router` - moduły `expo-router` służące do nawigacji i przekierowania użytkownika.
+* `Image`, `ImageBackground`, `View`, `Text` - komponenty React Native, które umożliwiają wyświetlanie obrazów, tekstu oraz budowanie struktury interfejsu.
+
+== Logika komponentu
+
+* Komponent używa hooka `useUser` do pobrania informacji o stanie użytkownika:
+  * Jeśli użytkownik jest zalogowany (`user` istnieje), komponent automatycznie przekierowuje użytkownika na główny ekran aplikacji (`Redirect href={'/(tabs)/'}`).
+  * Jeśli użytkownik nie jest zalogowany, wyświetlana jest zawartość ekranu powitalnego, czyli logo aplikacji, nazwa i przycisk do logowania.
+
+== Struktura renderowania
+
+=== Ekran powitalny (`View`)
+
+* Główny `View` z klasą `flex-1` zapewnia responsywność, dopasowując się do całego ekranu.
+* `ImageBackground` ustawia tło, które jest obrazem `banner-image.png`, i nadaje mu kolor bazowy (#63784f) z pełnym wypełnieniem ekranu (`flex-1`).
+* Wewnątrz `ImageBackground` znajduje się widok:
+  * `Image` - zawiera logo aplikacji (`logo-icon-new.png`), wyśrodkowane na ekranie.
+  * `Text` - wyświetla nazwę aplikacji, `Treebie`, jako główny tytuł w stylu centralnym.
+
+=== Przycisk `CustomButton`
+
+* Przycisk o tytule `Dołącz`, wyrównany do dołu ekranu z klasą `bottom-8 w-[80%]`, który po kliknięciu używa `router.replace` do przejścia do ekranu logowania (`/(auth)/login`).
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}

@@ -1,0 +1,58 @@
+= Dokumentacja komponentu `Index`
+
+Komponent `Index` to ekran wyświetlający listę wskazówek ekologicznych (`tips`). Użytkownik może przeglądać wszystkie dostępne wskazówki lub filtrować je, aby wyświetlić tylko polubione (`liked`) wskazówki.
+
+== Importowane moduły i komponenty
+
+* `ScrollCard` - komponent reprezentujący pojedynczą kartę wskazówki, który może być przekierowany do szczegółowego widoku wskazówki.
+* `ThemedText`, `ThemedView` - komponenty umożliwiające dostosowanie kolorystyki tekstu i tła w zależności od aktywnego motywu.
+* `FIREBASE_DB`, `shuffleArray` - funkcje do konfiguracji Firebase oraz losowania kolejności elementów.
+* `useThemeColor`, `useUser` - niestandardowe hooki do zarządzania kolorami i informacjami o użytkowniku.
+* `Ionicons` - ikony z `expo/vector-icons` wykorzystywane do przycisków nawigacyjnych.
+* `collection`, `getDocs`, `orderBy`, `query`, `where` - funkcje Firebase Firestore do pobierania i filtrowania danych.
+
+== Zmienne stanu
+
+* `allTips` - stan przechowujący wszystkie pobrane wskazówki.
+* `displayedTips` - stan przechowujący wskazówki wyświetlane na ekranie (po przetasowaniu).
+* `likedTipsList` - stan przechowujący listę wskazówek polubionych przez użytkownika.
+* `user`, `loading` - informacje o bieżącym użytkowniku oraz status wczytywania danych użytkownika.
+
+== Funkcje i efekty
+
+=== `useEffect`
+
+Hook `useEffect` wykonuje asynchroniczne pobieranie danych:
+1. `fetchTips` - funkcja do pobierania wszystkich wskazówek (`tips`) z Firestore, które następnie są przypisywane do `allTips` i `displayedTips`.
+2. `fetchLikedTips` - funkcja do pobierania polubionych wskazówek użytkownika, które są filtrowane na podstawie identyfikatorów wskazówek z kolekcji `likedTips`.
+
+Hook `useEffect` uruchamia pobieranie danych tylko, gdy stan `loading` jest ustawiony na `false`, co oznacza, że informacje o użytkowniku zostały załadowane.
+
+=== `displayTips`
+
+Funkcja `displayTips` renderuje widok listy wskazówek na podstawie wybranego trybu (`allType`):
+1. `allType === "liked"` - wyświetlane są tylko polubione wskazówki z `likedTipsList`.
+2. W przeciwnym razie wyświetlane są losowo przetasowane wskazówki z `displayedTips`.
+
+Każda wskazówka jest przedstawiona jako komponent `ScrollCard` w układzie dwu-kolumnowym.
+
+== Interfejs użytkownika
+
+* **Nagłówek** - zawiera przycisk powrotu do poprzedniego ekranu oraz tytuł „Polubione” lub „Wszystkie” w zależności od wybranego trybu.
+* **Lista wskazówek** - wyświetlana jako `ScrollView`, w której każda wskazówka jest renderowana jako komponent `ScrollCard`.
+* **Loader** - wczytywanie jest wizualizowane za pomocą `ActivityIndicator`, który pojawia się podczas ładowania danych.
+
+== Style
+
+* `backgroundColor` - kolor tła dostosowany do bieżącego motywu za pomocą `useThemeColor`.
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}

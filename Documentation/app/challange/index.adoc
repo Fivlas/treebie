@@ -1,0 +1,76 @@
+= Dokumentacja komponentu `Index`
+
+Komponent `Index` to ekran, który umożliwia zarządzanie wyzwaniami (`quests`). Użytkownik może rozpocząć nowe wyzwanie, kontynuować już rozpoczęte lub zakończyć zakończone wyzwania. Ekran wyświetla szczegóły wyzwania i umożliwia interakcję z danymi związanymi z postępem użytkownika.
+
+== Importowane moduły i komponenty
+
+* `FIREBASE_DB` - funkcja do konfiguracji Firebase, służy do komunikacji z bazą danych Firestore.
+* `doc`, `getDoc`, `updateDoc`, `arrayUnion`, `increment` - funkcje Firestore do pobierania, aktualizowania oraz manipulowania danymi w bazie.
+* `useState`, `useEffect` - hooki Reacta służące do zarządzania stanem i wykonywania efektów ubocznych.
+* `CustomButton` - niestandardowy przycisk, który jest używany do interakcji z użytkownikiem, umożliwiając rozpoczęcie, zakończenie lub anulowanie wyzwań.
+* `Ionicons` - ikony z `expo/vector-icons`, używane do przycisków nawigacyjnych.
+* `useUser` - niestandardowy hook do zarządzania informacjami o użytkowniku.
+* `useThemeColor` - niestandardowy hook do zarządzania kolorami dostosowanymi do aktywnego motywu.
+* `ThemedText` - komponent tekstowy, który automatycznie dostosowuje styl tekstu do aktywnego motywu.
+
+== Zmienne stanu
+
+* `challenge` - stan przechowujący dane wyzwania (`quest`), które zostały pobrane z bazy danych.
+* `userInfo` - stan przechowujący dane użytkownika, w tym aktualne wyzwanie i postęp w zadaniach.
+* `actualAction` - stan określający obecny stan wyzwania, może przyjąć wartości: `"start"`, `"ongoing"`, `"end"`, `"canceled"`.
+* `backgroundColor` - kolor tła, który jest dostosowywany w zależności od aktywnego motywu.
+
+== Funkcje i efekty
+
+=== `determineAction`
+
+Funkcja, która decyduje, jakie wyzwanie powinno być wyświetlone w zależności od danych użytkownika i statusu wyzwania:
+1. Jeżeli użytkownik ma aktualne wyzwanie, zwraca `ongoing`.
+2. Jeżeli wyzwanie zostało już ukończone przez użytkownika, zwraca `end`.
+3. W przeciwnym razie, zwraca `start`, oznaczając dostępność wyzwania do rozpoczęcia.
+
+=== `useEffect`
+
+Hook `useEffect` wykonuje asynchroniczne pobieranie danych:
+1. `fetchData` - funkcja do pobierania danych wyzwania i danych użytkownika z Firestore. Na podstawie tych danych ustawiane są odpowiednie stany komponentu, takie jak `challenge`, `userInfo`, oraz `actualAction`.
+
+Hook `useEffect` uruchamia pobieranie danych tylko, gdy użytkownik i dane o wyzwaniu są dostępne.
+
+=== `addCurrentQuest`
+
+Funkcja umożliwiająca użytkownikowi rozpoczęcie nowego wyzwania. Jeżeli użytkownik już ma przypisane aktywne wyzwanie, przed rozpoczęciem nowego wyzwania pojawia się okno alertu z pytaniem, czy chce nadpisać obecne wyzwanie. W przypadku zaakceptowania, zmienia się aktualne wyzwanie użytkownika.
+
+=== `endQuest`
+
+Funkcja umożliwiająca zakończenie aktualnego wyzwania i dodanie wyzwania do listy ukończonych (`questsDone`). Użytkownik zdobywa punkty, które są dodawane do jego postępu w drzewie (`treeProgress`).
+
+=== `clickHandler`
+
+Funkcja wywoływana po naciśnięciu przycisku. Zależy od obecnego stanu `actualAction`, czy użytkownik może rozpocząć, zakończyć czy zmienić stan wyzwania.
+
+=== `getDataByAction`
+
+Funkcja, która na podstawie aktualnego stanu wyzwania (`actualAction`) zwraca odpowiednie dane dotyczące wyświetlania statusu wyzwania (kolor, tekst statusu i przycisk).
+
+== Interfejs użytkownika
+
+* **Nagłówek** - zawiera przycisk powrotu do poprzedniego ekranu oraz tytuł wyzwania.
+* **Szczegóły wyzwania** - opis wyzwania oraz informacje o punktach, które użytkownik może zdobyć.
+* **Okno interakcji** - okrągły przycisk, który umożliwia rozpoczęcie, zakończenie lub anulowanie wyzwania w zależności od jego statusu.
+* **Loader** - wyświetlany podczas ładowania danych użytkownika lub wyzwania, jeśli jeszcze nie zostały pobrane.
+
+== Style
+
+* `backgroundColor` - kolor tła dostosowywany do bieżącego motywu (jasnego lub ciemnego).
+* `actionData` - kolory i teksty przypisane do różnych stanów wyzwania (dostępne, w trakcie, zakończone, anulowane).
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}

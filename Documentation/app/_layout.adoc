@@ -1,0 +1,68 @@
+= Dokumentacja komponentu RootLayout
+
+Komponent `RootLayout` to główny layout aplikacji, który ustawia motyw (ciemny lub jasny) w zależności od preferencji użytkownika oraz zarządza stanem ładowania czcionek i ustawień splash screen.
+
+== Importowane moduły i komponenty
+
+* `DarkTheme`, `DefaultTheme`, `ThemeProvider` - komponenty z `@react-navigation/native`, które pozwalają na dynamiczne ustawianie motywu aplikacji.
+* `useFonts` - hook z `expo-font`, używany do ładowania czcionek.
+* `Stack` - komponent z `expo-router`, który zarządza nawigacją w aplikacji.
+* `SplashScreen` - moduł z `expo-splash-screen`, pozwala na kontrolowanie widoczności ekranu powitalnego.
+* `AsyncStorage` - umożliwia zapisywanie i odczytywanie danych z pamięci lokalnej urządzenia.
+* `THEME_PREFERENCE_KEY`, `useColorScheme` - niestandardowy hook do zarządzania preferencjami motywu użytkownika.
+* `Appearance` - moduł z `react-native`, pozwala na sprawdzenie aktualnego motywu systemowego.
+* `StatusBar` - komponent do kontrolowania wyglądu paska stanu w aplikacji.
+
+== Zmienne stanu
+
+* `colorScheme` - stan przechowujący aktualny motyw aplikacji (ciemny lub jasny), ustalany na podstawie preferencji użytkownika lub systemu.
+* `loaded` - stan informujący, czy czcionki zostały pomyślnie załadowane.
+
+== Funkcje i efekty
+
+=== `useEffect`
+
+Hook `useEffect` wykonuje następujące czynności:
+1. Czeka na załadowanie czcionek (hook `useFonts`).
+2. Ukrywa ekran powitalny (SplashScreen) po załadowaniu czcionek.
+3. Ładuje zapisany preferencje motywu użytkownika z `AsyncStorage` oraz ustawia motyw za pomocą `Appearance.setColorScheme`.
+
+=== `loadThemePreference`
+
+Funkcja `loadThemePreference` sprawdza, czy użytkownik wcześniej zapisał preferencje dotyczące motywu (ciemny lub jasny) w `AsyncStorage`. Jeśli preferencja istnieje, ustawia ją w systemie za pomocą `Appearance.setColorScheme`.
+
+== Interfejs użytkownika
+
+* **Splash Screen** - ekran powitalny, który jest wyświetlany do momentu załadowania czcionek.
+* **StatusBar** - pasek stanu, którego wygląd jest dostosowywany na podstawie ustawień aplikacji:
+  * Tło paska stanu jest ustawione na kolor biały (`backgroundColor="#ffffff"`).
+  * Styl tekstu na pasku stanu to `light-content`.
+
+* **Nawigacja** - aplikacja używa `expo-router` do zarządzania nawigacją, z ustawionymi ekranami:
+  * `(tabs)` - główny ekran zakładek.
+  * `index` - główny ekran aplikacji.
+  * `tip/[id]/index` - ekran szczegółów wskazówek.
+  * `(auth)/login` - ekran logowania.
+  * `(auth)/signup` - ekran rejestracji.
+  * `(auth)/privacy` - ekran polityki prywatności.
+  * `(auth)/tos` - ekran warunków korzystania z usługi.
+  * `ai/index` - ekran AI.
+  * `challenge/[id]/index` - ekran szczegółów wyzwania.
+  * `all/index` - ekran z listą wszystkich dostępnych wskazówek.
+  * `+not-found` - ekran błędu, wyświetlany, gdy nie znaleziono pasującego ekranu.
+
+== Style
+
+* **Motyw** - aplikacja obsługuje dwa motywy: ciemny (DarkTheme) i jasny (DefaultTheme). Motyw jest ustawiany dynamicznie na podstawie preferencji użytkownika.
+* **Czcionki** - używana jest czcionka `SpaceMono`, która jest ładowana z pliku `assets/fonts/SpaceMono-Regular.ttf`.
+
+== Przykład użycia
+
+```javascript
+import RootLayout from './RootLayout';
+
+export default function App() {
+    return (
+        <RootLayout />
+    );
+}

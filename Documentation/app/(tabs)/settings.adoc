@@ -1,0 +1,50 @@
+= Dokumentacja komponentu Settings
+
+Komponent `Settings` to ekran w aplikacji, który umożliwia użytkownikowi konfigurację ustawień, takich jak wybór trybu ciemnego lub jasnego oraz wylogowanie z aplikacji. Komponent zapisuje preferencje użytkownika dotyczące motywu w `AsyncStorage` i stosuje odpowiedni motyw w całej aplikacji.
+
+== Importowane moduły i komponenty
+
+* `SafeAreaView`, `Switch`, `Text`, `View`, `Appearance`, `Image`, `TouchableOpacity` - komponenty z `react-native` do obsługi interfejsu użytkownika.
+* `THEME_PREFERENCE_KEY` - klucz, który jest używany do zapisywania preferencji motywu w `AsyncStorage`.
+* `AsyncStorage` - służy do przechowywania danych lokalnych, w tym preferencji motywu.
+* `Href`, `router` - import z `expo-router` do obsługi nawigacji w aplikacji.
+
+== Zmienne stanu
+
+* `darkTheme` - zmienna stanu przechowująca informację o wybranym motywie: `true` oznacza tryb ciemny, `false` oznacza tryb jasny.
+
+== Funkcje i efekty
+
+### `useEffect`
+
+Dwa główne efekty:
+1. **Pobieranie preferencji motywu**: Pierwszy efekt ładuje preferencje motywu użytkownika z `AsyncStorage` po załadowaniu komponentu. Ustawia stan `darkTheme` na podstawie zapisanej wartości.
+2. **Zmiana motywu**: Drugi efekt aktualizuje motyw w systemie (używając `Appearance.setColorScheme`) oraz zapisuje preferencje w `AsyncStorage` za każdym razem, gdy zmienia się wartość `darkTheme`.
+
+### `logout`
+
+Funkcja odpowiedzialna za wylogowanie użytkownika. Usuwa dane użytkownika z `AsyncStorage` i przekierowuje użytkownika na ekran logowania.
+
+== Interfejs użytkownika
+
+1. **Motyw**: Użytkownik może przełączać między trybem ciemnym a jasnym za pomocą przełącznika (`Switch`). Wygląd przełącznika zmienia się w zależności od wybranego motywu, a jego stan jest zapisany w `AsyncStorage`.
+2. **Logo**: Na górze ekranu wyświetlane jest logo aplikacji.
+3. **Tytuł**: Tytuł ekranu "Ustawienia" jest wyświetlany w zależności od aktualnego motywu.
+4. **Wylogowanie**: Użytkownik może wylogować się z aplikacji za pomocą przycisku "Wyloguj się". Po kliknięciu następuje usunięcie danych użytkownika i przekierowanie na stronę logowania.
+
+== Layout i UI
+
+- **Logo**: Na górze ekranu wyświetlane jest logo aplikacji (obrazek).
+- **Sekcja ustawień motywu**: Pod logo znajduje się sekcja, w której użytkownik może przełączyć motyw na ciemny lub jasny. Sekcja ta zawiera przełącznik (`Switch`), który zmienia kolor w zależności od stanu motywu.
+- **Przycisk wylogowania**: Na dole ekranu znajduje się przycisk wylogowania, który przekierowuje użytkownika na ekran logowania.
+
+### Przykład użycia
+
+```javascript
+import Settings from './Settings';
+
+export default function App() {
+    return (
+        <Settings />
+    );
+}

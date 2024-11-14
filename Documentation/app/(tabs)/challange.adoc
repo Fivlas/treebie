@@ -1,0 +1,68 @@
+= Dokumentacja komponentu Challenges
+
+Komponent `Challenges` to ekran w aplikacji, który zarządza wyzwaniami dla użytkowników. Pozwala na wyświetlanie aktywnego zadania oraz listy wyzwań. W tym komponencie zarządzane są także ustawienia związane z alertami oraz pobieraniem danych użytkownika z bazy Firebase.
+
+== Importowane moduły i komponenty
+
+* `Alert`, `BackHandler`, `Platform`, `SafeAreaView`, `View` - komponenty z `react-native` do obsługi UI i zdarzeń systemowych.
+* `SearchBar` - komponent wyszukiwania, umożliwia filtrowanie wyzwań na podstawie zapytania.
+* `ChallengesList` - komponent wyświetlający listę wyzwań.
+* `useEffect`, `useState` - hooki z Reacta do zarządzania stanem i efektami ubocznymi.
+* `useThemeColor` - niestandardowy hook, który zwraca kolor motywu w zależności od trybu.
+* `ThemedText` - komponent tekstowy, który automatycznie stosuje odpowiedni motyw.
+* `AsyncStorage` - służy do przechowywania danych lokalnych, np. flagi, czy użytkownik widział alert.
+* `doc`, `getDoc` - metody z Firebase Firestore do pobierania dokumentów z bazy danych.
+* `useUser` - niestandardowy hook, który zwraca dane użytkownika (np. `uid`, `loading`).
+
+== Zmienne stanu
+
+* `currentQuestId` - przechowuje identyfikator aktualnie aktywnego zadania.
+* `currentQuest` - przechowuje dane dotyczące aktualnego zadania (tytuł, poziom trudności, itd.).
+* `query` - zapytanie wprowadzane przez użytkownika w celu filtrowania listy wyzwań.
+
+== Funkcje i efekty
+
+### `useEffect`
+
+Hook `useEffect` wykonuje następujące czynności:
+1. **Sprawdzenie pierwszego użycia**: Sprawdza, czy użytkownik już widział alert o rzetelnym wypełnianiu wyzwań. Jeśli nie, wyświetla alert.
+2. **Pobieranie aktywnego zadania**: Jeśli użytkownik jest zalogowany, pobiera aktywne zadanie z bazy danych Firebase.
+
+### `checkFirstUse`
+
+Funkcja ta sprawdza, czy użytkownik widział już alert informujący o konieczności rzetelnego podejścia do wyzwań. Jeśli nie, wyświetla odpowiedni komunikat i zapisuje informację w `AsyncStorage`.
+
+### `fetchCurrentQuest`
+
+Funkcja ta pobiera aktualnie przypisane zadanie z bazy danych Firebase. Na podstawie `user.uid` pobiera dokument użytkownika, a następnie pobiera dokument wyzwania, które jest przypisane do użytkownika.
+
+### `getColor`
+
+Funkcja, która na podstawie poziomu trudności zadania przypisuje odpowiednią kolorystykę. Na przykład:
+- Poziom 1: Kolor podstawowy.
+- Poziom 2: Kolor pomarańczowy.
+- Poziom 3: Kolor czerwony.
+
+== Interfejs użytkownika
+
+1. **Alerty**: Użytkownik po pierwszym uruchomieniu aplikacji zostaje zapytany o zobowiązanie do rzetelnego wypełniania wyzwań. Możliwość odpowiedzi "Tak" lub "Nie", przy czym wybór "Nie" kończy działanie aplikacji.
+2. **Aktywne zadanie**: Wyświetlana jest sekcja z aktywnym zadaniem, jeśli użytkownik ma przypisane wyzwanie.
+3. **Lista wyzwań**: Poniżej sekcji z aktywnym zadaniem wyświetlana jest lista dostępnych wyzwań, która jest filtrowana na podstawie zapytania użytkownika.
+
+### Layout i UI
+
+- Górna sekcja wyświetla tytuł ekranu: "Wyzwania".
+- Pod tytułem znajduje się komponent `SearchBar`, umożliwiający filtrowanie listy wyzwań na podstawie zapytania.
+- Jeśli istnieje aktywne zadanie, wyświetlane jest ono w sekcji "Aktywne zadanie".
+- Na dole wyświetlana jest lista wyzwań (komponent `ChallengesList`), której zawartość jest filtrowana na podstawie zapytania.
+
+== Przykład użycia
+
+```javascript
+import Challenges from './Challenges';
+
+export default function App() {
+    return (
+        <Challenges />
+    );
+}

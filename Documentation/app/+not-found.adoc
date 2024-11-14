@@ -1,0 +1,36 @@
+= Dokumentacja komponentu `NotFoundScreen`
+
+Komponent `NotFoundScreen` jest ekranem błędu, który wyświetla informację o nieistniejącej stronie oraz przycisk umożliwiający powrót do ekranu głównego aplikacji.
+
+== Importowane moduły i komponenty
+
+* `Link` - komponent `expo-router` pozwalający nawigować do innych ekranów, w tym przypadku do ekranu głównego.
+* `Stack` - komponent `expo-router` do zarządzania nagłówkami w stosie nawigacji.
+* `StyleSheet` - moduł React Native używany do definiowania stylów komponentów.
+* `ThemedText` - niestandardowy komponent tekstowy dostosowany do aktualnego motywu aplikacji.
+* `ThemedView` - niestandardowy komponent widoku, który dostosowuje styl w zależności od motywu.
+
+== Struktura komponentu
+
+* `Stack.Screen` - definiuje nagłówek ekranu z tytułem `"Oops!"`.
+* `ThemedView` - główny widok ekranu, stylizowany zgodnie z motywem, zawierający informację o błędzie i link powrotny.
+* `ThemedText` - wyświetla wiadomość o nieistniejącym ekranie.
+* `Link` - umożliwia przejście do ekranu głównego aplikacji po naciśnięciu. Wewnątrz `Link` znajduje się `ThemedText` w stylu linku.
+
+== Style
+
+Stylizacje w komponencie są zdefiniowane przy użyciu `StyleSheet`:
+
+* `container` - centralizuje zawartość ekranu (wyrównanie do środka, marginesy).
+* `link` - dodaje przestrzeń pionową nad i poniżej tekstu linku.
+
+== Przykład użycia
+
+```javascript
+import NotFoundScreen from './NotFoundScreen';
+
+export default function App() {
+    return (
+        <NotFoundScreen />
+    );
+}
