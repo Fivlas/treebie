@@ -151,7 +151,7 @@ const Challenges: React.FC<ParentProps> = () => {
       <SearchBar getData={getQuery} />
       {currentQuestId ? (
         <View className="px-4">
-          <Text className="text-2xl">Aktywne zadanie</Text>
+          <ThemedText className="text-2xl">Aktywne zadanie</ThemedText>
           {currentQuest && (
             <Challenge
               id={currentQuestId}
