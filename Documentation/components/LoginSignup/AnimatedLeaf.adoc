@@ -1,0 +1,83 @@
+= Dokumentacja komponentu AnimatedLeaf
+
+Komponent `AnimatedLeaf` renderuje okrągły kształt z gradientowym tłem, który może być użyty w aplikacji mobilnej w celu dodania animowanego efektu wizualnego, na przykład jako tło lub dekoracja. Komponent wykorzystuje `LinearGradient` z biblioteki `expo-linear-gradient` do tworzenia efektu gradientu i dostosowuje swoje rozmiary do szerokości ekranu urządzenia.
+
+== Importowane moduły i komponenty
+
+* `View`, `Dimensions` - komponenty z biblioteki React Native:
+  * `View` jest używany jako kontener dla innych elementów.
+  * `Dimensions` służy do pobierania szerokości ekranu urządzenia, aby dostosować rozmiary komponentu.
+  
+* `LinearGradient` - komponent z biblioteki `expo-linear-gradient`, który umożliwia tworzenie gradientowych tła. Używany do nadania gradientowego koloru tła w komponencie.
+
+== Typy i interfejsy
+
+### AnimatedLeafOptions
+
+Interfejs `AnimatedLeafOptions` określa opcjonalne właściwości, które mogą być przekazane do komponentu `AnimatedLeaf`:
+
+* `className?` - opcjonalna właściwość, która pozwala na przekazanie niestandardowych klas CSS do komponentu, w celu dostosowania jego wyglądu, jeżeli używasz Tailwind CSS lub podobnych narzędzi.
+
+```typescript
+export type AnimatedLeafOptions = {
+    className?: string | undefined;
+};
+```
+
+== Funkcje
+
+Komponent `AnimatedLeaf` nie zawiera żadnych złożonych funkcji, jest to raczej komponent statyczny, który renderuje tło z gradientem w kształcie koła. Jego główną funkcją jest dynamiczne dostosowanie rozmiarów w zależności od szerokości ekranu.
+
+### Renderowanie
+
+Komponent wykonuje następujące kroki renderowania:
+
+1. **Pobieranie szerokości ekranu**: Za pomocą `Dimensions.get("window").width`, pobierana jest szerokość urządzenia, która jest później używana do ustawienia rozmiarów komponentu i gradientu.
+   
+2. **Widok główny (`View`)**: Komponent `View` jest używany jako kontener z zaokrąglonymi rogami. Jego szerokość i wysokość są równe szerokości ekranu, a promień zaokrąglenia (border radius) jest ustawiony na połowę szerokości, co daje efekt koła.
+
+3. **Gradient**: Użycie komponentu `LinearGradient` z kolorami `['#606c38', '#949f68']` oraz parametrami `start={{ x: 0, y: 0 }}` i `end={{ x: 1, y: 1 }}` umożliwia uzyskanie gradientu od góry-lewej do dolnej-prawej. Tło jest rozciągnięte na pełną szerokość i wysokość ekranu.
+
+```javascript
+export function AnimatedLeaf({ className }: Readonly<AnimatedLeafOptions>) {
+    const width = Dimensions.get("window").width;
+    return (
+        <View style={[{ borderRadius: width / 2, overflow: 'hidden' }]} className={className}>
+            <LinearGradient
+                colors={['#606c38', '#949f68']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={{
+                    width: width,
+                    height: width,
+                }}
+            />
+        </View>
+    );
+}
+```
+
+== Uwagi
+
+* **Zaokrąglony kształt**: Ponieważ szerokość i wysokość komponentu są równe, a promień zaokrąglenia (border radius) jest ustawiony na połowę szerokości, komponent zawsze przyjmuje kształt koła.
+* **Dostosowanie do urządzenia**: Komponent dynamicznie dostosowuje swoje rozmiary do szerokości ekranu, co sprawia, że jest responsywny i może być używany na różnych urządzeniach mobilnych.
+* **Gradient**: Użyty gradient zapewnia przejście między dwoma odcieniami zieleni, co może pasować do motywów związanych z naturą lub ekologicznymi tematami.
+
+== Przykład użycia
+
+```javascript
+import React from 'react';
+import { AnimatedLeaf } from './AnimatedLeaf';
+
+export default function App() {
+    return (
+        <AnimatedLeaf className="mt-4" />
+    );
+}
+```
+
+W powyższym przykładzie komponent `AnimatedLeaf` jest używany w aplikacji z dodatkową klasą CSS (`className="mt-4"`), która może służyć do dodania marginesu górnego lub innych stylów, jeśli jest to wymagane.
+
+== Zastosowanie
+
+Komponent `AnimatedLeaf` może być użyty jako dekoracja tła, element animacji, lub po prostu jako tło dla innych elementów w aplikacji. Dzięki swojej responsywności i prostocie może być łatwo zintegrowany z różnymi układami interfejsu użytkownika.

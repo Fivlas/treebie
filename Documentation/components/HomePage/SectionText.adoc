@@ -1,0 +1,104 @@
+= Dokumentacja komponentu SectionText
+
+Komponent `SectionText` służy do wyświetlania sekcji tekstowej z tytułem i opcjonalnym linkiem, który przekierowuje użytkownika do innej strony lub akcji. Jest to prosty komponent, który może być używany w aplikacjach mobilnych opartych na React Native do budowania sekcji z tytułem i możliwością dalszego działania (np. przejście do innej strony).
+
+== Importowane moduły i komponenty
+
+* `Text`, `TouchableOpacity`, `View` – komponenty z biblioteki React Native:
+  * `Text` służy do wyświetlania tekstu w aplikacji.
+  * `TouchableOpacity` umożliwia reagowanie na kliknięcie, zmieniając przezroczystość elementu.
+  * `View` jest używane do kontenerowania innych komponentów.
+
+* `router`, `Href` – funkcje i typy z `expo-router`, które umożliwiają nawigację między ekranami w aplikacji. `router.replace()` służy do zmiany trasy aplikacji bez zapisywania poprzedniego ekranu w historii nawigacji.
+
+* `ThemedText` – niestandardowy komponent tekstowy, który wyświetla tekst zgodnie z motywem kolorystycznym aplikacji (np. dostosowuje kolor w zależności od jasności lub ciemności motywu).
+
+## Typy i interfejsy
+
+### SectionTextProps
+
+Komponent `SectionText` przyjmuje następujące właściwości:
+
+- `title` (string) – obowiązkowa właściwość, która określa tytuł sekcji tekstowej. Jest to główny element tekstowy wyświetlany w komponencie.
+- `route?` (string) – opcjonalna właściwość, która określa trasę, do której użytkownik zostanie przekierowany po kliknięciu przycisku "Zobacz więcej". Jeśli nie zostanie podana, przycisk nie jest wyświetlany.
+- `containerStyles?` (string) – opcjonalna właściwość, która pozwala na przekazanie dodatkowych klas CSS do kontenera komponentu, co umożliwia dostosowanie wyglądu sekcji (np. marginesy, wyrównanie).
+
+```typescript
+interface SectionTextProps {
+    title: string;
+    route?: string;
+    containerStyles?: string;
+}
+```
+
+## Struktura renderowania
+
+1. **Kontener `View`**: Komponent `SectionText` renderuje kontener z układem w poziomie (`flex-row`), który zawiera tytuł sekcji i opcjonalny przycisk "Zobacz więcej". Kontener ma domyślnie margines na dole (`mb-4`), ale jego wygląd można dostosować, przekazując dodatkowy styl za pomocą właściwości `containerStyles`.
+
+2. **Tytuł `ThemedText`**: Tytuł sekcji jest wyświetlany za pomocą komponentu `ThemedText`, który dostosowuje tekst do aktualnego motywu (np. jasny/ciemny). Tytuł jest wyświetlany z klasą CSS `text-3xl` (duży rozmiar tekstu) i `font-medium` (średnia waga czcionki).
+
+3. **Przycisk "Zobacz więcej"**: Jeśli właściwość `route` jest przekazana, komponent wyświetli przycisk "Zobacz więcej". Po kliknięciu na niego użytkownik zostanie przekierowany do strony określonej przez `route`. Przycisk jest renderowany z kolorem tekstu `#63784f` (zielony odcień).
+
+```javascript
+return (
+    <View className={`flex-row justify-between items-center mb-4 ${containerStyles}`}>
+        <ThemedText className="text-3xl font-medium">{title}</ThemedText>
+        {route && (
+            <TouchableOpacity onPress={() => router.replace(route as Href)}>
+                <Text className='text-[#63784f]'>Zobacz więcej</Text>
+            </TouchableOpacity>
+        )}
+    </View>
+);
+```
+
+## Funkcje
+
+### handlePress
+
+Funkcja odpowiedzialna za obsługę kliknięcia w przycisk "Zobacz więcej". Jeśli `route` jest przekazane, funkcja wywołuje metodę `router.replace()`, która przekierowuje użytkownika do odpowiedniej trasy. `route` jest traktowane jako łańcuch URL i jest bezpiecznie rzutowane na typ `Href` wymagany przez `expo-router`.
+
+```javascript
+<TouchableOpacity onPress={() => router.replace(route as Href)}>
+    <Text className='text-[#63784f]'>Zobacz więcej</Text>
+</TouchableOpacity>
+```
+
+- `router.replace(route as Href)` – nawigacja do określonej trasy, bez zapisania obecnego ekranu w historii.
+
+## Struktura renderowania
+
+Komponent renderuje następujące elementy:
+
+1. **Tytuł** - Tekst sekcji wyświetlany w dużym rozmiarze (3xl) i średnią wagą czcionki.
+2. **Przycisk "Zobacz więcej"** - Wyświetlany, jeśli jest zdefiniowana właściwość `route`. Po kliknięciu na przycisk następuje nawigacja do podanej trasy.
+
+Komponent jest zaprojektowany w sposób responsywny, używając klas CSS z Tailwind CSS (np. `flex-row`, `justify-between`, `mb-4`), co sprawia, że jest elastyczny i łatwy do dostosowania.
+
+## Uwagi
+
+- **Stylizacja**: Komponent korzysta z Tailwind CSS (klasy CSS jak `flex-row`, `text-3xl`, `font-medium`), co umożliwia łatwą modyfikację wyglądu w kodzie.
+- **Dostosowanie motywu**: Komponent `ThemedText` umożliwia dostosowanie koloru tekstu i innych właściwości zgodnie z aktualnym motywem (np. ciemnym lub jasnym).
+- **Nawigacja**: Funkcja `router.replace()` zapewnia nawigację bez zapisywania poprzedniej trasy w historii, co może być przydatne w przypadku przechodzenia między stronami zewnętrznymi lub stronami aplikacji, które nie wymagają powrotu do poprzedniej sekcji.
+
+## Przykład użycia
+
+```javascript
+import SectionText from './SectionText';
+
+export default function App() {
+    return (
+        <SectionText 
+            title="Przykładowa sekcja" 
+            route="/details"
+            containerStyles="bg-white p-4"
+        />
+    );
+}
+```
+
+W tym przykładzie, po kliknięciu na przycisk "Zobacz więcej", użytkownik zostanie przekierowany do strony `/details`.
+
+## Zastosowanie
+
+Komponent `SectionText` jest idealny do używania w miejscach, gdzie chcemy wyświetlić sekcje z tytułem i mieć opcję przekierowania do szczegółowych informacji lub innych ekranów aplikacji. Może być używany w menu, listach, stronach informacyjnych czy innych komponentach, które wymagają sekcji tekstowych z dodatkowymi akcjami.

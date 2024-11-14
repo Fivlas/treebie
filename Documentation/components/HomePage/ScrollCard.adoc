@@ -1,0 +1,124 @@
+= Dokumentacja komponentu ScrollCard
+
+Komponent `ScrollCard` jest wykorzystywany do renderowania kart z obrazkiem, tytułem i możliwością kliknięcia, które mogą prowadzić do innych ekranów lub uruchamiać dowolną akcję. Komponent jest zaprojektowany w taki sposób, by mógł być używany zarówno w interfejsach list, jak i w innych przypadkach, gdzie konieczne jest wyświetlanie elementów zawierających obrazki oraz tekst.
+
+== Importowane moduły i komponenty
+
+* `Image`, `View`, `TouchableOpacity` - komponenty z biblioteki React Native:
+  * `Image` służy do wyświetlania obrazków w aplikacji.
+  * `View` stanowi kontener dla innych elementów.
+  * `TouchableOpacity` umożliwia tworzenie elementów, które reagują na dotyk, zmieniając przezroczystość (opacity).
+  
+* `Href`, `router` - komponenty i funkcje z `expo-router`, używane do nawigacji między ekranami aplikacji. `router.replace()` służy do zmiany trasy w aplikacji.
+
+* `useThemeColor` - niestandardowy hook, który umożliwia pobieranie kolorów tła w zależności od aktualnego motywu aplikacji.
+
+* `ThemedText` - niestandardowy komponent tekstowy, który może obsługiwać stylizację tekstu zgodnie z wybranym motywem kolorystycznym.
+
+== Typy i interfejsy
+
+### ScrollCardProps
+
+Komponent `ScrollCard` przyjmuje następujące właściwości:
+
+- `id` (string) – unikalny identyfikator karty, używany do generowania ścieżki URL lub przekazywania informacji do innego ekranu.
+- `title` (string) – tekst wyświetlany na karcie, który może stanowić nagłówek karty.
+- `imageName` (string | any) – adres URL lub obiekt obrazu, który ma być wyświetlony w karcie.
+- `containerStyle?` (string) – opcjonalny dodatkowy styl CSS, który może zostać zastosowany do kontenera karty.
+- `redirect?` (string) – opcjonalny parametr, który określa, czy po kliknięciu należy przekierować użytkownika do określonej ścieżki.
+- `onClick?` (function) – opcjonalna funkcja, która zostanie wywołana po kliknięciu w kartę. Jeśli ta funkcja nie zostanie przekazana, komponent przekieruje użytkownika na odpowiednią stronę.
+- `team?` (boolean) – opcjonalna właściwość, która zmienia rozmiar karty, aby dostosować ją do większych zdjęć związanych z drużynami (np. większy obrazek).
+
+```typescript
+interface ScrollCardProps {
+    id: string;
+    title: string;
+    imageName: string | any;
+    containerStyle?: string;
+    redirect?: string;
+    onClick?: () => void;
+    team?: boolean;
+}
+```
+
+== Funkcje
+
+### handlePress
+
+Funkcja `handlePress` obsługuje logikę, która wykonuje się po naciśnięciu na kartę. Jeśli nie została przekazana funkcja `onClick`, komponent przekierowuje użytkownika na odpowiednią stronę na podstawie `id` karty. Jeśli jednak funkcja `onClick` została przekazana, jest wywoływana zamiast nawigacji.
+
+```javascript
+const handlePress = () => {
+    if(onClick == undefined){
+        const route: Href = redirect
+            ? (`/tip/${id}?redirect=${redirect}` as Href)
+            : (`/tip/${id}` as Href);
+        router.replace(route);
+    } else {
+        onClick();
+    }
+};
+```
+
+- Jeśli `onClick` jest zdefiniowane, wywołuje tę funkcję, co pozwala na wykonanie dowolnej akcji (np. otwarcie modalnego okna, zmiana stanu itp.).
+- Jeśli `onClick` nie jest zdefiniowane, następuje przekierowanie do strony `/tip/{id}`, z opcjonalnym przekierowaniem (jeśli `redirect` jest zdefiniowane).
+
+### Struktura renderowania
+
+1. **Kontener `View`**: Karta jest umieszczona w kontenerze, który ma różne klasy CSS, w zależności od wartości `team`. Jeśli `team` jest prawdą, karta ma większy rozmiar, w przeciwnym razie jest mniejsza.
+
+2. **Obrazek `Image`**: Obrazek karty jest wyświetlany z określoną szerokością i wysokością, zależnie od tego, czy karta reprezentuje drużynę (`team`), czy nie. Jeśli `team` jest prawdą, obrazek jest skalowany do większego rozmiaru. Obrazek jest dostosowywany do wymiarów karty i ma ustawiony tryb `contain` dla zachowania proporcji.
+
+3. **Tekst `ThemedText`**: Tytuł karty jest umieszczony w lewym dolnym rogu w postaci tekstu, z klasą CSS `font-medium`, co zapewnia odpowiednią wagę czcionki.
+
+```javascript
+return (
+    <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
+        <View
+            style={{ backgroundColor: secondaryBackground }}
+            className={`${team ? "h-64" : "h-52"} w-44 rounded-3xl justify-center items-center ${containerStyle} relative`}
+        >
+            <Image
+                source={{ uri: imageName }}
+                className={`${team ? "w-[204px] h-[356px] scale-50" : "w-36 h-36"}`}
+                style={{
+                    width: team ? 204 : 144,
+                    height: team ? 356 : 144,
+                    resizeMode: "contain",
+                }}
+            />
+            <ThemedText className="absolute bottom-4 left-4 font-medium">{title}</ThemedText>
+        </View>
+    </TouchableOpacity>
+);
+```
+
+== Uwagi
+
+- **Responsive design**: Karta jest responsywna, dzięki czemu jej rozmiar dostosowuje się do kontekstu (wielkość obrazka zależy od parametru `team`).
+- **Nawigacja**: Komponent integruje się z systemem nawigacji `expo-router`, umożliwiając łatwe przekierowywanie użytkownika do różnych ekranów.
+- **Dostosowanie wyglądu**: Dzięki przekazywaniu klas CSS (np. `containerStyle`) użytkownik może dostosować wygląd karty w zależności od potrzeb.
+
+== Przykład użycia
+
+```javascript
+import ScrollCard from './ScrollCard';
+
+export default function App() {
+    return (
+        <ScrollCard 
+            id="1" 
+            title="Karta 1" 
+            imageName="https://example.com/image.jpg" 
+            redirect="home"
+            onClick={() => alert('Karta została kliknięta!')}
+        />
+    );
+}
+```
+
+W tym przykładzie po kliknięciu na kartę wywoływana jest funkcja `onClick`, która pokazuje alert. Można również ustawić `redirect`, aby karta prowadziła do konkretnej strony w aplikacji.
+
+== Zastosowanie
+
+Komponent `ScrollCard` jest idealny do użycia w interfejsach, które wymagają wyświetlania kart z obrazkami i tekstem. Może być wykorzystywany w listach, galeriach, lub wszędzie tam, gdzie użytkownik może kliknąć kartę i przejść do innego ekranu lub wywołać akcję.
