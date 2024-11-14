@@ -1,6 +1,6 @@
  # Aplikacja Treebie  
 **Nazwa aplikacji:** Treebie  
-**Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon X  
+**Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon Wilczewski  
 
 Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
 W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
@@ -123,6 +123,44 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + questsDone (array) - tablica przechowująca wykonane wyzwania
   + team (number) - id wybranego drzewa użytkownika (1 lub 2)
   + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
+
+## Autoryzacja
+= Dokumentacja komponentu `Index`
+
+Komponent `Index` reprezentuje ekran powitalny aplikacji mobilnej Treebie. W przypadku wykrycia zalogowanego użytkownika przekierowuje do głównego ekranu aplikacji; dla niezalogowanych wyświetla logo i przycisk umożliwiający przejście do ekranu logowania.
+
+== Importowane moduły i komponenty
+
+* `CustomButton` - przycisk dostosowany do stylu aplikacji, umożliwiający nawigację.
+* `useUser` - hook do pobrania informacji o zalogowanym użytkowniku.
+* `Href`, `Redirect`, `router` - moduły `expo-router` do obsługi nawigacji i przekierowań.
+* `Image`, `ImageBackground`, `View`, `Text` - komponenty React Native do struktury i wyświetlania grafiki oraz tekstu.
+
+== Logika komponentu
+
+Komponent korzysta z hooka `useUser`, aby pobrać stan użytkownika:
+* Jeśli użytkownik jest zalogowany (`user` istnieje), następuje przekierowanie (`Redirect`) na stronę główną, `/(tabs)/`.
+* Jeśli użytkownik nie jest zalogowany, wyświetlana jest zawartość ekranu powitalnego.
+
+== Struktura renderowania
+
+* Zawartość osadzona jest w `View` o klasie `flex-1` dla pełnego dopasowania do wysokości ekranu.
+* `ImageBackground` ustawia tło ekranu, pobierając obraz `banner-image.png` i nadając mu kolor bazowy.
+* Widok z logo i tytułem aplikacji zawiera:
+  ** `Image` z pliku `logo-icon-new.png`, wyświetlany na środku ekranu,
+  ** `Text` z nazwą aplikacji, `Treebie`, wyróżniony jako centralny tytuł.
+* Przycisk `CustomButton` na dole ekranu o tytule "Dołącz", przekierowuje do ekranu logowania, `/(auth)/login`, przy użyciu `router.replace`.
+
+== Przykład użycia
+
+```javascript
+import Index from './Index';
+
+export default function App() {
+    return (
+        <Index />
+    );
+}
 
 ## Funkcjonalności  
 ### Użytkownik  
