@@ -1,18 +1,15 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { SafeAreaView, Switch, Text, View, TouchableHighlight, Appearance, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Switch, Text, View, Appearance, Image, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from "react";
-import { ThemedText } from '@/components/ThemedText';
 import { THEME_PREFERENCE_KEY } from "@/hooks/useColorScheme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Href, router } from 'expo-router';
-import { ThemedView } from '@/components/ThemedView';
-import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function Settings() {
     const [darkTheme, setDarkTheme] = useState<boolean>(false);
-
+    
     const canChangeTheme = typeof Appearance.setColorScheme === "function";
-
+    
     useEffect(() => {
         const fetchThemePreference = async () => {
             try {
@@ -24,7 +21,7 @@ export default function Settings() {
                 console.error("Failed to fetch theme preference:", error);
             }
         };
-
+        
         fetchThemePreference();
     }, []);
 
@@ -40,19 +37,15 @@ export default function Settings() {
         router.replace('/(auth)/login' as Href);
     };
 
-    const backgroundColor = useThemeColor(
-        { light: "", dark: "" },
-        "background"
-    );
 
     return (
-        <SafeAreaView className={"flex-1"} style={[{ backgroundColor }]}>
+        <SafeAreaView className={`flex-1 ${darkTheme ? "bg-[#0d0708]" : "bg-[#ffffff"}`}>
             <Image source={require('../../assets/images/logo-icon.png')} className={"w-full h-28 object-contain"} style={{ width: '100%', height: 112, resizeMode: 'contain' }} />
-            <ThemedText type='title' className='px-8'>Ustawienia</ThemedText>
+            <Text className={`px-8 text-5xl font-bold ${darkTheme ? "text-[#dfedcf]" : "text-[#202f11]"}`}>Ustawienia</Text>
 
             <View className={"mt-10 border-t border-primary border-b border-solid p-4"}>
                 <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-                    <ThemedText className='text-xl p-3 font-semibold'>Użyj ciemny motyw</ThemedText>
+                    <Text className={`text-xl p-3 font-semibold ${darkTheme ? "text-[#dfedcf]" : "text-[#202f11]"}`}>Użyj ciemny motyw</Text>
                     <View
                         style={{
                             width: 60,

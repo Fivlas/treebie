@@ -1,12 +1,12 @@
 import CustomButton from '@/components/elements/CustomButton';
 import { useUser } from '@/hooks/useUser';
-import { Redirect, router } from 'expo-router';
+import { Href, Redirect, router } from 'expo-router';
 import React from 'react';
 import { Image, ImageBackground, View, Text } from 'react-native';
 
 const Index = () => {
     const { user } = useUser();
-    if (user) return <Redirect href={'/(tabs)/'} />;
+    if (user) return <Redirect href={'/(tabs)/' as Href} />;
 
     return (
         <View className="flex-1">

@@ -21,7 +21,6 @@ const Tree = () => {
     const [level, setLevel] = useState<Level>(1);
     const backgroundColor = useThemeColor({ light: "", dark: ""}, 'background');
     
-    // useFocusEffect(
         useEffect(() => {
             const getData = async () => {
                 if (loading) return;
@@ -46,7 +45,6 @@ const Tree = () => {
 
             getData();
         }, [user, loading])
-    // );
 
     useEffect(() => {
         const calculateLvl = (): Level => {

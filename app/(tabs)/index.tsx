@@ -94,7 +94,6 @@ const HomeScreen = () => {
     router.replace(`/ai?text=${inputValue ? inputValue : ""}`);
   };
 
-  // Loading state
   if (loading) {
     return (
       <ThemedView className="flex-1 justify-center items-center">
@@ -126,7 +125,7 @@ const HomeScreen = () => {
             {/* Search Bar */}
             <View className="flex-row items-center mt-4 p-4 rounded-lg" style={{ backgroundColor: secondaryBackground }}>
               <TextInput
-                className="flex-1 ml-2 text-gray-700"
+                className="flex-1 ml-2 text-[#63784f]"
                 placeholder="Zadaj pytanie ECO asystentowi"
                 placeholderTextColor="#63784f"
                 onChangeText={text => setInputValue(text)}

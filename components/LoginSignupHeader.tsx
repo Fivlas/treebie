@@ -23,9 +23,6 @@ export default function LoginSignupHeader() {
                 </View>
                 <TitleHeader>Podejmij Eko-wyzwanie!</TitleHeader>
                 <SubtitleHeader>Wykonuj zadania, zbieraj punkty i wymieniaj na nagrody</SubtitleHeader>
-                {/* <TextInput placeholder="login" className="text-3xl text-white" />
-                <TextInput placeholder="haslo" className="text-3xl text-white" />
-                <Pressable><Text className="text-white">Submit</Text></Pressable> */}
             </View>
         </DismissKeyboard>
         
@@ -37,6 +34,5 @@ const styles = StyleSheet.create({
         marginVertical: 50,
         padding: 30,
         gap: 10,
-        // marginBottom: 150
     }
 });

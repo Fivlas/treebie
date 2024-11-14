@@ -4,7 +4,6 @@ import {
   Platform,
   SafeAreaView,
   View,
-  Text,
 } from "react-native";
 import SearchBar from "../../components/Challenges/SearchBar";
 import ChallengesList from "@/components/Challenges/ChallengesList";
@@ -86,50 +85,36 @@ const Challenges: React.FC<ParentProps> = () => {
         ]
       );
     };
-    // const getCurrentQuestId = async () => {
-    //   try {
-    //     const currentQuestIdRef = doc(FIREBASE_DB, "users", user.uid);
-    //     const questDoc = await getDoc(currentQuestIdRef);
-
-    //     if (questDoc.exists()) {
-    //       const userData = questDoc.data();
-    //       setCurrentQuestId(userData?.currentQuest || null);
-    //     }
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // };
 
     const fetchCurrentQuest = async () => {
       try {
-        // Krok 1: Pobierz currentQuest z kolekcji users
         const userDocRef = doc(FIREBASE_DB, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          setCurrentQuestId(userData?.currentQuest);
-
-          if (currentQuestId) {
-            // Krok 2: Użyj currentQuest do pobrania odpowiedniego dokumentu w quests
-            const questDocRef = doc(FIREBASE_DB, "quests", currentQuestId);
-            const questDoc = await getDoc(questDocRef);
-
-            if (questDoc.exists()) {
-              setCurrentQuest(questDoc.data() as Quest);
-            } else {
-              console.log("Dokument quest nie istnieje.");
-            }
-          } else {
-            console.log("Brak currentQuest w dokumencie użytkownika.");
-          }
+    
+        if (!userDoc.exists()) {
+          return;
+        }
+    
+        const userData = userDoc.data();
+        const questId = userData?.currentQuest;
+    
+        if (!questId) {
+          return;
+        }
+    
+        const questDocRef = doc(FIREBASE_DB, "quests", questId);
+        const questDoc = await getDoc(questDocRef);
+    
+        if (questDoc.exists()) {
+          setCurrentQuest(questDoc.data() as Quest);
         } else {
-          console.log("Dokument użytkownika nie istnieje.");
+          console.error("Quest document does not exist.");
         }
       } catch (error) {
-        console.error("Błąd podczas pobierania danych:", error);
+        console.error("Error fetching data:", error);
       }
     };
+    
 
     checkFirstUse();
     fetchCurrentQuest();

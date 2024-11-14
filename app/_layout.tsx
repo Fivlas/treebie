@@ -52,6 +52,8 @@ export default function RootLayout() {
         <Stack.Screen name="tip/[id]/index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/login" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)/signup" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/privacy" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/tos" options={{ headerShown: false }} />
         <Stack.Screen name="ai/index" options={{ headerShown: false }} />
         <Stack.Screen name="challenge/[id]/index" options={{ headerShown: false }} />
         <Stack.Screen name="all/index" options={{ headerShown: false }} />

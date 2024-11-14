@@ -118,7 +118,6 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                         isAi={true}
                     />
 
-                    {/* Renderowanie wiadomości użytkownika i AI */}
                     {messages.map((message, index) => (
                         <Message
                             key={index}
@@ -127,15 +126,13 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                         />
                     ))}
 
-                    {/* Szablon ładowania wiadomości */}
                     {isFetching && <SkeletonMessage />}
                 </View>
             </ScrollView>
 
 <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10} // Better offset for visibility
-    // style={{ flex: 1 }}
+    keyboardVerticalOffset={Platform.OS === 'ios' ? 10 : 10} 
 >
     <View style={{ paddingBottom: Platform.OS === 'ios' ? 0 : 0 }}>
         <View
@@ -147,7 +144,7 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                 borderTopWidth: 1,
                 borderTopColor: "#e0e0e0",
                 backgroundColor: backgroundColor,
-                height: 60, // Set consistent height
+                height: 60, 
             }}
         >
             <View
@@ -158,7 +155,7 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                     backgroundColor: "#f2f2f2",
                     borderRadius: 25,
                     paddingHorizontal: 12,
-                    height: 44, // Consistent input height
+                    height: 44, 
                 }}
             >
                 <TextInput
@@ -166,7 +163,7 @@ Wpisz swoje pytanie, a ja chętnie na nie odpowiem!`}
                         flex: 1,
                         fontSize: 16,
                         color: "#202f11",
-                        paddingVertical: 0, // Fix vertical padding issues
+                        paddingVertical: 0, 
                     }}
                     placeholder="Zadaj pytanie ECO asystentowi"
                     placeholderTextColor="#63784f"

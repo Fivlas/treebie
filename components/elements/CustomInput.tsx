@@ -18,6 +18,7 @@ export function CustomInput({type, placeholder, val, onChange, ...rest}: Readonl
             secureTextEntry={type === "password"}
             keyboardType={type === "email" ? "email-address" : "default"}
             placeholder={placeholder === undefined ? type.charAt(0).toUpperCase() + type.slice(1) : placeholder}
+            placeholderTextColor="#63784f"
             autoCapitalize="none"
             value={val}
             onChangeText={onChange}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Image, ImageBackground, Platform, ScrollView, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Image, ImageBackground, Platform, TouchableOpacity, View } from "react-native";
 import CustomButton from "@/components/elements/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 import { Href, useLocalSearchParams, router } from "expo-router";
@@ -30,7 +30,6 @@ const Index = () => {
     const { user, loading } = useUser ();
     const [isLoading, setIsLoading] = useState(true);
 
-    // Fetch Tip Data and User Likes
     useEffect(() => {
         const getData = async (id: string) => {
             try {
@@ -80,7 +79,6 @@ const Index = () => {
         }
     }, [local.id, user, loading]);
 
-    // Handle Like/Unlike
     const likeHandler = async () => {
         if (!user) {
             console.warn("User  not logged in");
