@@ -1,0 +1,109 @@
+= Dokumentacja komponentu `TabBarIcon`
+
+Komponent `TabBarIcon` jest wykorzystywany do renderowania ikon w pasku nawigacyjnym (tab bar) aplikacji mobilnej, która jest zbudowana w React Native przy użyciu Expo. Komponent opiera się na bibliotece `Ionicons` dostarczonej przez Expo i pozwala na łatwe dostosowanie wyglądu i rozmiaru ikon w aplikacji.
+
+== Importowane moduły i komponenty
+
+* `Ionicons` - ikony z rodziny Ionicons dostarczone przez bibliotekę `@expo/vector-icons`. Jest to popularny zbiór ikon, które są często używane w aplikacjach mobilnych.
+* `IconProps` - typ z `@expo/vector-icons` definiujący właściwości, które można przekazać do komponentu ikony, takie jak rozmiar, kolor, nazwa ikony.
+* `ComponentProps` - typ z React, który umożliwia uzyskanie właściwości komponentu React, w tym przypadku dla komponentu `Ionicons`.
+
+```typescript
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { type IconProps } from '@expo/vector-icons/build/createIconSet';
+import { type ComponentProps } from 'react';
+```
+
+## Typy i interfejsy
+
+### IconProps
+
+Komponent `TabBarIcon` korzysta z typu `IconProps`, który jest ogólnym typem dla właściwości ikon w bibliotece `Ionicons`. W szczególności, typ `IconProps<ComponentProps<typeof Ionicons>['name']>` określa, że właściwość `name` przyjmuje nazwę ikony z zestawu `Ionicons`, a także inne właściwości specyficzne dla komponentu ikony, takie jak `size`, `color`, `style`.
+
+```typescript
+export function TabBarIcon({ style, ...rest }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
+  return <Ionicons size={28} style={[{ marginBottom: -3 }, style]} {...rest} />;
+}
+```
+
+## Funkcje
+
+### TabBarIcon
+
+Komponent `TabBarIcon` jest prostym wrapperem wokół komponentu `Ionicons`, który umożliwia dostosowanie ikony do paska nawigacyjnego aplikacji. Przyjmuje właściwości, które są przekazywane do komponentu `Ionicons`, umożliwiając w ten sposób:
+
+- Określenie nazwy ikony, która ma być wyświetlana.
+- Ustawienie dodatkowych właściwości stylu.
+- Modyfikację rozmiaru ikony.
+
+Funkcja renderująca komponent zwraca komponent `Ionicons` z następującymi właściwościami:
+
+- `size`: Domyślny rozmiar ikony ustawiony na 28 px.
+- `style`: Zastosowanie przekazanego stylu, z dodatkowymi modyfikacjami (np. `marginBottom`).
+- `...rest`: Pozostałe właściwości przekazywane bezpośrednio do komponentu `Ionicons`, np. `name` (nazwa ikony), `color`.
+
+```javascript
+export function TabBarIcon({ style, ...rest }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
+  return <Ionicons size={28} style={[{ marginBottom: -3 }, style]} {...rest} />;
+}
+```
+
+### `rest` i rozkładanie właściwości
+
+Właściwości przekazane do komponentu `TabBarIcon` (poza `style`) są rozkładane za pomocą `...rest` i przekazywane bezpośrednio do komponentu `Ionicons`. Dzięki temu można dostosować nazwę ikony (`name`), kolor (`color`), i inne właściwości, które są dostępne w komponencie `Ionicons`.
+
+```javascript
+<Ionicons size={28} style={[{ marginBottom: -3 }, style]} {...rest} />
+```
+
+### Stylizacja
+
+- Komponent `TabBarIcon` dodaje do ikony `marginBottom: -3` w celu dostosowania jej położenia, co może być szczególnie przydatne w przypadku renderowania ikon w paskach nawigacyjnych, gdzie często wymagana jest drobna korekta położenia w celu lepszego wyrównania z tekstem lub innymi elementami.
+- Dodatkowy `style` jest przekazywany do komponentu `Ionicons`, co pozwala na dalszą modyfikację wyglądu ikony, np. zmianę koloru, rozmiaru, itp.
+
+## Zastosowanie
+
+Komponent `TabBarIcon` jest używany w paskach nawigacyjnych aplikacji, aby wyświetlić ikony reprezentujące różne sekcje lub akcje w aplikacji. Może być wykorzystywany w połączeniu z biblioteką nawigacyjną, taką jak `React Navigation`, w której jest wymagane dostarczenie ikony dla różnych ekranów w dolnym pasku nawigacyjnym.
+
+### Przykład użycia
+
+```javascript
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TabBarIcon from './TabBarIcon'; // Komponent z tego pliku
+
+const Tab = createBottomTabNavigator();
+
+export function App() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="settings" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+```
+
+W powyższym przykładzie, `TabBarIcon` jest używany jako ikona dla ekranów `Home` i `Settings` w dolnym pasku nawigacyjnym. Właściwości `color` i `size` są przekazywane z opcji nawigacji i wykorzystane w komponencie `TabBarIcon`, umożliwiając dynamiczną zmianę koloru i rozmiaru ikony w zależności od aktywnego stanu paska nawigacyjnego.
+
+## Uwagi
+
+- **Rozmiar ikony**: Domyślnie rozmiar ikony jest ustawiony na 28px, ale można go łatwo zmienić, przekazując odpowiednią wartość w `size`.
+- **Stylizacja**: Dzięki przekazywaniu stylów przez `style`, komponent `TabBarIcon` może być dostosowany do różnych wymagań, takich jak zmiana marginesów, kolorów lub innych właściwości CSS.
+- **Kompatybilność**: Komponent jest oparty na `Ionicons` z biblioteki `@expo/vector-icons`, co sprawia, że jest łatwy do użycia w aplikacjach zbudowanych z wykorzystaniem Expo.
+

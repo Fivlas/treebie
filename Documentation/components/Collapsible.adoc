@@ -1,0 +1,115 @@
+= Dokumentacja komponentu `Collapsible`
+
+Komponent `Collapsible` jest rozwijaną sekcją w aplikacji mobilnej, której zawartość można otworzyć lub zamknąć klikając w nagłówek. Jest przydatny w przypadku chowania i pokazywania treści w zależności od interakcji użytkownika, takich jak ustawienia, szczegóły czy dodatkowe opcje. Komponent dynamicznie zmienia ikonę w zależności od stanu (otwarte/zamknięte) oraz obsługuje motywowanie aplikacji (jasny/ciemny).
+
+== Importowane moduły i komponenty
+
+* **`Ionicons`** - Biblioteka ikon z Expo, która dostarcza różne ikony, w tym ikonę strzałki, używaną do wskazania, czy sekcja jest otwarta czy zamknięta.
+* **`PropsWithChildren`, `useState`** - Hooki z React. `useState` służy do zarządzania stanem komponentu (czy sekcja jest otwarta czy zamknięta), a `PropsWithChildren` zapewnia typowanie dla komponentu, który przyjmuje dzieci jako propsy.
+* **`StyleSheet`, `TouchableOpacity`, `useColorScheme`** - Komponenty z React Native. `StyleSheet` służy do definiowania stylów, `TouchableOpacity` umożliwia wykrywanie kliknięć, a `useColorScheme` pozwala na dynamiczną zmianę motywu aplikacji.
+* **`ThemedText`** - Niestandardowy komponent do wyświetlania tekstu, który dostosowuje kolor tekstu do aktualnego motywu aplikacji.
+* **`ThemedView`** - Niestandardowy komponent kontenerowy, który renderuje widok dostosowany do motywu aplikacji.
+* **`Colors`** - Moduł przechowujący kolory aplikacji, używany do ustawiania kolorów w zależności od motywu (np. jasny/ciemny).
+
+```typescript
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { PropsWithChildren, useState } from 'react';
+import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { Colors } from '@/constants/Colors';
+== Typy i interfejsy
+
+CollapsibleProps
+Komponent Collapsible przyjmuje następujące właściwości:
+
+title (string) - Tytuł nagłówka sekcji, który jest wyświetlany na początku, przed rozwinięciem zawartości. Jest to wymagany atrybut.
+typescript
+Skopiuj kod
+type CollapsibleProps = {
+  title: string;
+};
+Collapsible - Funkcje
+Komponent Collapsible działa w następujący sposób:
+
+Stan:
+
+isOpen - stan, który określa, czy sekcja jest otwarta (widoczna) czy zamknięta. Początkowo jest ustawiony na false (sekcja zamknięta).
+setIsOpen - funkcja do zmiany stanu isOpen przy każdym kliknięciu na nagłówek sekcji.
+Motywowanie:
+
+Komponent korzysta z hooka useColorScheme(), aby automatycznie dostosować kolory w zależności od wybranego motywu (jasny/ciemny). Ikona strzałki zmienia kolor zgodnie z motywem.
+Renderowanie:
+
+Komponent wyświetla nagłówek zawierający ikonę strzałki oraz tytuł. Po kliknięciu na nagłówek stan isOpen zmienia się, co powoduje rozwinięcie lub zwinięcie zawartości.
+Zawartość jest wyświetlana tylko wtedy, gdy isOpen jest ustawiony na true.
+tsx
+Skopiuj kod
+export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const theme = useColorScheme() ?? 'light';
+
+  return (
+    <ThemedView>
+      <TouchableOpacity
+        style={styles.heading}
+        onPress={() => setIsOpen((value) => !value)}
+        activeOpacity={0.8}>
+        <Ionicons
+          name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
+          size={18}
+          color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
+        />
+        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+      </TouchableOpacity>
+      {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
+    </ThemedView>
+  );
+}
+== Stylowanie
+
+Komponent Collapsible używa StyleSheet.create do zdefiniowania stylów:
+
+heading - Styl dla nagłówka sekcji:
+
+Ustawia kierunek układu na row, aby ikona i tytuł były obok siebie.
+Dodaje gap (odstęp) między ikoną a tekstem.
+content - Styl dla zawartości sekcji:
+
+Dodaje marginesy górne i lewe, aby zawartość była odpowiednio wcięta i oddzielona od nagłówka.
+tsx
+Skopiuj kod
+const styles = StyleSheet.create({
+  heading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  content: {
+    marginTop: 6,
+    marginLeft: 24,
+  },
+});
+== Uwagi
+
+Stan rozwinięcia: Zawartość sekcji jest renderowana tylko wtedy, gdy stan isOpen jest ustawiony na true, co pozwala na dynamiczne otwieranie i zamykanie sekcji.
+Dostosowanie kolorów: Kolor ikony oraz tekstu jest zależny od aktualnego motywu aplikacji (jasny/ciemny).
+Ikona strzałki: Ikona zmienia się w zależności od stanu rozwinięcia (strzałka w dół dla otwartej sekcji, strzałka w prawo dla zamkniętej).
+== Przykład użycia
+
+tsx
+Skopiuj kod
+import { Collapsible } from './Collapsible';
+
+export default function App() {
+  return (
+    <Collapsible title="Informacje">
+      <Text>To jest zawartość sekcji, która jest rozwijana.</Text>
+    </Collapsible>
+  );
+}
+W tym przykładzie, komponent Collapsible wyświetla nagłówek z tytułem "Informacje". Po kliknięciu na nagłówek, zawartość (tekst) jest rozwijana lub zwijana w zależności od stanu.
+
+== Podsumowanie
+
+Komponent Collapsible jest prostym i elastycznym narzędziem do tworzenia rozwijanych sekcji w aplikacji mobilnej. Umożliwia łatwe ukrywanie i pokazywanie treści, a dzięki obsłudze motywów, dostosowuje kolory do wybranego schematu kolorów (jasny/ciemny). Jest idealny do stosowania w przypadku sekcji z dodatkowymi informacjami, ustawieniami czy opcjami.
