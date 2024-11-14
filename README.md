@@ -73,8 +73,13 @@ treebie/
 ├───scripts
 └───styles
 ```
-
+## Części aplikcji
+Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania, drzewko oraz ustawienia.  
+### Strona główna  
++ Jest to główna strona aplikacji, która zapewnia dostęp do porad dotyczących ekologii oraz interaktywny czat z chatbotem AI, który może odpowiadać na pytania użytkownika i udzielać ekologicznych wskazówek.
++ Użytkownik może zobaczyć najnowsze porady ekologiczne oraz rozmawiać z AI, aby uzyskać dodatkowe porady lub sugestie. Strona ta stanowi centralne miejsce interakcji z aplikacją i ekologicznymi treściami.
 ## Wykorzystane technologie
+
 ### Aplikacja wykorzystuje następujące technologie i biblioteki:
 - **React Native** - framework do budowania aplikacji mobilnych.
 - **TypeScript** - statyczne typowanie i większa czytelność kodu.
@@ -128,8 +133,7 @@ System kont zwiększa użyteczność i funkcjonalność aplikacji, umożliwiają
 ### Wyzwania  
 System wyzwań w aplikacji umożliwia użytkownikom realizację określonych zadań, za które zdobywają punkty doświadczenia (XP), co powoduje rośnięcie własnego drzewka oraz motywuje użytkownika do regularnego korzystania z aplikacji. Poniżej główne możliwości takiego systemu:  
 + **Różne typy wyzwań**: Wyzwania mają różny stopień trudności (łatwy, średni, trudny) oraz kategorie (challengeGroup) np. Sadzenie, Zbieranie, Zakupy  
-+ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu.  
-Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
++ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu. Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
 ### Porady
 Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych porad w przystępny sposób. Użytkownicy mogą odkrywać różnorodne wskazówki związane z dbaniem o środowisko, a także zapisywać ulubione, by łatwo do nich wrócić.  
 + **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
