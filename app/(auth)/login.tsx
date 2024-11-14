@@ -5,12 +5,12 @@ import { CustomInput } from "@/components/elements/CustomInput";
 import CustomButton from "@/components/elements/CustomButton";
 import { router } from "expo-router";
 import { LoginSignupFooter } from "@/components/elements/LoginSignupFooter";
-import { FIREBASE_AUTH, FIREBASE_DB } from '@/firebase.config';
 import { signInWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { doc, getDoc, setDoc, updateDoc } from '@firebase/firestore';
 import ChoseTeam from '@/components/ChoseTeam';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { FIREBASE_AUTH, FIREBASE_DB } from '@/functions/firebaseConfig';
 
 
 export default function Login() {
@@ -97,7 +97,7 @@ export default function Login() {
                             <Text className="text-text text-center">Nie masz konta? Zarejestruj się!</Text>
                         </TouchableOpacity>
                     </View>
-                    <LoginSignupFooter />
+                    <LoginSignupFooter  />
                 </View>}
         </SafeAreaView>
     );

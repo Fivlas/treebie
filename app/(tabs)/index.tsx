@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { TextInput, ScrollView, Text, View, ImageBackground, Image, ActivityIndicator } from 'react-native';
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
-import { FIREBASE_DB } from '@/firebase.config';
+import { FIREBASE_DB } from '@/functions/firebaseConfig';
 import { shuffleArray } from '@/functions/shuffleArray';
 import SectionText from '@/components/HomePage/SectionText';
 import ScrollCard from '@/components/HomePage/ScrollCard';

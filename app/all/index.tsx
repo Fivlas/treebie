@@ -1,7 +1,7 @@
 import ScrollCard from "@/components/HomePage/ScrollCard";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { FIREBASE_DB } from "@/firebase.config";
+import { FIREBASE_DB } from "@/functions/firebaseConfig";
 import { shuffleArray } from "@/functions/shuffleArray";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useUser } from "@/hooks/useUser";

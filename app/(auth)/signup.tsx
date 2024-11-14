@@ -6,7 +6,7 @@ import CustomButton from "@/components/elements/CustomButton";
 import {router} from "expo-router";
 import {LoginSignupFooter} from "@/components/elements/LoginSignupFooter";
 import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { FIREBASE_AUTH, FIREBASE_DB } from '@/firebase.config';
+import { FIREBASE_AUTH, FIREBASE_DB } from '@/functions/firebaseConfig';
 import { useState } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import { useThemeColor } from '@/hooks/useThemeColor';

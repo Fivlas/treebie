@@ -13,17 +13,18 @@
       "backgroundColor": "#ffffff"
     },
     "androidNavigationBar": {
-    // "visible": "leanback",
       "barStyle": "light-content"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fivlas.Treebie"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/logo-icon-new.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fivlas.Treebie"
     },
     "web": {
       "bundler": "metro",
@@ -36,7 +37,12 @@
       "expo-font"
     ],
     "experiments": {
-      "typedRoutes": true      
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "91bbc5d5-3c8e-43ff-b8bb-427ca5d84b1d"
+      }
     }
   }
 }
