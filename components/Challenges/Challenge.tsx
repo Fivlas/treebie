@@ -3,6 +3,7 @@ import { ChallengeType } from "./ChallengesList";
 import { Href, router } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useColorScheme } from "react-native";
+import { ThemedText } from "../ThemedText";
 export const Challenge = ({
   id,
   title,
@@ -13,7 +14,6 @@ export const Challenge = ({
   asActive,
 }: ChallengeType) => {
   const colorScheme = useColorScheme();
-  console.log(colorScheme === "light");
   const getColor = () => {
     const difficulty = difficultyLevel;
     if (difficulty === 1) return "primary";
@@ -29,7 +29,7 @@ export const Challenge = ({
       } flex flex-row overflow-hidden`}
     >
       <View className="w-2/3 p-4">
-        <Text className="text-2xl font-semibold">{title}</Text>
+        <ThemedText className="text-2xl font-semibold">{title}</ThemedText>
       </View>
       <View
         className={`w-1/3 flex justify-center items-center p-4 bg-${getColor()}`}

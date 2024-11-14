@@ -10,6 +10,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { ThemedView } from '@/components/ThemedView';
 import { useUser } from '@/hooks/useUser';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 const HomeScreen = () => {
   const [allTips, setAllTips] = useState<TipFields[]>([]);
@@ -17,6 +18,7 @@ const HomeScreen = () => {
   const [likedTipsList, setLikedTipsList] = useState<TipFields[]>([]);
   const [inputValue, setInputValue] = useState<string>();
   const { user, loading } = useUser();
+  const secondaryBackground = useThemeColor({}, 'secondaryBackground');
 
   // Fetch tips and liked tips
   useEffect(() => {
@@ -122,7 +124,7 @@ const HomeScreen = () => {
             </Text>
 
             {/* Search Bar */}
-            <View className="flex-row items-center bg-white mt-4 p-4 rounded-lg">
+            <View className="flex-row items-center mt-4 p-4 rounded-lg" style={{ backgroundColor: secondaryBackground }}>
               <TextInput
                 className="flex-1 ml-2 text-gray-700"
                 placeholder="Zadaj pytanie ECO asystentowi"
@@ -162,7 +164,7 @@ const HomeScreen = () => {
         <View className="mt-8 px-8">
           <SectionText title='Porady' route='/all?allType=all' />
 
-          <View className="bg-[#F2F2F2] w-full h-48 rounded-3xl flex items-center justify-center">
+          <View style={{ backgroundColor: secondaryBackground }} className="w-full h-48 rounded-3xl flex items-center justify-center">
             <Image source={require('@/assets/images/zero-waste.png')} className='h-full w-full rounded-3xl' />
           </View>
           {displayTips(6)}

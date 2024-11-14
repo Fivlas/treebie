@@ -18,17 +18,6 @@ export type ChallengeType = {
   asActive?: boolean;
 };
 
-// Define UserData type for the user information fetched from Firestore
-type UserData = {
-  currentQuest: string;
-  email: string;
-  items: object;
-  likedTips: object;
-  questsDone: string[];
-  team: string;
-  treeProgress: number;
-};
-
 type ChallengeProps = {
   queryToFilter: string;
 };

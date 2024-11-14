@@ -2,6 +2,8 @@
 import React from "react";
 import { Image, Text, View, TouchableOpacity } from "react-native";
 import { Href, router } from "expo-router";
+import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "../ThemedText";
 
 interface ScrollCardProps {
     id: string;
@@ -13,6 +15,7 @@ interface ScrollCardProps {
 }
 
 const ScrollCard = ({ id, title, imageName, containerStyle, redirect, onClick }: ScrollCardProps) => {
+    const secondaryBackground = useThemeColor({}, 'secondaryBackground');
     const handlePress = () => {
         if(onClick == undefined){
             const route: Href = redirect
@@ -26,9 +29,9 @@ const ScrollCard = ({ id, title, imageName, containerStyle, redirect, onClick }:
 
     return (
         <TouchableOpacity onPress={handlePress} activeOpacity={0.7}>
-            <View className={`bg-[#f2f3ef] w-44 h-52 rounded-3xl justify-center items-center ${containerStyle} relative`}>
+            <View style={{ backgroundColor: secondaryBackground }} className={`w-44 h-52 rounded-3xl justify-center items-center ${containerStyle} relative`}>
                 <Image source={ {uri: imageName} } className="size-36" />
-                <Text className="absolute bottom-4 left-4 text-text font-medium">{title}</Text>
+                <ThemedText className="absolute bottom-4 left-4 font-medium">{title}</ThemedText>
             </View>
         </TouchableOpacity>
     );
