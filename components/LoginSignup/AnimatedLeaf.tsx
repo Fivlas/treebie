@@ -7,7 +7,6 @@ export type AnimatedLeafOptions = {
 
 export function AnimatedLeaf({ className }: Readonly<AnimatedLeafOptions>) {
     const width = Dimensions.get("window").width;
-    // noinspection JSSuspiciousNameCombination
     return (
         <View style={[{ borderRadius: width / 2, overflow: 'hidden' }]} className={className}>
             <LinearGradient

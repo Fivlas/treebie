@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import Challenge from "./Challenge";
 
-// Define the ChallengeType (for the challenges from Firestore)
 export type ChallengeType = {
   id: string;
   title: string;
@@ -27,43 +26,38 @@ const ChallengesList = ({ queryToFilter }: ChallengeProps) => {
   const [questsDone, setQuestsDone] = useState<string[]>([]);
   const { user, loading } = useUser();
 
-  // Fetch the user's completed quests from Firestore
   const fetchUserQuestsDone = async (userId: string) => {
     try {
       const userDocRef = doc(FIREBASE_DB, "users", userId);
       const userDoc = await getDoc(userDocRef);
       const userData = userDoc.data();
-
-      // Get `questsDone` from Firestore
-      if (userData && userData.questsDone) {
-        setQuestsDone(userData.questsDone);
-      } else {
-        setQuestsDone([]); // No quests completed
-      }
+  
+      const userQuestsDone = Array.isArray(userData?.questsDone) ? userData.questsDone : [];
+      setQuestsDone(userQuestsDone);
     } catch (error) {
       console.error("Error fetching user's questsDone data:", error);
       setQuestsDone([]);
     }
   };
 
-  // Fetch the list of all challenges from Firestore
   const fetchChallenges = async () => {
     try {
       const challengesCollectionRef = collection(FIREBASE_DB, "quests");
       const challengesQuery = query(challengesCollectionRef);
       const querySnapshot = await getDocs(challengesQuery);
-
+  
       const everyChallenge: ChallengeType[] = querySnapshot.docs.map((doc) => ({
         //@ts-ignore
         id: doc.id,
         ...(doc.data() as ChallengeType),
       }));
-
-      // Filter out completed challenges based on `questsDone`
+  
+      const questsDoneArray = Array.isArray(questsDone) ? questsDone : [];
+  
       const uncompletedChallenges = everyChallenge.filter(
-        (challenge) => !questsDone.includes(challenge.id)
+        (challenge) => !questsDoneArray.includes(challenge.id)
       );
-
+  
       setChallenges(uncompletedChallenges);
     } catch (error) {
       console.error("Error fetching challenges from Firestore:", error);
@@ -71,13 +65,11 @@ const ChallengesList = ({ queryToFilter }: ChallengeProps) => {
   };
 
   useEffect(() => {
-    // Fetch user's questsDone and challenges when user data is available
     if (user && !loading) {
       fetchUserQuestsDone(user.uid).then(fetchChallenges);
     }
   }, [user, loading, questsDone]);
 
-  // Helper function to get the color based on difficulty level
   const getColor = (level: number | undefined) => {
     switch (level) {
       case 1:

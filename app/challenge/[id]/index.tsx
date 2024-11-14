@@ -36,19 +36,19 @@ const index = () => {
     "background"
   );
 
-  // Function to determine the current action
   const determineAction = (userInfo: UserData | null): actionType => {
     if (!userInfo || !local.id) return null;
     const questId = local.id.toString();
 
     const questsDone = Array.isArray(userInfo.questsDone) ? userInfo.questsDone : [];
 
+    if (!questsDone) return null;
+
     if (userInfo.currentQuest === questId) return "ongoing";
     if (questsDone.includes(questId)) return "end";
     return "start";
-  };
+};
 
-  // Fetch data and update userInfo and challenge
   useEffect(() => {
     if (!user || loading) return;
 
@@ -67,7 +67,7 @@ const index = () => {
         if (userRes.exists()) {
           const userData = userRes.data() as UserData;
           setUserInfo(userData);
-          setActualAction(determineAction(userData)); // Update actualAction based on fetched userInfo
+          setActualAction(determineAction(userData));
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -103,7 +103,6 @@ const index = () => {
               text: "Nadpisz",
               onPress: async () => {
                 const userRef = doc(FIREBASE_DB, "users", user.uid);
-                // Update user's currentQuest
                 await updateDoc(userRef, { currentQuest: questId });
                 setActualAction("ongoing");
               },
@@ -139,7 +138,6 @@ const index = () => {
     }
   };
 
-  // Get button data based on current action
   const getDataByAction = (): ActionDataType => {
     switch (actualAction) {
       case "start":

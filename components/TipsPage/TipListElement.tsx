@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, View } from 'react-native'
+import { Image, View } from 'react-native'
 import { ThemedText } from '../ThemedText';
 
 interface TipListElement {
