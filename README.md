@@ -111,8 +111,7 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + description (string) - opis wyzywania
   + challengeGroup (string) - grupa do której zalicza się wyzywanie  
 + **tips** - kolekcja przechowuje dane o dostępnych ekologicznych poradach  
-  + title (string) - tytuł (nazwa) porady  
-  + popularity (number) - ilość razy odwiedzonej porady przez użytkowników  
+  + title (string) - tytuł (nazwa) porady 
   + list (array) - tablica przechowująca konkretne wskazówki
   + imageName (string) - adres URL do wyświetlanego zdjęcia
   + description (string) - opis porady  
