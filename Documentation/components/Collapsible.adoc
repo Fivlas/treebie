@@ -28,7 +28,8 @@ title (string) - Tytuł nagłówka sekcji, który jest wyświetlany na początku
 ```typescript
 type CollapsibleProps = {
   title: string;
-}; ```
+}; 
+```
 Collapsible - Funkcje
 Komponent Collapsible działa w następujący sposób:
 
@@ -65,7 +66,8 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
       {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
     </ThemedView>
   );
-}```
+}
+```
 == Stylowanie
 
 Komponent Collapsible używa StyleSheet.create do zdefiniowania stylów:
@@ -78,7 +80,6 @@ content - Styl dla zawartości sekcji:
 
 Dodaje marginesy górne i lewe, aby zawartość była odpowiednio wcięta i oddzielona od nagłówka.
 ```tsx
-Skopiuj kod
 const styles = StyleSheet.create({
   heading: {
     flexDirection: 'row',
@@ -89,7 +90,8 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginLeft: 24,
   },
-});```
+});
+```
 == Uwagi
 
 Stan rozwinięcia: Zawartość sekcji jest renderowana tylko wtedy, gdy stan isOpen jest ustawiony na true, co pozwala na dynamiczne otwieranie i zamykanie sekcji.
@@ -97,8 +99,7 @@ Dostosowanie kolorów: Kolor ikony oraz tekstu jest zależny od aktualnego motyw
 Ikona strzałki: Ikona zmienia się w zależności od stanu rozwinięcia (strzałka w dół dla otwartej sekcji, strzałka w prawo dla zamkniętej).
 == Przykład użycia
 
-```tsx
-Skopiuj kod
+```tsx\
 import { Collapsible } from './Collapsible';
 
 export default function App() {
@@ -107,7 +108,8 @@ export default function App() {
       <Text>To jest zawartość sekcji, która jest rozwijana.</Text>
     </Collapsible>
   );
-}```
+}
+```
 W tym przykładzie, komponent Collapsible wyświetla nagłówek z tytułem "Informacje". Po kliknięciu na nagłówek, zawartość (tekst) jest rozwijana lub zwijana w zależności od stanu.
 
 == Podsumowanie
