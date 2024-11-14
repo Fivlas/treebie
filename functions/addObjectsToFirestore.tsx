@@ -1,4 +1,4 @@
-import { FIREBASE_DB } from '@/firebase.config';
+import { FIREBASE_DB } from '@/functions/firebaseConfig';
 import { collection, addDoc } from "firebase/firestore"
 
 const addObjectsToFirestore = async (objectData, name) => {

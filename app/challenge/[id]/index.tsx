@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, TouchableOpacity, Platform, Alert } from "react-native";
 import { Href, router, useLocalSearchParams } from "expo-router";
-import { FIREBASE_DB } from "@/firebase.config";
+import { FIREBASE_DB } from "@/functions/firebaseConfig";
 import { doc, getDoc, updateDoc, arrayUnion, increment } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import CustomButton from "@/components/elements/CustomButton";

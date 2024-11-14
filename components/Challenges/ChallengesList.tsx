@@ -1,5 +1,5 @@
 import { ScrollView } from "react-native";
-import { FIREBASE_DB } from "@/firebase.config";
+import { FIREBASE_DB } from "@/functions/firebaseConfig";
 import { useUser } from "@/hooks/useUser";
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";

@@ -13,7 +13,7 @@ import { ThemedText } from "@/components/ThemedText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { doc, getDoc } from "firebase/firestore";
 import { useUser } from "@/hooks/useUser";
-import { FIREBASE_DB } from "@/firebase.config";
+import { FIREBASE_DB } from "@/functions/firebaseConfig";
 import Challenge from "@/components/Challenges/Challenge";
 interface ParentProps {}
 type Quest = {
