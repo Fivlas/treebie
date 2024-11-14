@@ -1,0 +1,77 @@
+= Dokumentacja komponentu `Login`
+
+Komponent `Login` umożliwia logowanie użytkownika w aplikacji mobilnej zbudowanej w React Native z wykorzystaniem Firebase. Zawiera formularz logowania z obsługą błędów i logiką uwierzytelniania użytkownika.
+
+== Importowane moduły i komponenty
+
+* `View`, `SafeAreaView`, `TouchableOpacity`, `Text`, `Alert` - komponenty React Native używane do tworzenia interfejsu użytkownika.
+* `useState` - hook React do zarządzania stanem komponentu.
+* `LoginSignupHeader` - komponent nagłówka logowania/rejestracji.
+* `CustomInput`, `CustomButton` - komponenty niestandardowe obsługujące pola wejściowe i przyciski.
+* `router` - moduł do nawigacji między ekranami.
+* `LoginSignupFooter` - komponent stopki logowania/rejestracji.
+* `signInWithEmailAndPassword`, `sendEmailVerification` - funkcje Firebase Authentication do logowania oraz wysyłania e-maila weryfikacyjnego.
+* `AsyncStorage` - moduł do przechowywania danych na urządzeniu.
+* `doc`, `getDoc`, `setDoc`, `updateDoc` - funkcje Firebase Firestore do zarządzania dokumentami w bazie danych.
+* `ChoseTeam` - komponent wyboru zespołu użytkownika.
+* `useThemeColor` - hook do pobrania koloru tła na podstawie motywu aplikacji.
+* `FIREBASE_AUTH`, `FIREBASE_DB` - instancje Firebase Authentication oraz Firebase Firestore.
+
+== Stan komponentu
+
+* `email` - przechowuje wprowadzony przez użytkownika adres e-mail.
+* `password` - przechowuje hasło użytkownika.
+* `loading` - wskazuje, czy trwa proces logowania.
+* `isChosingTeam` - informuje, czy użytkownik powinien wybrać zespół po zalogowaniu.
+* `backgroundColor` - kolor tła ekranu, dostosowany do motywu aplikacji.
+
+== Funkcje
+
+=== `signIn`
+
+Asynchroniczna funkcja do obsługi logowania użytkownika.
+- Uwierzytelnia użytkownika przy użyciu `signInWithEmailAndPassword`.
+- Wysyła e-mail weryfikacyjny, jeśli e-mail nie jest zweryfikowany.
+- Zapisuje dane użytkownika (`uid`, `email`) w `AsyncStorage`.
+- Pobiera dokument użytkownika z Firestore i sprawdza, czy użytkownik przypisany jest do zespołu.
+- Obsługuje błędy związane z logowaniem, wyświetlając odpowiednie komunikaty.
+
+=== `handleSignupPress`
+
+Obsługuje nawigację do ekranu rejestracji użytkownika, wywołując `router.replace("/signup")`.
+
+=== `handleTreeSelect`
+
+Przypisuje wybrany zespół do konta użytkownika.
+- Aktualizuje dokument użytkownika w Firestore.
+- Przekierowuje użytkownika do głównego ekranu aplikacji.
+
+== Struktura renderowania
+
+Komponent wyświetla różne elementy interfejsu użytkownika w zależności od wartości `isChosingTeam`:
+
+* Gdy `isChosingTeam` jest `true`, wyświetla komponent `ChoseTeam`, umożliwiający użytkownikowi wybór zespołu.
+* Gdy `isChosingTeam` jest `false`, wyświetla formularz logowania z:
+  ** `CustomInput` dla adresu e-mail i hasła,
+  ** `CustomButton` dla przycisku logowania,
+  ** `TouchableOpacity` z tekstem przekierowującym do rejestracji,
+  ** `LoginSignupHeader` oraz `LoginSignupFooter` w górnej i dolnej części ekranu.
+
+Całość jest otoczona w `SafeAreaView`, co zapewnia odpowiednie wyrównanie na urządzeniach z wycięciami lub zaokrąglonymi rogami.
+
+== Uwagi
+
+* Funkcje Firebase są asynchroniczne i mogą generować błędy; komponent zawiera obsługę typowych błędów logowania.
+* `AsyncStorage` przechowuje dane logowania, co umożliwia automatyczne logowanie po ponownym uruchomieniu aplikacji.
+* `useThemeColor` umożliwia dostosowanie tła do motywu aplikacji.
+
+== Przykład użycia
+
+```javascript
+import Login from './Login';
+
+export default function App() {
+    return (
+        <Login />
+    );
+}

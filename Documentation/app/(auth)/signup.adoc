@@ -1,0 +1,58 @@
+= Dokumentacja komponentu `Signup`
+
+Komponent `Signup` umożliwia rejestrację nowego użytkownika w aplikacji mobilnej, z użyciem Firebase Authentication. Komponent zawiera formularz do wprowadzenia e-maila i hasła oraz obsługę procesu tworzenia konta.
+
+== Importowane moduły i komponenty
+
+* `View`, `SafeAreaView`, `TouchableOpacity`, `Text`, `Alert` - komponenty React Native do tworzenia interfejsu użytkownika.
+* `LoginSignupHeader` - komponent nagłówka logowania/rejestracji.
+* `CustomInput`, `CustomButton` - komponenty do obsługi pól wejściowych i przycisków.
+* `router` - moduł `expo-router` do nawigacji między ekranami.
+* `LoginSignupFooter` - komponent stopki logowania/rejestracji.
+* `createUserWithEmailAndPassword`, `sendEmailVerification` - funkcje Firebase Authentication do rejestracji i weryfikacji adresu e-mail.
+* `FIREBASE_AUTH`, `FIREBASE_DB` - instancje Firebase Authentication i Firestore.
+* `doc`, `setDoc` - funkcje Firebase Firestore do operacji na dokumentach.
+* `useThemeColor` - hook dostosowujący kolor tła do motywu aplikacji.
+
+== Stan komponentu
+
+* `email` - przechowuje e-mail użytkownika.
+* `password` - przechowuje hasło użytkownika.
+* `repassword` - przechowuje ponownie wpisane hasło w celu weryfikacji.
+* `backgroundColor` - kolor tła ekranu, zależny od motywu aplikacji.
+
+== Funkcje
+
+=== `handleSignupPress`
+
+- Funkcja do obsługi nawigacji do ekranu logowania, używająca `router.replace("/login")`.
+
+=== `handleSignup`
+
+Asynchroniczna funkcja do rejestracji użytkownika.
+- Tworzy nowe konto użytkownika za pomocą `createUserWithEmailAndPassword`.
+- Wysyła e-mail weryfikacyjny do nowego użytkownika za pomocą `sendEmailVerification`.
+- Zapisuje podstawowe dane użytkownika (`uid`, `email`, `team`) w Firestore, aby umożliwić identyfikację w aplikacji.
+- Obsługuje błędy, wyświetlając odpowiednie komunikaty, np. w przypadku niepoprawnego adresu e-mail lub hasła.
+
+== Struktura renderowania
+
+* Ekran zawiera:
+  ** `LoginSignupHeader` jako nagłówek,
+  ** Formularz z polami `CustomInput` do wprowadzenia e-maila, hasła i powtórzenia hasła,
+  ** Przycisk `CustomButton` do rejestracji,
+  ** `TouchableOpacity` z tekstem umożliwiającym powrót do ekranu logowania,
+  ** `LoginSignupFooter` jako stopkę.
+
+* Widok zawiera `SafeAreaView` z klasą `flex-1`, aby zapewnić dopasowanie do ekranu urządzenia.
+
+== Przykład użycia
+
+```javascript
+import Signup from './Signup';
+
+export default function App() {
+    return (
+        <Signup />
+    );
+}

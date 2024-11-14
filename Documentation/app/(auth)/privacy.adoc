@@ -1,0 +1,39 @@
+= Dokumentacja komponentu `Privacy`
+
+Komponent `Privacy` wyświetla politykę prywatności w aplikacji mobilnej. Umożliwia użytkownikowi powrót do ekranu logowania lub rejestracji w zależności od przekazanego parametru.
+
+== Importowane moduły i komponenty
+
+* `ThemedText` - komponent do wyświetlania tekstu z motywem kolorystycznym.
+* `useThemeColor` - hook dostosowujący kolor do motywu aplikacji.
+* `Ionicons` - ikony z biblioteki Expo.
+* `Href`, `router`, `useLocalSearchParams` - moduły `expo-router` do obsługi nawigacji i parametrów URL.
+* `SafeAreaView`, `TouchableOpacity`, `View`, `ScrollView` - komponenty React Native do budowy interfejsu.
+
+== Funkcje i logika komponentu
+
+=== `useLocalSearchParams`
+
+- Hook używany do pobrania parametrów przekazanych w URL (np. ścieżka powrotna).
+- Na podstawie parametru `redirect` ustala ścieżkę powrotną (`login` lub `signup`).
+
+=== `backgroundColor`
+
+- Przechowuje kolor tła ekranu, ustawiony w zależności od motywu aplikacji, pobrany za pomocą `useThemeColor`.
+
+== Struktura renderowania
+
+* Zawartość jest opakowana w `SafeAreaView` z klasą `flex-1`, co dostosowuje widok do wyświetlacza urządzenia.
+* Przyciski i ikony są ułożone w wierszu (`flex-row`) na górze ekranu, co umożliwia powrót do poprzedniego ekranu.
+* Przycisk `TouchableOpacity` z ikoną `Ionicons` służy do nawigacji powrotnej, odwołując się do `router.replace(redirect as Href)`.
+
+== Przykład użycia
+
+```javascript
+import Privacy from './Privacy';
+
+export default function App() {
+    return (
+        <Privacy />
+    );
+}
