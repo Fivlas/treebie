@@ -1,0 +1,95 @@
+= Dokumentacja komponentu `Challenge`
+
+Komponent `Challenge` renderuje elementy interfejsu związane z pojedynczym wyzwaniem użytkownika w aplikacji mobilnej zbudowanej w React Native. W zależności od parametrów komponentu, takich jak poziom trudności, motyw kolorystyczny i status wyzwania (aktywne lub nieaktywne), wyświetlane są różne elementy interfejsu.
+
+== Importowane moduły i komponenty
+
+* `View`, `Text`, `TouchableOpacity` - komponenty React Native do tworzenia interfejsu użytkownika.
+* `ChallengeType` - typ obiektu wyzwania importowany z modułu `ChallengesList`.
+* `Href`, `router` - moduł `expo-router` używany do nawigacji między ekranami.
+* `Ionicons` - ikony z biblioteki `@expo/vector-icons`.
+* `useColorScheme` - hook React Native do wykrywania bieżącego motywu aplikacji.
+* `ThemedText` - niestandardowy komponent tekstowy, który dostosowuje kolor tekstu do motywu aplikacji.
+
+== Stan komponentu
+
+* `colorScheme` - zawiera informację o bieżącym motywie (jasny lub ciemny), pobieranym przy pomocy `useColorScheme`.
+
+== Właściwości komponentu
+
+Komponent `Challenge` przyjmuje następujące właściwości, oparte na typie `ChallengeType`:
+
+* `id` - identyfikator wyzwania.
+* `title` - tytuł wyzwania.
+* `description` - opis wyzwania.
+* `difficultyLevel` - poziom trudności wyzwania.
+* `pointsToGain` - liczba punktów, które użytkownik może zdobyć, wykonując wyzwanie.
+* `challengeGroup` - grupa, do której przypisane jest wyzwanie.
+* `asActive` - wartość logiczna określająca, czy wyzwanie jest aktywne.
+
+== Funkcje
+
+=== `getColor`
+
+```javascript
+const getColor = () => {
+    const difficulty = difficultyLevel;
+    if (difficulty === 1) return "primary";
+    else if (difficulty === 2) return "orange";
+    else if (difficulty === 3) return "red";
+    else return "error with colors";
+};
+```
+
+`getColor` to pomocnicza funkcja, która zwraca kolor na podstawie poziomu trudności `difficultyLevel`. Kolory przypisane do poziomów to:
+- `1` - "primary",
+- `2` - "orange",
+- `3` - "red".
+
+W przypadku błędnej wartości poziomu zwraca `"error with colors"`.
+
+== Struktura renderowania
+
+Komponent renderuje elementy interfejsu użytkownika w zależności od wartości `asActive`:
+
+* Gdy `asActive` jest ustawione na `true`, komponent wyświetla uproszczony widok wyzwania:
+  - Klikalny kontener (`TouchableOpacity`) z nagłówkiem `title`.
+  - Tło kontenera dopasowane do motywu (`bg-lightBg` dla jasnego motywu i `bg-darkBg` dla ciemnego).
+  - Po prawej stronie widoczna jest ikona strzałki, która prowadzi do szczegółów wyzwania.
+
+* Gdy `asActive` jest ustawione na `false`, komponent wyświetla pełen widok wyzwania:
+  - Klikalny kontener zawierający szczegóły wyzwania (`title`, `description` i `challengeGroup`).
+  - W zależności od motywu kolorystycznego (`colorScheme`) tekst jest wyświetlany w jasnych lub ciemnych kolorach.
+  - Po prawej stronie wyświetlana jest liczba punktów (`pointsToGain`), które użytkownik może zdobyć za wykonanie wyzwania.
+
+== Nawigacja
+
+W obu przypadkach kliknięcie wyzwania przekierowuje użytkownika do szczegółowego widoku wyzwania poprzez `router.push(/challenge/${id})`. 
+
+== Uwagi
+
+* Komponent `Challenge` dostosowuje tło i kolory tekstu na podstawie motywu aplikacji, co poprawia czytelność i spójność z resztą interfejsu.
+* Użycie `expo-router` umożliwia łatwe przełączanie między ekranami aplikacji, a ikony z `Ionicons` zapewniają intuicyjną nawigację.
+* `getColor` obsługuje poprawne wyświetlanie kolorów dla różnych poziomów trudności wyzwań, pomagając użytkownikowi szybko ocenić ich trudność.
+
+== Przykład użycia
+
+```javascript
+import Challenge from './Challenge';
+
+export default function App() {
+    return (
+        <Challenge
+            id="123"
+            title="Zasadź drzewo"
+            description="Zasadź drzewo w lokalnym parku"
+            difficultyLevel={2}
+            pointsToGain={50}
+            challengeGroup="Eko"
+            asActive={false}
+        />
+    );
+}
+```
+
+Przykład ten renderuje wyzwanie o nazwie "Zasadź drzewo" z poziomem trudności `2`, opisem, grupą `Eko`, i możliwością zdobycia `50` punktów.

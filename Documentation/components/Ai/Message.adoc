@@ -1,0 +1,62 @@
+= Dokumentacja komponentu `Message`
+
+Komponent `Message` renderuje wiadomość w formacie Markdown, wyświetlaną w zależności od parametru `isAi`, który określa, czy wiadomość pochodzi od użytkownika, czy od systemu AI. Używa komponentu `react-native-markdown-display` do obsługi formatowania Markdown.
+
+== Importowane moduły i komponenty
+
+* `React` - biblioteka React, która pozwala na tworzenie komponentów.
+* `StyleSheet, View` - komponenty z `react-native`, używane do tworzenia i stylizowania interfejsu użytkownika.
+  * `View` - element kontenera dla komponentu wiadomości.
+  * `StyleSheet` - służy do definiowania stylów.
+* `Markdown` - komponent z `react-native-markdown-display` umożliwiający renderowanie tekstu z formatowaniem Markdown.
+
+== Typy danych komponentu
+
+* `message` - wiadomość tekstowa, wyświetlana w komponencie.
+* `isAi` - opcjonalna wartość logiczna określająca źródło wiadomości. Domyślnie ustawiona na `false`, co oznacza, że wiadomość pochodzi od użytkownika. Gdy `true`, wiadomość pochodzi od systemu AI.
+
+== Funkcje
+
+=== Renderowanie wiadomości
+
+Komponent `Message` przyjmuje dwa argumenty:
+- `message` - wyświetlana wiadomość, renderowana w formacie Markdown.
+- `isAi` - określa, czy wiadomość pochodzi od AI (`true`) lub użytkownika (`false`), wpływając na styl tekstu i kolor tła wiadomości.
+
+Komponent renderuje `View` zawierający inną `View` (z klasami określającymi wyrównanie i tło). Wewnętrzny komponent `Markdown` wyświetla treść wiadomości, a jego styl jest modyfikowany w zależności od wartości `isAi`:
+- Jeśli `isAi` jest `true`, używa stylu `textPrimary`.
+- Jeśli `isAi` jest `false`, stosuje styl `textSecondary`.
+
+== Style
+
+* `textPrimary` - definiuje kolor tekstu na zielony (`#606c38`), stosowany w wiadomościach AI.
+* `textSecondary` - definiuje kolor tekstu na jasny kremowy (`#fefae0`), stosowany w wiadomościach użytkownika.
+* `padding4` - styl zawierający padding o wartości `16`, który może być używany jako dodatkowy styl do rozszerzenia obszaru wewnętrznego wiadomości.
+
+== Struktura renderowania
+
+* Główna `View` ma styl warunkowy (`justify-start` lub `justify-end`) dla wyrównania wiadomości po lewej lub prawej stronie, w zależności od wartości `isAi`.
+* Zagnieżdżona `View` kontroluje kolor tła wiadomości (`bg-secondary` lub `bg-primary`).
+* `Markdown` wyświetla wiadomość w formacie Markdown, z odpowiednio dostosowanym stylem tekstu.
+
+== Uwagi
+
+* Komponent wymaga zainstalowanego modułu `react-native-markdown-display` do renderowania Markdown.
+* Parametr `isAi` może być dynamicznie modyfikowany, aby dostosować styl wiadomości do źródła (AI lub użytkownik).
+
+== Przykład użycia
+
+```javascript
+import Message from './Message';
+
+export default function App() {
+    return (
+        <View>
+            <Message message="Hello, how can I help you?" isAi={true} />
+            <Message message="I need assistance with my order." />
+        </View>
+    );
+}
+```
+
+W powyższym przykładzie pierwsza wiadomość pochodzi od systemu AI, druga od użytkownika, co wpływa na ich wyrównanie i styl wyświetlania.

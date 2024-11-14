@@ -1,0 +1,62 @@
+= Dokumentacja komponentu `JumpingBubbles`
+
+Komponent `JumpingBubbles` wyświetla animację trzech "skaczących" bąbelków. Jest on zaprojektowany w React Native z użyciem `Animated` oraz `useRef` do animacji, które tworzą wizualizację ruchu bąbelków w postaci sekwencyjnie skalowanych okręgów.
+
+== Importowane moduły i komponenty
+
+* `React, useEffect, useRef` - moduły z React służące do tworzenia komponentu i zarządzania efektami oraz referencjami.
+* `View, Animated, Easing, StyleSheet` - komponenty z React Native:
+  * `View` - służy do organizacji elementów w kontenerze.
+  * `Animated` - zawiera elementy do animacji.
+  * `Easing` - pozwala na określenie funkcji wygładzania animacji.
+  * `StyleSheet` - pozwala na tworzenie stylów komponentu w sposób strukturalny.
+
+== Stan komponentu
+
+Komponent nie wykorzystuje stanu wewnętrznego. Animacje są zarządzane za pomocą referencji (`useRef`) do obiektów `Animated.Value`, które przechowują skalę dla każdego z bąbelków.
+
+== Funkcje
+
+=== animateBubble
+
+Funkcja `animateBubble` przyjmuje jako argument referencję do obiektu `Animated.Value`, który reprezentuje jeden z bąbelków. Tworzy animację zmieniającą rozmiar bąbelka poprzez:
+- Zwiększenie skali (`toValue: 1.5`) w czasie `300ms`.
+- Zmniejszenie skali (`toValue: 1`) w czasie `300ms`.
+
+Animacja jest realizowana za pomocą funkcji `Animated.sequence`, aby zagwarantować płynne przejścia.
+
+=== useEffect - główna animacja
+
+* Zagnieżdżona funkcja `useEffect` definiuje zachowanie animacji po wyrenderowaniu komponentu. Uruchamia ona animację dla trzech bąbelków w pętli `Animated.loop`, używając `Animated.stagger`, aby opóźnić animację każdego kolejnego bąbelka o `150ms`.
+* `useEffect` zapewnia, że animacja uruchamia się automatycznie po załadowaniu komponentu i działa w nieskończonej pętli.
+
+== Struktura renderowania
+
+Komponent renderuje główny widok z trzema animowanymi bąbelkami (`Animated.View`). Każdy bąbelek to okrągły widok o szerokości i wysokości `12`, który zmienia swój rozmiar podczas animacji.
+
+* Każdy `Animated.View` ma przypisany styl `transform`, który określa jego aktualną skalę w oparciu o wartość referencji `Animated.Value`.
+* `View` zawiera styl `container`, który centruje bąbelki w wierszu.
+
+== Style
+
+* `container` - ustawia ułożenie bąbelków w jednym wierszu oraz wyśrodkowanie ich w obu osiach.
+* `bubble` - definiuje rozmiar bąbelków (`12x12`), kolor tła `#798156`, i odstępy między nimi (`marginHorizontal: 4`).
+
+== Uwagi
+
+* `useNativeDriver` jest ustawiony na `true` dla płynniejszego działania animacji na urządzeniach mobilnych.
+* `Animated.loop` w połączeniu z `Animated.stagger` tworzy płynny efekt skaczących bąbelków.
+
+== Przykład użycia
+
+```javascript
+import JumpingBubbles from './JumpingBubbles';
+
+export default function App() {
+    return (
+        <JumpingBubbles />
+    );
+}
+```
+
+W powyższym przykładzie komponent `JumpingBubbles` można użyć w dowolnym miejscu w aplikacji React Native jako efekt wizualny, np. do wyświetlenia stanu ładowania.

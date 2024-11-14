@@ -1,0 +1,85 @@
+= Dokumentacja komponentu LoginSignupFooter
+
+Komponent `LoginSignupFooter` jest częścią formularza logowania lub rejestracji w aplikacji mobilnej, której celem jest wyświetlanie odnośników do Polityki prywatności oraz Warunków użytkowania. Umożliwia to użytkownikowi zapoznanie się z tymi dokumentami, a także przekierowanie do odpowiednich ekranów nawigacyjnych w zależności od kontekstu (logowanie lub rejestracja).
+
+== Importowane moduły i komponenty
+
+* `View`, `Text`, `TouchableOpacity` - komponenty z biblioteki React Native używane do tworzenia interfejsu użytkownika. `View` stanowi kontener dla elementów, `Text` wyświetla tekst, a `TouchableOpacity` umożliwia interakcję z użytkownikiem.
+* `Href`, `router` - funkcje z biblioteki `expo-router`, służące do nawigacji po aplikacji. `router.replace` umożliwia nawigowanie do określonego widoku bez dodawania nowego wpisu w historii nawigacji.
+
+== Typy i interfejsy
+
+### LoginSignupFooterProps
+
+Interfejs `LoginSignupFooterProps` określa opcjonalne właściwości, które mogą być przekazane do komponentu `LoginSignupFooter`:
+
+* `register?` - boolean (domyślnie `false`). Określa, czy użytkownik jest na ekranie rejestracji, czy logowania. Na tej podstawie ustala się, do jakiego ekranu przekierować użytkownika po kliknięciu linków.
+
+```typescript
+interface LoginSignupFooterProps {
+    register?: boolean;
+}
+```
+
+== Funkcje
+
+### handleLinkPress
+
+Funkcja `handleLinkPress` obsługuje kliknięcia w odnośniki do Polityki prywatności oraz Warunków użytkowania. Na podstawie przekazanej nazwy linku (np. `"privacy"` lub `"terms"`), funkcja używa `router.replace`, aby przekierować użytkownika do odpowiedniego ekranu.
+
+- Jeśli kliknięty link to `"privacy"`, użytkownik zostaje przekierowany do ekranu Polityki prywatności.
+- Jeśli kliknięty link to `"terms"`, użytkownik zostaje przekierowany do ekranu Warunków użytkowania.
+
+Dodatkowo, funkcja dodaje parametr `redirect` do URL, aby wskazać, czy użytkownik pochodzi z ekranu rejestracji, czy logowania.
+
+```javascript
+const handleLinkPress = (link: string) => {
+    if (link === "privacy") {
+        router.replace(`/(auth)/privacy?redirect=${finalredirect}` as Href);
+    } else if (link === "terms") {
+        router.replace(`/(auth)/tos?redirect=${finalredirect}` as Href);
+    }
+}
+```
+
+### Struktura renderowania
+
+Komponent renderuje odnośniki do Polityki prywatności oraz Warunków użytkowania. W zależności od przekazanego parametru `register`, przekierowanie jest ustawiane na ekran rejestracji lub logowania. Komponent wyświetla następujące elementy:
+
+* `TouchableOpacity` z tekstem "Polityka prywatności", który po kliknięciu wywołuje `handleLinkPress` z argumentem `"privacy"`.
+* `Text` z separacją (•) między linkami.
+* `TouchableOpacity` z tekstem "Warunki użytkowania", który po kliknięciu wywołuje `handleLinkPress` z argumentem `"terms"`.
+
+```javascript
+return (
+    <View className="mt-6 flex flex-row justify-center">
+        <TouchableOpacity onPress={() => handleLinkPress("privacy")}>
+            <Text className="text-text">Polityka prywatności</Text>
+        </TouchableOpacity>
+        <Text className="text-gray-200 mx-2">•</Text>
+        <TouchableOpacity onPress={() => handleLinkPress("terms")}>
+            <Text className="text-text">Warunki użytkowania</Text>
+        </TouchableOpacity>
+    </View>
+);
+```
+
+== Uwagi
+
+* Komponent `LoginSignupFooter` jest użyteczny na ekranach logowania i rejestracji, gdzie użytkownicy mogą przejść do dokumentów prawnych, takich jak Polityka prywatności i Warunki użytkowania.
+* Linki są dynamicznie generowane w zależności od tego, czy użytkownik jest na ekranie rejestracji, czy logowania. Parametr `redirect` w URL pozwala przekazać kontekst tego, z którego ekranu pochodzi użytkownik.
+* Komponent używa klas z Tailwind CSS (np. `mt-6`, `text-text`, `text-gray-200`, `mx-2`, `flex`, itp.) do stylowania.
+
+== Przykład użycia
+
+```javascript
+import { LoginSignupFooter } from './LoginSignupFooter';
+
+export default function App() {
+    return (
+        <View>
+            <LoginSignupFooter register={true} />
+        </View>
+    );
+}
+```

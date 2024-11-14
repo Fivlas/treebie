@@ -1,0 +1,78 @@
+= Dokumentacja komponentu CustomButton
+
+Komponent `CustomButton` jest niestandardowym przyciskiem w aplikacji mobilnej zbudowanej w React Native. Obsługuje różne typy przycisków, takie jak "primary" i "secondary", a także umożliwia wyświetlanie animacji ładowania (spinnera) oraz dostosowanie wyglądu przycisku.
+
+== Importowane moduły i komponenty
+
+* `ActivityIndicator` - komponent React Native wyświetlający animację ładowania.
+* `Text` - komponent React Native służący do wyświetlania tekstu na przycisku.
+* `TouchableOpacity` - komponent React Native umożliwiający interakcję z przyciskiem (dotyk).
+
+== Typy właściwości (Props)
+
+Komponent `CustomButton` przyjmuje następujące właściwości:
+
+* `title` (string) - Tytuł przycisku, który jest wyświetlany na jego powierzchni.
+* `handlePress` (function) - Opcjonalna funkcja do obsługi naciśnięcia przycisku. Jeśli nie jest przekazana, przycisk nie będzie reagował na kliknięcia.
+* `containerStyles` (string) - Opcjonalne dodatkowe klasy CSS/Style, które można dodać do kontenera przycisku, aby dostosować jego wygląd.
+* `textStyles` (string) - Opcjonalne klasy CSS/Style do dostosowania wyglądu tekstu w przycisku.
+* `isLoading` (boolean) - Jeśli wartość to `true`, przycisk wyświetla animację ładowania (spinner) zamiast tekstu.
+* `buttonType` (string) - Określa typ przycisku. Może przyjąć dwie wartości: `"primary"` lub `"secondary"`, co wpływa na styl przycisku (kolor tła i tekstu).
+
+== Struktura komponentu
+
+Komponent `CustomButton` składa się z dwóch głównych części:
+
+1. **TouchableOpacity**:
+   - Jest to kontener przycisku, który obsługuje dotyk użytkownika. 
+   - Jego styl jest dynamicznie dostosowywany na podstawie typu przycisku (`primary` lub `secondary`).
+   - Właściwość `disabled` jest ustawiona na `true`, gdy `isLoading` jest ustawione na `true`, aby uniemożliwić naciśnięcie przycisku podczas ładowania.
+   - Zastosowanie klasy `opacity-50` powoduje zmniejszenie przezroczystości przycisku podczas ładowania, dając użytkownikowi wizualną informację o jego nieaktywności.
+
+2. **Text**:
+   - Wyświetla tytuł przycisku, dostosowany na podstawie typu przycisku (kolor tekstu zmienia się w zależności od wartości `buttonType`).
+   - Styl tekstu jest modyfikowalny poprzez przekazanie dodatkowych klas w `textStyles`.
+
+3. **ActivityIndicator**:
+   - Jeśli `isLoading` jest ustawione na `true`, komponent `ActivityIndicator` wyświetla animację ładowania (spinner).
+   - Spinner pojawia się obok tekstu, jeśli jest obecny.
+
+== Funkcje
+
+=== Renderowanie
+
+Komponent renderuje przycisk z dynamicznie dopasowanym stylem:
+
+- Jeśli `buttonType` to `"primary"`, przycisk otrzymuje tło w kolorze `bg-primary` oraz tekst w kolorze `text-secondary`.
+- Jeśli `buttonType` to `"secondary"`, przycisk otrzymuje tło w kolorze `bg-secondary` oraz tekst w kolorze `text-primary`.
+- Jeśli `isLoading` jest ustawione na `true`, na przycisku pojawi się animacja ładowania (`ActivityIndicator`), a przycisk zostanie dezaktywowany (brak interakcji).
+
+== Uwagi
+
+* Komponent `CustomButton` jest w pełni konfigurowalny i może być wykorzystywany w różnych kontekstach, takich jak formularze, przyciski akcji lub ładowania.
+* Stylowanie jest dostosowywane za pomocą klas CSS/Style, co pozwala na elastyczność i łatwe dostosowanie wyglądu przycisku.
+* Obsługuje dwa typy przycisków: `primary` i `secondary`, co pozwala na stosowanie różnych stylów w zależności od kontekstu.
+
+== Przykład użycia
+
+```javascript
+import CustomButton from './CustomButton';
+
+export default function App() {
+    const handlePress = () => {
+        console.log('Przycisk naciśnięty!');
+    };
+
+    return (
+        <CustomButton 
+            title="Zaloguj się" 
+            handlePress={handlePress} 
+            isLoading={false} 
+            buttonType="primary" 
+        />
+    );
+}```
+
+
+Dokumentacja ta szczegółowo opisuje działanie komponentu `CustomButton`, jego właściwości, sposób renderowania oraz przykłady użycia w aplikacji React Native.
+
