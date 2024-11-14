@@ -124,7 +124,6 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
 
 ## Autoryzacja
-### Dokumentacja komponentu `Index`
 
 Komponent `Index` reprezentuje ekran powitalny aplikacji mobilnej Treebie. W przypadku wykrycia zalogowanego użytkownika przekierowuje do głównego ekranu aplikacji; dla niezalogowanych wyświetla logo i przycisk umożliwiający przejście do ekranu logowania.
 
