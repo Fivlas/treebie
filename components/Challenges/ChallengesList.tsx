@@ -1,8 +1,11 @@
-import { ScrollView, View } from "react-native";
-import { Challenge } from "./Challenge";
-import { useState, useEffect } from "react";
-import { collection, getDocs, query } from "firebase/firestore";
+import { ScrollView } from "react-native";
 import { FIREBASE_DB } from "@/firebase.config";
+import { useUser } from "@/hooks/useUser";
+import { useEffect, useState } from "react";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
+import Challenge from "./Challenge";
+
+// Define the ChallengeType (for the challenges from Firestore)
 export type ChallengeType = {
   id: string;
   title: string;
@@ -14,35 +17,91 @@ export type ChallengeType = {
   color?: { text: string; bg: string } | undefined;
   asActive?: boolean;
 };
+
+// Define UserData type for the user information fetched from Firestore
+type UserData = {
+  currentQuest: string;
+  email: string;
+  items: object;
+  likedTips: object;
+  questsDone: string[];
+  team: string;
+  treeProgress: number;
+};
+
 type ChallengeProps = {
   queryToFilter: string;
 };
-const ChallengesList = (props: ChallengeProps) => {
-  const queryToFilter = props.queryToFilter;
-  const [challenges, setChallenges] = useState<ChallengeFields[]>([]);
-  useEffect(() => {
-    const fetchChallenges = async () => {
-      try {
-        const challengesCollectionRef = collection(FIREBASE_DB, "quests"); // Challenges is set as quests in database;
-        const challengesQuery = query(challengesCollectionRef);
-        const querySnapshot = await getDocs(challengesQuery);
 
-        const everyChallenge: ChallengeFields[] = querySnapshot.docs.map(
-          (doc) => ({
-            //@ts-ignore
-            id: doc.id,
-            ...(doc.data() as ChallengeData),
-          })
-        );
+const ChallengesList = ({ queryToFilter }: ChallengeProps) => {
+  const [challenges, setChallenges] = useState<ChallengeType[]>([]);
+  const [questsDone, setQuestsDone] = useState<string[]>([]);
+  const { user, loading } = useUser();
 
-        setChallenges(everyChallenge);
-      } catch (e) {
-        console.log("Error fetching tips data from Firestore: ", e);
+  // Fetch the user's completed quests from Firestore
+  const fetchUserQuestsDone = async (userId: string) => {
+    try {
+      const userDocRef = doc(FIREBASE_DB, "users", userId);
+      const userDoc = await getDoc(userDocRef);
+      const userData = userDoc.data();
+
+      // Get `questsDone` from Firestore
+      if (userData && userData.questsDone) {
+        setQuestsDone(userData.questsDone);
+      } else {
+        setQuestsDone([]); // No quests completed
       }
-    };
-    fetchChallenges();
-  }, []);
-  // FILTROWANIE (wartosc i odbieranie query gotowe)
+    } catch (error) {
+      console.error("Error fetching user's questsDone data:", error);
+      setQuestsDone([]);
+    }
+  };
+
+  // Fetch the list of all challenges from Firestore
+  const fetchChallenges = async () => {
+    try {
+      const challengesCollectionRef = collection(FIREBASE_DB, "quests");
+      const challengesQuery = query(challengesCollectionRef);
+      const querySnapshot = await getDocs(challengesQuery);
+
+      const everyChallenge: ChallengeType[] = querySnapshot.docs.map((doc) => ({
+        //@ts-ignore
+        id: doc.id,
+        ...(doc.data() as ChallengeType),
+      }));
+
+      // Filter out completed challenges based on `questsDone`
+      const uncompletedChallenges = everyChallenge.filter(
+        (challenge) => !questsDone.includes(challenge.id)
+      );
+
+      setChallenges(uncompletedChallenges);
+    } catch (error) {
+      console.error("Error fetching challenges from Firestore:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch user's questsDone and challenges when user data is available
+    if (user && !loading) {
+      fetchUserQuestsDone(user.uid).then(fetchChallenges);
+    }
+  }, [user, loading, questsDone]);
+
+  // Helper function to get the color based on difficulty level
+  const getColor = (level: number | undefined) => {
+    switch (level) {
+      case 1:
+        return { text: "text-primary", bg: "bg-primary" };
+      case 2:
+        return { text: "text-orange", bg: "bg-orange" };
+      case 3:
+        return { text: "text-red", bg: "bg-red" };
+      default:
+        return { text: "text-gray", bg: "bg-gray" };
+    }
+  };
+
   return (
     <ScrollView
       className="px-4"
@@ -56,15 +115,8 @@ const ChallengesList = (props: ChallengeProps) => {
             .filter((item) =>
               item.title.toLowerCase().includes(queryToFilter.toLowerCase())
             )
-            .map((challenge: ChallengeData) => {
-              const getColor = (level: number) => {
-                if (level === 1)
-                  return { text: "text-primary", bg: "bg-primary" };
-                if (level === 2)
-                  return { text: "text-orange", bg: "bg-orange" };
-                if (level === 3) return { text: "text-red", bg: "bg-red" };
-                else console.log("Color error");
-              };
+            .map((challenge) => {
+              const color = getColor(challenge.difficultyLevel);
               return (
                 <Challenge
                   key={challenge.id}
@@ -75,19 +127,13 @@ const ChallengesList = (props: ChallengeProps) => {
                   pointsToGain={challenge.pointsToGain}
                   challengeGroup={challenge.challengeGroup}
                   difficultyName={challenge.difficultyName}
-                  color={getColor(challenge.difficultyLevel)}
+                  color={color}
                 />
               );
             })
         : challenges &&
-          challenges.map((challenge: ChallengeData) => {
-            const getColor = (level: number) => {
-              if (level === 1)
-                return { text: "text-primary", bg: "bg-primary" };
-              if (level === 2) return { text: "text-orange", bg: "bg-orange" };
-              if (level === 3) return { text: "text-red", bg: "bg-red" };
-              else console.log("Color error");
-            };
+          challenges.map((challenge) => {
+            const color = getColor(challenge.difficultyLevel);
             return (
               <Challenge
                 key={challenge.id}
@@ -98,11 +144,12 @@ const ChallengesList = (props: ChallengeProps) => {
                 pointsToGain={challenge.pointsToGain}
                 challengeGroup={challenge.challengeGroup}
                 difficultyName={challenge.difficultyName}
-                color={getColor(challenge.difficultyLevel)}
+                color={color}
               />
             );
           })}
     </ScrollView>
   );
 };
+
 export default ChallengesList;

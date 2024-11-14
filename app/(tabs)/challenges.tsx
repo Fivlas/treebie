@@ -34,7 +34,6 @@ const Challenges: React.FC<ParentProps> = () => {
     setQuery(q);
   };
   const backgroundColor = useThemeColor({ light: "", dark: "" }, "background");
-  const textColor = useThemeColor({ light: "", dark: "" }, "text");
 
   const closeApp = () => {
     if (Platform.OS === "android") {
