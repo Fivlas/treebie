@@ -1,0 +1,97 @@
+= Dokumentacja komponentu `ChoseTeam`
+
+Komponent `ChoseTeam` umożliwia użytkownikowi wybór drużyny w aplikacji mobilnej. Jest to interaktywny ekran, który wyświetla dwie drużyny, z których użytkownik może wybrać jedną. Komponent wykorzystuje inne komponenty, takie jak `ScrollCard` do wyświetlenia wizualnych reprezentacji drużyn oraz obsługuje zdarzenie `onTreeSelect`, które jest wywoływane po dokonaniu wyboru.
+
+## Importowane moduły i komponenty
+
+* **`View`** - Komponent z biblioteki `react-native`, który służy do grupowania innych komponentów i tworzenia układów.
+* **`ScrollCard`** - Niestandardowy komponent, który wyświetla karty reprezentujące drużyny. Zawiera obrazek drużyny oraz jej tytuł, a także obsługuje kliknięcia na kartach.
+* **`ThemedText`** - Niestandardowy komponent do wyświetlania tekstu, który obsługuje motywy kolorów w aplikacji.
+
+```typescript
+import { View } from "react-native";
+import ScrollCard from "./HomePage/ScrollCard";
+import { ThemedText } from "./ThemedText";
+```
+
+## Typy i interfejsy
+
+### ChoseTeamProps
+
+Komponent `ChoseTeam` przyjmuje właściwość `onTreeSelect`, która jest funkcją wywoływaną po wybraniu drużyny. Funkcja ta przyjmuje jeden argument, który jest identyfikatorem drużyny.
+
+```typescript
+interface ChoseTeamProps {
+    onTreeSelect: (number: string) => void;
+}
+```
+
+## Struktura komponentu
+
+Komponent `ChoseTeam` składa się z:
+
+1. **Nagłówka** (`ThemedText`):
+   - Wyświetla tytuł sekcji: "Wybierz drużynę". Jest to centralnie wyrównany tekst o dużym rozmiarze (`text-4xl`) i pogrubionej czcionce (`font-bold`).
+
+2. **Dwie karty drużyn** (`ScrollCard`):
+   - Każda drużyna jest reprezentowana przez komponent `ScrollCard`. Karty te mają tytuł ("Team 1" i "Team 2") oraz odpowiadający im obrazek.
+   - Po kliknięciu na kartę wywoływana jest funkcja `onTreeSelect`, która przekazuje odpowiedni identyfikator drużyny (`"1"` dla Team 1, `"2"` dla Team 2).
+
+### Wygląd i układ
+
+- **Nagłówek** jest umieszczony na samej górze ekranu z dużym odstępem od krawędzi, dzięki klasie `p-12` (padding).
+- **Karty drużyn** są wyświetlane obok siebie w jednym wierszu, co jest zapewnione przez `flex-row` i `gap-5` (odstęp między kartami).
+- **Obrazki drużyn** są ładowane z zewnętrznych źródeł (URL) i mają stały rozmiar, dostosowany do układu.
+
+```tsx
+export default function ChoseTeam({ onTreeSelect }: ChoseTeamProps) {
+    return (
+        <View className="p-12">
+            <ThemedText className="text-center text-4xl font-bold">Wybierz drużyne</ThemedText>
+            <View className="flex flex-row gap-5 mt-6">
+                <ScrollCard id="team1" title="Team 1" imageName="https://www.fivlas.pl/tree1-lvl3.png" team onClick={() => onTreeSelect("1")} />
+                <ScrollCard id="team2" title="Team 2" imageName="https://www.fivlas.pl/tree2-lvl3.png" team onClick={() => onTreeSelect("2")} />
+            </View>
+        </View>
+    )
+}
+```
+
+### Opis renderowania:
+
+1. **Nagłówek**: 
+   - Komponent `ThemedText` wyświetla centralnie wyrównany tekst "Wybierz drużynę" z dużym rozmiarem czcionki i pogrubieniem.
+
+2. **Drużyny**: 
+   - Dwie karty drużyn, wyświetlane obok siebie, są reprezentowane przez komponent `ScrollCard`. Każda karta ma obrazek drużyny oraz tytuł.
+   - Karty są rozstawione w układzie poziomym dzięki klasom `flex-row` i `gap-5`.
+   - Każda karta wywołuje funkcję `onTreeSelect` z odpowiednim identyfikatorem drużyny, gdy użytkownik na nią kliknie.
+
+## Uwagi
+
+- **Responsywność**: Komponent `ChoseTeam` jest responsywny dzięki zastosowaniu klas Tailwind CSS (np. `flex-row`, `gap-5`), które umożliwiają dopasowanie układu do różnych rozmiarów ekranów.
+- **Karty drużyn**: Karty są interaktywne, a kliknięcie na nie wywołuje funkcję `onTreeSelect`, co umożliwia przekazanie wybranej drużyny do wyższych komponentów.
+- **Motywowanie**: `ThemedText` umożliwia dostosowanie koloru tekstu w zależności od motywu aplikacji (np. jasny/ciemny motyw).
+
+## Przykład użycia
+
+```tsx
+import ChoseTeam from './ChoseTeam';
+
+export default function App() {
+  const handleTreeSelect = (teamId: string) => {
+    console.log(`Wybrana drużyna: ${teamId}`);
+    // Możesz tutaj dodać logikę do zmiany stanu lub nawigacji
+  };
+
+  return (
+    <ChoseTeam onTreeSelect={handleTreeSelect} />
+  );
+}
+```
+
+W powyższym przykładzie, komponent `ChoseTeam` jest używany w głównym komponencie aplikacji, a funkcja `handleTreeSelect` jest przekazywana jako `onTreeSelect` do komponentu `ChoseTeam`. Funkcja ta obsługuje wybór drużyny i loguje identyfikator wybranej drużyny.
+
+## Podsumowanie
+
+Komponent `ChoseTeam` pozwala użytkownikowi wybrać drużynę z dwóch opcji, prezentowanych w formie kart. Każda karta zawiera obrazek oraz tytuł drużyny, a kliknięcie na kartę wywołuje przekazaną funkcję `onTreeSelect`. Komponent jest responsywny, łatwy do rozbudowy i integracji z innymi częściami aplikacji.

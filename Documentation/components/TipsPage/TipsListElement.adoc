@@ -1,0 +1,109 @@
+= Dokumentacja komponentu `TipListElement`
+
+Komponent `TipListElement` jest prostym elementem wyświetlającym pojedynczy wiersz w liście wskazówek lub informacji w aplikacji mobilnej zbudowanej w React Native. Każdy element zawiera obrazek oraz tekst, które są wyrenderowane w układzie poziomym (flex-row). Komponent wykorzystuje również `ThemedText` do wyświetlania tekstu w aplikacji, co umożliwia łatwą zmianę motywu.
+
+## Importowane moduły i komponenty
+
+* `React` - biblioteka JavaScript do tworzenia interfejsów użytkownika.
+* `Image`, `View` - komponenty z biblioteki `react-native`, służące do wyświetlania obrazów i tworzenia widoków.
+* `ThemedText` - niestandardowy komponent do wyświetlania tekstu, który obsługuje motywy kolorów w aplikacji.
+
+```typescript
+import React from 'react'
+import { Image, View } from 'react-native'
+import { ThemedText } from '../ThemedText';
+```
+
+## Typy i interfejsy
+
+### TipListElement
+
+Komponent przyjmuje jeden obiekt `TipListElement` z dwoma właściwościami:
+
+* `image` (string) - URL obrazu, który ma zostać wyświetlony obok tekstu.
+* `text` (string) - tekst, który będzie wyświetlony obok obrazu.
+
+```typescript
+interface TipListElement {
+    image: string;
+    text: string;
+}
+```
+
+## Struktura komponentu
+
+Komponent `TipListElement` renderuje widok, który zawiera:
+
+1. **Obrazek** - Ikona lub miniatura, wyświetlana za pomocą komponentu `Image`. Obrazek pochodzi z URL-a, który jest przekazywany do komponentu przez właściwość `image`. Obrazek jest umieszczony w tle o zaokrąglonych rogach z tłem koloru `#f2f3ef`.
+   
+2. **Tekst** - Tekst, który jest wyświetlany obok obrazka. Komponent `ThemedText` renderuje go z dodatkowymi stylami, takimi jak mniejszy rozmiar czcionki (`text-sm`), zmniejszona przezroczystość (`opacity-80`) oraz wyśrodkowane ustawienie w pionie. 
+
+```tsx
+const TipListElement = ({ image, text }: TipListElement) => {
+    return (
+        <View className="flex-row items-center gap-3">
+            <View className="bg-[#f2f3ef] p-2 rounded-lg">
+                <Image source={{ uri: image }} className="w-6 h-6" />
+            </View>
+            <ThemedText className="font-light opacity-80 leading-relaxed text-sm text-wrap">
+                {text}
+            </ThemedText>
+        </View>
+    )
+}
+```
+
+### Wyjaśnienie struktury renderowania:
+
+1. **Kontener główny (`View`)**:
+   - Używa klasy `flex-row`, aby wyświetlić elementy (obrazek i tekst) w układzie poziomym.
+   - Używa klasy `items-center`, aby wyrównać elementy w pionie.
+   - `gap-3` dodaje odstęp między obrazkiem a tekstem.
+
+2. **Obrazek (`Image`)**:
+   - Obrazek jest wyświetlany w kwadracie o rozmiarze 24px x 24px (`w-6 h-6`).
+   - Jest opakowany w `View` z tłem `#f2f3ef` oraz zaokrąglonymi rogami (`rounded-lg`), co nadaje mu subtelny wygląd.
+
+3. **Tekst (`ThemedText`)**:
+   - Tekst jest renderowany z lekką czcionką (`font-light`) i przezroczystością ustawioną na 80% (`opacity-80`).
+   - Używa mniejszego rozmiaru czcionki (`text-sm`) oraz opcji `leading-relaxed` dla lepszego odstępu między wierszami tekstu.
+   - `text-wrap` zapewnia, że tekst będzie zawijał się, jeśli jest zbyt długi, aby zmieścić się w jednym wierszu.
+
+## Uwagi
+
+- **Motywowanie tekstu**: Komponent `ThemedText` jest używany w celu umożliwienia zmiany koloru tekstu w zależności od motywu aplikacji. Jeśli aplikacja obsługuje tryb jasny/ciemny, `ThemedText` zapewnia spójność wyglądu tekstu w różnych motywach.
+- **Responsywność**: Komponent jest w pełni responsywny, dzięki użyciu klas z `tailwindcss` (np. `flex-row`, `gap-3`, `text-sm`), co pozwala na łatwe dostosowanie układu na różnych rozmiarach ekranów.
+
+## Przykład użycia
+
+```tsx
+import TipListElement from './TipListElement';
+
+export default function App() {
+  const tips = [
+    {
+      image: 'https://example.com/image1.png',
+      text: 'Tip 1: Always keep your app updated.'
+    },
+    {
+      image: 'https://example.com/image2.png',
+      text: 'Tip 2: Use dark mode for better battery life.'
+    }
+  ];
+
+  return (
+    <View>
+      {tips.map((tip, index) => (
+        <TipListElement key={index} image={tip.image} text={tip.text} />
+      ))}
+    </View>
+  );
+}
+```
+
+W powyższym przykładzie komponent `TipListElement` jest używany w liście wskazówek (`tips`). Każda wskazówka zawiera obrazek i tekst, które są renderowane w formie poziomych elementów w aplikacji.
+
+## Uwagi
+
+- Komponent `TipListElement` jest prosty i elastyczny, odpowiedni do wyświetlania wskazówek lub małych elementów informacyjnych w aplikacji.
+- Jego konstrukcja z wykorzystaniem klas CSS (np. `flex-row`, `text-sm`) sprawia, że jest łatwy do modyfikacji i dopasowania do stylu aplikacji.
