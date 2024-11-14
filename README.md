@@ -125,24 +125,24 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
 
 ## Autoryzacja
-= Dokumentacja komponentu `Index`
+### Dokumentacja komponentu `Index`
 
 Komponent `Index` reprezentuje ekran powitalny aplikacji mobilnej Treebie. W przypadku wykrycia zalogowanego użytkownika przekierowuje do głównego ekranu aplikacji; dla niezalogowanych wyświetla logo i przycisk umożliwiający przejście do ekranu logowania.
 
-== Importowane moduły i komponenty
+### Importowane moduły i komponenty
 
 * `CustomButton` - przycisk dostosowany do stylu aplikacji, umożliwiający nawigację.
 * `useUser` - hook do pobrania informacji o zalogowanym użytkowniku.
 * `Href`, `Redirect`, `router` - moduły `expo-router` do obsługi nawigacji i przekierowań.
 * `Image`, `ImageBackground`, `View`, `Text` - komponenty React Native do struktury i wyświetlania grafiki oraz tekstu.
 
-== Logika komponentu
+### Logika komponentu
 
 Komponent korzysta z hooka `useUser`, aby pobrać stan użytkownika:
 * Jeśli użytkownik jest zalogowany (`user` istnieje), następuje przekierowanie (`Redirect`) na stronę główną, `/(tabs)/`.
 * Jeśli użytkownik nie jest zalogowany, wyświetlana jest zawartość ekranu powitalnego.
 
-== Struktura renderowania
+### Struktura renderowania
 
 * Zawartość osadzona jest w `View` o klasie `flex-1` dla pełnego dopasowania do wysokości ekranu.
 * `ImageBackground` ustawia tło ekranu, pobierając obraz `banner-image.png` i nadając mu kolor bazowy.
@@ -151,7 +151,7 @@ Komponent korzysta z hooka `useUser`, aby pobrać stan użytkownika:
   ** `Text` z nazwą aplikacji, `Treebie`, wyróżniony jako centralny tytuł.
 * Przycisk `CustomButton` na dole ekranu o tytule "Dołącz", przekierowuje do ekranu logowania, `/(auth)/login`, przy użyciu `router.replace`.
 
-== Przykład użycia
+### Przykład użycia
 
 ```javascript
 import Index from './Index';
@@ -161,7 +161,7 @@ export default function App() {
         <Index />
     );
 }
-
+```
 ## Funkcjonalności  
 ### Użytkownik  
 System kont w aplikacji mobilnej pozwala użytkownikom tworzyć, logować się i zarządzać swoim indywidualnym profilem w aplikacji. Oto najważniejsze możliwości, jakie oferuje system kont:  
