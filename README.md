@@ -165,5 +165,14 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 + **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
 + **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
-![start screen](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true)
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true" alt="Start screen" style="width:50%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot.png?raw=true" alt="chatbot" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/login.png?raw=true" alt="login" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen.png?raw=true" alt="mainScreen" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail.png?raw=true" alt="questDetail" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests.png?raw=true" alt="quests" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/signup.png?raw=true" alt="signup" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true" alt="startScreen" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail.png?raw=true" alt="tipDetail" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tips.png?raw=true" alt="tips" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipsList.png?raw=true" alt="tipsList" style="width:30%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree.png?raw=true" alt="tree" style="width:30%; height:auto;">
