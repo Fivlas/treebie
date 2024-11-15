@@ -92,6 +92,8 @@ treebie/
 ├───scripts
 └───styles
 ```
+### Android preview download  
+<a href="https://fivlas.pl/treebie" download>Pobierz</a>
 ## Części aplikcji
 Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania, drzewko oraz ustawienia.  
 ### Strona główna  
