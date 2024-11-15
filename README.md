@@ -171,19 +171,19 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 |---------------------------------------------|---------------------------------------------|
 | ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-dark.png?true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-dark?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
-| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/login?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/welcomeScreen?raw=true) |
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/login.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/welcomeScreen.png?raw=true) |
 
