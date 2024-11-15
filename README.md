@@ -166,4 +166,4 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 + **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
 ![start screen](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true)
-<img src="(https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true)" alt="Start screen" style="width:50%; height:auto;">
+<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true" alt="Start screen" style="width:50%; height:auto;">
