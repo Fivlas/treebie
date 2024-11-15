@@ -165,4 +165,4 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 + **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
 + **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
-!start screen](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true)
+![start screen](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true)
