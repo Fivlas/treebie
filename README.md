@@ -8,6 +8,9 @@ W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej prz
 ## Android preview download  
 ### <a href="https://fivlas.pl/treebie.apk" download>Pobierz</a>
 
+## Pełną Dokumentacje znajdziesz Tutaj
+### <a href="https://github.com/Fivlas/treebie/tree/main/Documentation">Dokumentacja</a>
+
 ## Spis treści
 1. [Instalacja](#instalacja)
 2. [Struktura plików](#struktura-plików)
