@@ -7,9 +7,10 @@ W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej prz
 
 ## Spis treści
 1. [Instalacja](#instalacja)
-2. [Struktura plików](#struktura-plikow)
+2. [Struktura plików](#struktura-plików)
 3. [Wykorzystane technologie](#wykorzystane-technologie)
-4. [Funkcjonalności](#funkcjonalnosci)
+4. [Funkcjonalności](#funkcjonalności)
+5. [Podgląd](#podgląd)
 
 ## Instalacja
 
@@ -93,7 +94,7 @@ treebie/
 └───styles
 ```
 ## Android preview download  
-### <a href="https://fivlas.pl/treebie" download>Pobierz</a>
+### <a href="https://fivlas.pl/treebie.apk" download>Pobierz</a>
 ## Części aplikcji
 Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania, drzewko oraz ustawienia.  
 ### Strona główna  
@@ -145,7 +146,7 @@ W bazie danych istnieje 4 tabele (kolekcje) z polami:
   + treeProgress (number) - punkty doświadczenia uzyskiwane przez wykonanie zadań  
 
 
-## Funkcjonalności  
+## Funkcjonalności
 ### Użytkownik  
 System kont w aplikacji mobilnej pozwala użytkownikom tworzyć, logować się i zarządzać swoim indywidualnym profilem w aplikacji. Oto najważniejsze możliwości, jakie oferuje system kont:  
   + **Rejestracja i logowanie**: Umożliwia nowym użytkownikom tworzenie kont i logowanie się na istniejące konta za pomocą adresu e-mail oraz hasła.  
@@ -167,6 +168,8 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 + **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
 + **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
+
+## Podgląd
 | ![Image 1](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen-light.png?raw=true) | ![Image 2](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen-dark.png?raw=true) |
 |---------------------------------------------|---------------------------------------------|
 | ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-dark.png?true) |
