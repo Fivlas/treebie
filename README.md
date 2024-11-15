@@ -167,14 +167,23 @@ W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z 
 + **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
 + **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot.png?raw=true" alt="chatbot" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/login.png?raw=true" alt="login" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen.png?raw=true" alt="mainScreen" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail.png?raw=true" alt="questDetail" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests.png?raw=true" alt="quests" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/signup.png?raw=true" alt="signup" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/startScreen.png?raw=true" alt="startScreen" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail.png?raw=true" alt="tipDetail" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tips.png?raw=true" alt="tips" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipsList.png?raw=true" alt="tipsList" style="width:30%; height:auto;">
-<img src="https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree.png?raw=true" alt="tree" style="width:30%; height:auto;">
+| ![Image 1](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen-light.png?raw=true) | ![Image 2](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen-dark.png?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-light.png?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/mainScreen2-dark.png?true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/chatbot-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/allTips-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tipDetail-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/quests-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/questDetail-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/tree-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-light?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/settings-dark?raw=true) |
+|---------------------------------------------|---------------------------------------------|
+| ![Image 3](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/login?raw=true) | ![Image 4](https://github.com/Fivlas/treebie/blob/main/assets/images/readmeImgs/welcomeScreen?raw=true) |
+

@@ -16,8 +16,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { useUser } from "@/hooks/useUser";
 import { FIREBASE_DB } from "@/functions/firebaseConfig";
 import Challenge from "@/components/Challenges/Challenge";
-import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
 
 interface ParentProps {}
 type Quest = {
@@ -49,82 +47,50 @@ const Challenges: React.FC<ParentProps> = () => {
   };
 
   useEffect(() => {
-    if (!user || loading) return;
-
-    const checkFirstUse = async () => {
-      try {
-        const hasSeenAlert = await AsyncStorage.getItem("hasSeenAlert");
-        if (!hasSeenAlert) {
-          askAlert();
-        }
-      } catch (error) {
-        console.log("Error checking alert flag:", error);
-      }
-    };
-
-    const askAlert = () => {
-      Alert.alert(
-        "Uwaga",
-        "Czy zobowiązujesz się do rzetelnego wypełniania wyzwań?",
-        [
-          {
-            text: "Nie",
-            onPress: () => closeAppAlert(),
-            style: "destructive",
-          },
-          {
-            text: "Tak",
-            onPress: () => AsyncStorage.setItem("hasSeenAlert", "true"),
-          },
-        ]
-      );
-    };
-    const closeAppAlert = () => {
-      Alert.alert(
-        "Kondolencje",
-        "Bardzo nam przykro, że nie potrafisz być uczciwy. Przemyśl swój wybór",
-        [
-          {
-            text: "Zamknij",
-            onPress: () => closeApp(),
-            style: "destructive",
-          },
-        ]
-      );
-    };
-
     const fetchCurrentQuest = async () => {
+      setIsQuestLoading(true);
       try {
+        if (!user) return;
         const userDocRef = doc(FIREBASE_DB, "users", user.uid);
         const userDoc = await getDoc(userDocRef);
-    
+  
         if (!userDoc.exists()) {
+          console.warn("User document does not exist.");
+          setCurrentQuest(undefined);
+          setIsQuestLoading(false);
           return;
         }
-    
+  
         const userData = userDoc.data();
         const questId = userData?.currentQuest;
-    
         if (!questId) {
+          console.log("No current quest found for this user.");
+          setCurrentQuest(undefined);
+          setIsQuestLoading(false);
           return;
         }
-    
+  
         const questDocRef = doc(FIREBASE_DB, "quests", questId);
         const questDoc = await getDoc(questDocRef);
-    
+  
         if (questDoc.exists()) {
-          setCurrentQuest(questDoc.data() as Quest);
+          const questData = questDoc.data() as Quest;
+          setCurrentQuest(questData);
+          setCurrentQuestId(questId);
         } else {
           console.error("Quest document does not exist.");
+          setCurrentQuest(undefined);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching current quest:", error);
+        setCurrentQuest(undefined);
+      } finally {
+        setIsQuestLoading(false);
       }
     };
-    
-
-    checkFirstUse();
-  }, [user, loading]);
+  
+    fetchCurrentQuest();
+  }, []); // Empty dependency array ensures this runs every render
 
   // Fetch the current quest from Firestore
   const fetchCurrentQuest = async () => {
@@ -169,14 +135,12 @@ const Challenges: React.FC<ParentProps> = () => {
     }
   };
 
-  // Refetch current quest on screen focus
-  useFocusEffect(
-    useCallback(() => {
-      if (user && !loading) {
-        fetchCurrentQuest();
-      }
-    }, [user, loading])
-  );
+  // Replace useFocusEffect with useEffect
+  useEffect(() => {
+    if (user && !loading) {
+      fetchCurrentQuest();
+    }
+  }, [user, loading]); // Re-fetch current quest whenever user or loading changes
 
   const getColor = (level: number) => {
     switch (level) {
