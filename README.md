@@ -5,6 +5,9 @@
 Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbierać punkty i ulepszać swoje drzewko. Aplikacja jest skierowana dla każdego, kto chce się przyczynić dla dobra planety.
 W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
 
+## Android preview download  
+### <a href="https://fivlas.pl/treebie.apk" download>Pobierz</a>
+
 ## Spis treści
 1. [Instalacja](#instalacja)
 2. [Struktura plików](#struktura-plików)
@@ -93,8 +96,7 @@ treebie/
 ├───scripts
 └───styles
 ```
-## Android preview download  
-### <a href="https://fivlas.pl/treebie.apk" download>Pobierz</a>
+
 ## Części aplikcji
 Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania, drzewko oraz ustawienia.  
 ### Strona główna  
