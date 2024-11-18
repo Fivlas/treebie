@@ -114,6 +114,11 @@ Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych
 + **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
 + **Polubienie porad**: Każda porada posiada opcję „polubienia”, co pozwala użytkownikom na zapisanie interesujących ich treści. Dzięki temu użytkownik może stworzyć własną listę ulubionych porad, co ułatwia powrót do najważniejszych informacji.
 + **Graficzna prezentacja**: Każda porada posiada dedykowany obraz, który nie tylko wzbogaca wizualnie aplikację, ale także zwiększa zrozumienie porady, dając użytkownikowi skojarzenie z konkretnymi działaniami.
+### Drzewko
+Strona drzewka w aplikacji stanowi centralny element wizualizujący postępy użytkownika, motywując go do realizacji kolejnych zadań i regularnego korzystania z aplikacji. Poniżej główne możliwości tego modułu:  
++ **Wzrost drzewka:** Drzewko rośnie za zdobyte punkty doświadczenia (XP), które użytkownicy otrzymują za wypełnianie wyzwań. Każdy etap wzrostu odzwierciedla poziom zaangażowania i postępu, co zachęca do aktywności oraz umożliwia śledzenie osiągnięć w aplikacji.  
++ **Różne typy drzewek:** Użytkownicy mogą wybrać typ drzewka na początku tworzenia konta, co pozwala na personalizację doświadczenia. Dostępne są różnorodne gatunki drzew, które odzwierciedlają unikalne preferencje użytkownika i wprowadzają element indywidualizacji.  
+System drzewka łączy przyjemną rozgrywkę z efektywnym śledzeniem postępów, wspierając długoterminowe zaangażowanie oraz tworząc wizualny symbol osiągnięć użytkownika.  
 
 ### Ustawienia
 Strona ustawień w aplikacji umożliwia użytkownikom personalizację doświadczenia oraz zarządzanie swoim kontem. Poniżej główne możliwości dostępne w tym module:
