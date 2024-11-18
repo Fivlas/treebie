@@ -105,7 +105,20 @@ Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania
 ### Strona główna  
 + Jest to główna strona aplikacji, która zapewnia dostęp do porad dotyczących ekologii oraz interaktywny czat z chatbotem AI, który może odpowiadać na pytania użytkownika i udzielać ekologicznych wskazówek.
 + Użytkownik może zobaczyć najnowsze porady ekologiczne oraz rozmawiać z AI, aby uzyskać dodatkowe porady lub sugestie. Strona ta stanowi centralne miejsce interakcji z aplikacją i ekologicznymi treściami.
-### Wyzwania
+### Wyzwania  
+System wyzwań w aplikacji umożliwia użytkownikom realizację określonych zadań, za które zdobywają punkty doświadczenia (XP), co powoduje rośnięcie własnego drzewka oraz motywuje użytkownika do regularnego korzystania z aplikacji. Poniżej główne możliwości takiego systemu:  
++ **Różne typy wyzwań**: Wyzwania mają różny stopień trudności (łatwy, średni, trudny) oraz kategorie (challengeGroup) np. Sadzenie, Zbieranie, Zakupy  
++ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu. Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
+### Porady
+Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych porad w przystępny sposób. Użytkownicy mogą odkrywać różnorodne wskazówki związane z dbaniem o środowisko, a także zapisywać ulubione, by łatwo do nich wrócić.  
++ **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
++ **Polubienie porad**: Każda porada posiada opcję „polubienia”, co pozwala użytkownikom na zapisanie interesujących ich treści. Dzięki temu użytkownik może stworzyć własną listę ulubionych porad, co ułatwia powrót do najważniejszych informacji.
++ **Graficzna prezentacja**: Każda porada posiada dedykowany obraz, który nie tylko wzbogaca wizualnie aplikację, ale także zwiększa zrozumienie porady, dając użytkownikowi skojarzenie z konkretnymi działaniami.
+### AI
+W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z AI, która umożliwia użytkownikom interakcję z inteligentnym asystentem.
++ **Opcja wyszukiwania**: Gdy użytkownik kliknie w ikonę lupy przy oknie tekstowym na głównej stronie, otwiera się dedykowany chat z AI.
++ **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
++ **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
 ## Wykorzystane technologie
 
 ### Aplikacja wykorzystuje następujące technologie i biblioteki:
@@ -158,20 +171,7 @@ System kont w aplikacji mobilnej pozwala użytkownikom tworzyć, logować się i
   + **Zarządzanie danymi**: Użytkownicy mogą przeglądać swoje polubione porady czy zmieniać motyw  co pozwala na personalizację i lepsze dopasowanie aplikacji do potrzeb.  
   + **Bezpieczeństwo i prywatność**: System kont umożliwia bezpieczne przechowywanie danych oraz zarządzanie sesjami logowania, co zwiększa ochronę kont użytkowników.  
 System kont zwiększa użyteczność i funkcjonalność aplikacji, umożliwiając lepsze dostosowanie jej do indywidualnych potrzeb użytkowników oraz ich ochronę.
-### Wyzwania  
-System wyzwań w aplikacji umożliwia użytkownikom realizację określonych zadań, za które zdobywają punkty doświadczenia (XP), co powoduje rośnięcie własnego drzewka oraz motywuje użytkownika do regularnego korzystania z aplikacji. Poniżej główne możliwości takiego systemu:  
-+ **Różne typy wyzwań**: Wyzwania mają różny stopień trudności (łatwy, średni, trudny) oraz kategorie (challengeGroup) np. Sadzenie, Zbieranie, Zakupy  
-+ **Nagrody za wykonanie**: Za ukończenie wyzwań użytkownicy zdobywają punkty doświadczenia, które powodują rośnięcie drzewa i zwiększenie poziomu. Taki system wyzwań poprawia zaangażowanie użytkowników, ułatwia śledzenie postępów i pozwala na połączenie przyjemnej rozgrywki z pożytecznym wpływem na środowisko.
-### Porady
-Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych porad w przystępny sposób. Użytkownicy mogą odkrywać różnorodne wskazówki związane z dbaniem o środowisko, a także zapisywać ulubione, by łatwo do nich wrócić.  
-+ **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
-+ **Polubienie porad**: Każda porada posiada opcję „polubienia”, co pozwala użytkownikom na zapisanie interesujących ich treści. Dzięki temu użytkownik może stworzyć własną listę ulubionych porad, co ułatwia powrót do najważniejszych informacji.
-+ **Graficzna prezentacja**: Każda porada posiada dedykowany obraz, który nie tylko wzbogaca wizualnie aplikację, ale także zwiększa zrozumienie porady, dając użytkownikowi skojarzenie z konkretnymi działaniami.
-### AI
-W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z AI, która umożliwia użytkownikom interakcję z inteligentnym asystentem.
-+ **Opcja wyszukiwania**: Gdy użytkownik kliknie w ikonę lupy przy oknie tekstowym na głównej stronie, otwiera się dedykowany chat z AI.
-+ **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
-+ **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
+
 
 
 ## Podgląd
