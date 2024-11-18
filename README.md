@@ -114,11 +114,13 @@ Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych
 + **Przeglądanie i odkrywanie porad**: Użytkownicy mogą przeglądać listę ekologicznych porad, które są wyświetlane w formie kafelków. Każda porada zawiera krótki opis oraz przyciągającą uwagę grafikę, aby zachęcić do jej przeczytania.
 + **Polubienie porad**: Każda porada posiada opcję „polubienia”, co pozwala użytkownikom na zapisanie interesujących ich treści. Dzięki temu użytkownik może stworzyć własną listę ulubionych porad, co ułatwia powrót do najważniejszych informacji.
 + **Graficzna prezentacja**: Każda porada posiada dedykowany obraz, który nie tylko wzbogaca wizualnie aplikację, ale także zwiększa zrozumienie porady, dając użytkownikowi skojarzenie z konkretnymi działaniami.
-### AI
-W aplikacji mobilnej oferującej ekologiczne porady, dodaliśmy funkcję Chat z AI, która umożliwia użytkownikom interakcję z inteligentnym asystentem.
-+ **Opcja wyszukiwania**: Gdy użytkownik kliknie w ikonę lupy przy oknie tekstowym na głównej stronie, otwiera się dedykowany chat z AI.
-+ **Rozmowa z AI**: Użytkownik może zadawać pytania dotyczące ekologii, zrównoważonego stylu życia i ochrony środowiska, a AI natychmiast udziela odpowiedzi, sugerując praktyczne porady i wskazówki.
-+ **Odkrywanie nowych treści:**: Zamiast pasywnie przeglądać porady, użytkownik może aktywnie rozmawiać z AI, co zwiększa zaangażowanie i skuteczność nauki.
+
+### Ustawienia
+Strona ustawień w aplikacji umożliwia użytkownikom personalizację doświadczenia oraz zarządzanie swoim kontem. Poniżej główne możliwości dostępne w tym module:
++ Motyw aplikacji: Użytkownicy mogą wybrać preferowany tryb wyświetlania (jasny lub ciemny) za pomocą przełącznika. Zmiana motywu pozwala dostosować wygląd aplikacji do indywidualnych preferencji oraz warunków oświetleniowych.
++ Wylogowanie: Przycisk wylogowania umożliwia użytkownikom szybkie i bezpieczne zakończenie sesji. Funkcja ta zapewnia prywatność oraz ochronę danych w przypadku korzystania z aplikacji na współdzielonym urządzeniu.
+Rozwiązania te wspierają intuicyjne korzystanie z aplikacji, pozwalając użytkownikom na pełną kontrolę nad wyglądem i bezpieczeństwem swojego konta.
+  
 ## Wykorzystane technologie
 
 ### Aplikacja wykorzystuje następujące technologie i biblioteki:
