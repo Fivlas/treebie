@@ -117,7 +117,7 @@ Porady w aplikacji mobilnej umożliwia użytkownikom przeglądanie ekologicznych
 ### Drzewko
 Strona drzewka w aplikacji stanowi centralny element wizualizujący postępy użytkownika, motywując go do realizacji kolejnych zadań i regularnego korzystania z aplikacji. Poniżej główne możliwości tego modułu:  
 + **Wzrost drzewka:** Drzewko rośnie za zdobyte punkty doświadczenia (XP), które użytkownicy otrzymują za wypełnianie wyzwań. Każdy etap wzrostu odzwierciedla poziom zaangażowania i postępu, co zachęca do aktywności oraz umożliwia śledzenie osiągnięć w aplikacji.  
-+ **Różne typy drzewek:** Użytkownicy mogą wybrać typ drzewka na początku tworzenia konta, co pozwala na personalizację doświadczenia. Dostępne są różnorodne gatunki drzew, które odzwierciedlają unikalne preferencje użytkownika i wprowadzają element indywidualizacji.  
++ **Różne typy drzewek:** Użytkownicy mogą wybrać typ drzewka na początku tworzenia konta, co pozwala na personalizację rozgrywki. Dostępne są 2 gatunki drzew.  
 System drzewka łączy przyjemną rozgrywkę z efektywnym śledzeniem postępów, wspierając długoterminowe zaangażowanie oraz tworząc wizualny symbol osiągnięć użytkownika.  
 
 ### Ustawienia
