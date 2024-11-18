@@ -101,7 +101,7 @@ treebie/
 ```
 
 ## Części aplikcji
-Aplikacja składa się z 4 głównych części. Są to strona główna, wyzwania, drzewko oraz ustawienia.  
+Aplikacja składa się z 5 głównych części. Są to strona główna, wyzwania, porady, drzewko oraz ustawienia.  
 ### Strona główna  
 + Jest to główna strona aplikacji, która zapewnia dostęp do porad dotyczących ekologii oraz interaktywny czat z chatbotem AI, który może odpowiadać na pytania użytkownika i udzielać ekologicznych wskazówek.
 + Użytkownik może zobaczyć najnowsze porady ekologiczne oraz rozmawiać z AI, aby uzyskać dodatkowe porady lub sugestie. Strona ta stanowi centralne miejsce interakcji z aplikacją i ekologicznymi treściami.
