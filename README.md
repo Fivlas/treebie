@@ -6,7 +6,7 @@ Aplikacja pozwala na wykonywania ekologicznych wyzwań, za które można odbiera
 W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej przystępne podejście do ekologii. Aplikacja jest przeznaczona na platformy iOS oraz Android.
 
 ## Android preview download  
-### <a href="https://fivlas.pl/treebie.apk" download>Pobierz</a>
+### <a href="https://github.com/Fivlas/treebie/releases/download/v1.0.0/Treebie.Aplikacja.apk" download>Pobierz</a>
 
 ## Pełną Dokumentacje znajdziesz Tutaj
 ### <a href="https://github.com/Fivlas/treebie/tree/main/Documentation">Dokumentacja</a>
