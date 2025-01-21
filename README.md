@@ -8,6 +8,12 @@ W tym formacie, dobre uczynki przestają być nudne i pozwalają na bardziej prz
 ## Android preview download  
 ### <a href="https://github.com/Fivlas/treebie/releases/download/v1.0.0/Treebie.Aplikacja.apk" download>Pobierz</a>
 
+## Prezentacje aplikacji znajdziesz tutaj
+### <a href="https://www.canva.com/design/DAGbts4YzwA/MpNrUI67SmXzNsS_mAr5FQ/edit?utm_content=DAGbts4YzwA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">Prezentacja</a>
+
+## Oficjalna strona do pobrania aplikacji
+### <a href="https://treebie-download-page.vercel.app/">Strona</a>
+
 ## Pełną Dokumentacje znajdziesz Tutaj
 ### <a href="https://github.com/Fivlas/treebie/tree/main/Documentation">Dokumentacja</a>
 
