@@ -1,4 +1,6 @@
- # Aplikacja Treebie  
+## Aplikacja zajeła 4 miejsce w ogólnopolskim konkursie HackHeroes
+
+# Aplikacja Treebie  
 **Nazwa aplikacji:** Treebie  
 **Twórcy:** Jakub Lagierski, Filip Skoczylas, Jan Niewiadomski, Tymon Wilczewski  
 
